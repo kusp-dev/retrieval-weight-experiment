@@ -1,0 +1,57 @@
+\begin{table*}[htbp]
+\centering
+\caption{Side-by-side comparison of Experiment~1 (v2, small library) and Experiment~2 (v3, expanded library). Token reduction is relative to each experiment's C1 mean. v3 addresses the three design flaws diagnosed in v2 plus the truncation cascade confound (\texttt{max\_tokens} 4{,}096$\,\rightarrow\,$16{,}384).}
+\label{tab:v2-v3-comparison}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+& & \multicolumn{2}{c}{\textbf{Experiment 1 (v2)}} & \multicolumn{2}{c}{\textbf{Experiment 2 (v3)}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}
+\textbf{Category} & \textbf{Metric} & \textbf{Value} & \textbf{Notes} & \textbf{Value} & \textbf{Notes} \\
+\midrule
+\multirow{4}{*}{Setup}
+  & Tasks & 250 & 5 themes & 300 & 5 themes \\
+  & Skills & 50 & domain-general & 205 & domain-specific \\
+  & Episodes & 1,000 & 4 $\times$ 250 & 1,200 & 4 $\times$ 300 \\
+  & \texttt{max\_tokens} & 4,096 & truncation risk & 16,384 & no truncation \\
+\addlinespace
+\midrule
+\multirow{4}{*}{\shortstack[l]{Mean Tokens\\(per condition)}}
+  & C1 Control & 6,481 & --- & 5,517 & --- \\
+  & C2 Dim Feedback & 3,906 & $-$39.7\% & 4,824 & $-$12.6\% \\
+  & C3 Full System & 3,526 & $-$45.6\% & 4,830 & $-$12.5\% \\
+  & C4 Qualitative & 3,256 & $-$49.8\% & 4,429 & $-$19.7\% \\
+\addlinespace
+\midrule
+\multirow{2}{*}{\shortstack[l]{Multi-Step\\Rate}}
+  & C1 & 11.6\% & & 0.3\% & 1 of 300 \\
+  & C2--C4 & 3.2--5.6\% & & 0.0\% & 0 of 900 \\
+\addlinespace
+\midrule
+\multirow{2}{*}{\shortstack[l]{Mechanism}}
+  & v2 & \multicolumn{4}{l}{Multi-step prevention (truncation cascade artifact)} \\
+  & v3 & \multicolumn{4}{l}{Output-driven: shorter LLM outputs from rubric scaffolding} \\
+\addlinespace
+\midrule
+\multirow{2}{*}{\shortstack[l]{Jaccard\\Similarity}}
+  & C1 vs C2 & 0.904 & near-identical & 0.585 & $\checkmark$ ($<$0.60) \\
+  & C1 vs C3 & --- & --- & 0.517 & $\checkmark$ ($<$0.60) \\
+\addlinespace
+\midrule
+\multirow{3}{*}{\shortstack[l]{Best Arm\\(posterior mean)}}
+  & C2 & \multicolumn{2}{l}{importance\_heavy (0.633)} & \multicolumn{2}{l}{pure\_relevance (0.709)} \\
+  & C3 & \multicolumn{2}{l}{relevance\_importance (0.616)} & \multicolumn{2}{l}{pure\_relevance (0.749)} \\
+  & C4 & \multicolumn{2}{l}{flat posteriors (0.420)} & \multicolumn{2}{l}{pure\_importance (0.472)} \\
+\addlinespace
+\midrule
+\multirow{2}{*}{\shortstack[l]{Retrieval\\Quality}}
+  & C1 NDCG@5 & \multicolumn{2}{l}{not measured} & \multicolumn{2}{l}{0.371} \\
+  & C3 NDCG@5 & \multicolumn{2}{l}{not measured} & \multicolumn{2}{l}{0.469 ($+$26.3\%)} \\
+\addlinespace
+\midrule
+\multirow{2}{*}{\shortstack[l]{Statistical\\Significance}}
+  & Test & \multicolumn{2}{l}{Welch's $t$-test} & \multicolumn{2}{l}{Mann--Whitney $U$ + Holm--Bonferroni} \\
+  & C1 vs C4 & \multicolumn{2}{l}{$p < 0.05$} & \multicolumn{2}{l}{$p < 0.001$} \\
+\bottomrule
+\end{tabular}
+\end{table*}

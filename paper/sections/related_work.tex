@@ -1,0 +1,41 @@
+% Section 2: Related Work (~0.75 page)
+% 15 citations, all verified against primary sources
+
+\subsection{Bandit Methods in Information Retrieval}
+
+Multi-armed bandits have been applied to document ranking~\citep{radlinski2008learning}, where arms correspond to individual documents, and to retrieval strategy selection~\citep{tang2025mbarag}, where arms correspond to pipeline architectures (no-retrieval, single-step, multi-step).
+\citet{glowacka2019bandit} surveys bandit applications in IR comprehensively, finding that all prior work uses bandits to select \emph{what} to retrieve or \emph{which pipeline} to use.
+We apply bandits to a different target: learning \emph{how to weight retrieval dimensions}, the parameters within a single scoring function, which has not been explored in prior work.
+
+The distinction from MBA-RAG~\citep{tang2025mbarag} merits elaboration: their action space is \emph{method selection} (choosing between BM25, dense retrieval, or hybrid pipelines), whereas ours is \emph{weight configuration} within a single hybrid retrieval system.
+They select which retrieval method to invoke; we learn the relative importance of recency, importance, and relevance dimensions that parameterize a fixed scoring function.
+
+We build on Thompson Sampling's proven convergence guarantees~\citep{agrawal2012analysis,agrawal2013thompson} and its empirical effectiveness on large-scale recommendation problems~\citep{chapelle2011empirical}.
+The key novelty is not the bandit algorithm but the application domain (retrieval weight parameters) and the reward source (LLM self-assessment of input quality).
+
+\subsection{Adaptive Retrieval-Augmented Generation}
+
+Recent work adapts \emph{when} and \emph{how} to retrieve.
+Self-RAG~\citep{asai2024selfrag} trains the LLM to emit reflection tokens for retrieval and critique (requiring fine-tuning); Adaptive-RAG~\citep{jeong2024adaptiverag} trains a supervised classifier to route queries by complexity.
+These approaches either require model training or make binary decisions about retrieval invocation.
+Our approach is gradient-free, fully online, and operates on a continuous weight space discretized into presets.
+More importantly, these methods decide \emph{whether} to retrieve or \emph{which pipeline} to use, while we optimize \emph{how to weight dimensions within} a fixed retrieval pipeline, a complementary optimization target.
+
+\subsection{LLM Self-Assessment and Reward Hacking}
+
+LLM-as-judge has been established as a viable evaluation paradigm, with strong models achieving $>$80\% agreement with human annotators on output quality assessment~\citep{zheng2023judging}.
+The key distinction from prior LLM-as-judge work is the assessment target: we evaluate \emph{input quality} (``how useful was the retrieved context?''), not \emph{output quality} (``how good was my response?'').
+This choice determines whether the feedback loop is safe.
+
+\citet{pan2024feedback} demonstrated that output-level self-assessment in feedback loops causes in-context reward hacking (ICRH): scores inflate while quality stagnates.
+\citet{khalaf2025itrh} extend this finding to inference time, showing that reward hacking occurs even without weight updates through best-of-$n$ sampling and inference-time alignment alone.
+Our input-assessment design avoids both ICRH and inference-time reward hacking because the LLM evaluates the system's retrieval choices, not its own generation quality.
+Empirically, we observe no detectable upward drift in dimension ratings across 2{,}200+ episodes, consistent with the absence of reward hacking, and positive correlation between Likert ratings and ground-truth NDCG@5 ($r{=}0.33$, $p{<}0.001$), confirming that the reward signal is informative.
+
+\subsection{Retrieval Weight and Fusion Optimization}
+
+\citet{park2023generative} introduced the recency-importance-relevance scoring function with hardcoded equal weights, our direct baseline.
+Reciprocal Rank Fusion (RRF)~\citep{cormack2009reciprocal} provides a static, parameter-free alternative for combining ranked retrieval lists (we use RRF in Stage~1 of our pipeline), but with no learning component.
+
+\paragraph{Summary.}
+No prior work combines (1)~bandit-based optimization of retrieval weight parameters with (2)~LLM self-assessment of input quality as the reward signal, while (3)~explicitly designing the reward to avoid the hacking vulnerability identified by~\citet{pan2024feedback}.

@@ -1,0 +1,129 @@
+% Section 3: Method (~1.5 pages)
+
+\subsection{Retrieval Architecture}
+\label{sec:retrieval_arch}
+
+Our retrieval pipeline operates in two stages.
+\textbf{Stage~1 (Candidate Retrieval)} uses hybrid search: BM25 via SQLite FTS5 for lexical matching and dense retrieval via Qwen3-Embedding-0.6B~\citep{qwen2025qwen3} (70.7 MTEB) for semantic matching. The two result lists are combined through Reciprocal Rank Fusion (RRF)~\citep{cormack2009reciprocal} with $k=60$.
+RRF combines ranked lists by summing inverse position scores, achieving robust fusion without requiring explicit weight calibration between retrieval signals.
+We set $k=60$ to provide a sufficiently diverse candidate pool for re-ranking (the v3 library has 205 skills, so $k=60$ admits roughly 30\% of candidates from each retrieval pathway).
+This stage is \emph{fixed} across all experimental conditions.
+
+\textbf{Stage~2 (Weighted Re-ranking)} scores each candidate skill $s$ using the currently selected weight preset $\wpreset = (w^R, w^I, w^V)$:
+\begin{equation}
+\tsscore(s) = w^R \cdot \dimR(s) + w^I \cdot \dimI(s) + w^V \cdot \dimV(s)
+\label{eq:weighted_score}
+\end{equation}
+where $\dimR(s) = \max(0, 1 - \Delta / \tau)$ is a linear decay over $\Delta$ iterations since last use with window $\tau{=}50$ (unused skills default to $0.5$), $\dimI(s)$ is a Laplace-smoothed success rate $(\text{successes}+1)/(\text{total}+2)$, and $\dimV(s)$ is the cosine similarity between the skill embedding and the task embedding.
+The top-5 skills by weighted score are injected into the LLM prompt.
+
+Stage~2 is what Thompson Sampling optimizes: by selecting different weight presets (each preset corresponds to an \emph{arm} in the bandit formulation), the system changes the relative emphasis on recency, importance, and relevance, potentially retrieving different skill sets for the same task.
+While Stage~2 re-ranking is specific to retrieval-based architectures, the Thompson Sampling framework and the input-assessment reward design (Section~\ref{sec:reward_design}) are in principle architecture-agnostic: they could apply to any system that must choose among discrete configurations using LLM-generated feedback, though this transferability has not been empirically validated (see Section~\ref{sec:discussion}).
+
+\paragraph{Skill Libraries.}
+In Experiment~1 (v2), the library contains 50 meta-skills: procedural, domain-general skills covering research, creative, synthesis, evaluation, and operational domains.
+In Experiment~2 (v3), the library is expanded to 205 domain-specific skills: 30 base skills plus 175 specialized skills (${\sim}$35 per theme across 5 themes), designed to de-saturate the retrieval dimensions that were near-ceiling in v2.
+
+\subsection{Thompson Sampling for Preset Selection}
+\label{sec:ts}
+
+Each experimental condition maintains a Beta posterior for each weight preset arm $k$:
+\begin{equation}
+\theta_k \sim \text{Beta}(\alpha_k, \beta_k), \quad \text{initialized at } \text{Beta}(1, 1)
+\end{equation}
+
+\textbf{Selection:} At each episode, sample $\hat{\theta}_k$ from each arm's posterior and select $k^* = \arg\max_k \hat{\theta}_k$.
+Apply preset $\wpreset_{k^*}$ for Stage~2 re-ranking.
+
+\textbf{Update:} After the LLM responds, parse the feedback rubric to obtain dimension ratings $r_R, r_I, r_V \in [0, 1]$.
+Compute a composite reward:
+\begin{equation}
+r = \frac{r_R + r_I + r_V}{3}
+\end{equation}
+We aggregate via simple average rather than a weighted combination to avoid assuming correlations between dimension ratings.
+This conservative choice treats all three dimensions as equally informative for preset evaluation; the bandit learns which \emph{preset configuration} is best, not which \emph{individual dimension} matters most.
+
+Update only the selected arm:
+\begin{equation}
+\alpha_{k^*} \leftarrow \alpha_{k^*} + r, \quad \beta_{k^*} \leftarrow \beta_{k^*} + (1 - r)
+\end{equation}
+This is a pseudo-count heuristic: the continuous reward $r \in [0,1]$ is treated as a fractional observation rather than a true conjugate (binary) update.
+This approximation is standard in Thompson Sampling with bounded continuous rewards~\citep{agrawal2013thompson} and performs well when rewards are distributed over $[0,1]$.
+Failed feedback parses do not update the bandit (strict parsing policy).
+Across both experiments, regex parsing succeeds reliably: 98.2\% for C2/C3 and 96.1\% for C4 in Experiment~1 (1,000 episodes); 93.7\% (C2), 95.0\% (C3), and 96.7\% (C4) in Experiment~2 (1,200 episodes).
+
+\textbf{Preset definitions.}
+Experiment~1 uses $K=5$ presets; Experiment~2 uses $K=12$, including extreme configurations and an anti-relevance preset that prioritizes recency and importance over semantic similarity.
+Table~\ref{tab:presets} lists all preset definitions.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Preset} & $w^R$ & $w^I$ & $w^V$ \\
+\midrule
+\multicolumn{4}{l}{\emph{Experiment 1 (v2): 5 presets}} \\
+Balanced & 0.33 & 0.33 & 0.34 \\
+Recency-heavy & 0.60 & 0.15 & 0.25 \\
+Importance-heavy & 0.15 & 0.65 & 0.20 \\
+Relevance-heavy & 0.15 & 0.15 & 0.70 \\
+Importance+Relevance & 0.10 & 0.40 & 0.50 \\
+\midrule
+\multicolumn{4}{l}{\emph{Experiment 2 (v3): 12 presets (5 above + 7 new)}} \\
+Pure-recency & 0.85 & 0.05 & 0.10 \\
+Pure-importance & 0.05 & 0.85 & 0.10 \\
+Pure-relevance & 0.05 & 0.05 & 0.90 \\
+Diversity-seeker & 0.45 & 0.45 & 0.10 \\
+Recency+Importance & 0.40 & 0.45 & 0.15 \\
+Recency+Relevance & 0.40 & 0.10 & 0.50 \\
+Exploration & 0.25 & 0.25 & 0.50 \\
+\bottomrule
+\end{tabular}
+\caption{Weight preset definitions. Each preset defines a point on the $(w^R, w^I, w^V)$ simplex. The balanced preset corresponds to the Park et al.\ (2023) default.}
+\label{tab:presets}
+\end{table}
+
+\subsection{Feedback Mechanisms}
+\label{sec:feedback}
+
+We evaluate four conditions that differ only in how feedback is collected and processed.
+All conditions execute the same tasks in the same order using the same LLM (MiniMax M2.5, temperature${=}$0.7) and the same Stage~1 retrieval.
+
+\paragraph{C1 (Control).}
+No feedback rubric. Fixed balanced weights ($w^R = w^I = w^V = 1/3$). No Thompson Sampling.
+This replicates the Park et al.\ baseline.
+
+\paragraph{C2 (Dimension Feedback).}
+A structured Likert rubric is appended to the prompt, asking the LLM to rate how useful each retrieval dimension was on a 1--5 scale.
+Ratings are parsed via regex, normalized to $[0,1]$, and used to update the Thompson Sampling bandit.
+Natural language explanations are logged but not embedded.
+
+\paragraph{C3 (Full System).}
+Same as C2, plus the natural language explanations are embedded using Qwen3-Embedding-0.6B and stored in a retrieval feedback table.
+These embedded explanations build a queryable semantic map of ``what good retrieval looks like'' for each condition.
+This tests whether explanation embeddings provide additional signal beyond raw Likert ratings.
+
+\paragraph{C4 (Qualitative).}
+A separated per-dimension rubric elicits free-text feedback without numeric scales.
+Each dimension's response is embedded independently and compared to three pre-calibrated anchor embeddings (low/mid/high) via softmax-weighted interpolation at temperature $T = 0.05$:
+\begin{equation}
+\hat{r}_d = \sum_{a \in \{\text{low, mid, high}\}} \frac{\exp(\text{sim}(\mathbf{e}_d, \mathbf{a}_d^a) / T)}{\sum_{a'} \exp(\text{sim}(\mathbf{e}_d, \mathbf{a}_d^{a'}) / T)} \cdot v_a
+\label{eq:anchor}
+\end{equation}
+where $\mathbf{e}_d$ is the feedback embedding for dimension $d$, $\mathbf{a}_d^a$ are the anchor embeddings, $v_{\text{low}}=0$, $v_{\text{mid}}=0.5$, $v_{\text{high}}=1$, and $\text{sim}$ is cosine similarity.
+This produces continuous ratings without requiring the LLM to generate numbers.
+At $T{=}0.05$, the softmax is nearly one-hot, so the parser effectively maps each response to the nearest anchor (functionally a three-point scale) rather than producing a truly continuous interpolation.
+
+\paragraph{Why separated questions.}
+A single free-text response about all three dimensions causes cross-dimension crosstalk in embedding space (calibration $r < 0.4$).
+Separating by dimension eliminates this: the embedding model only needs to detect \emph{intensity} on a single topic, which it does reliably (calibration $r > 0.85$; score spread 0.57--0.72 across dimensions).
+
+\subsection{Reward Signal Design}
+\label{sec:reward_design}
+
+The rubric asks ``how useful was each retrieval dimension for this task?'', a metalevel judgment about \emph{inputs}, not a self-assessment of \emph{outputs}.
+This design choice is motivated by~\citet{pan2024feedback}'s finding that output-level self-assessment in feedback loops causes reward hacking.
+Our signal evaluates observable retrieval behavior (``were recently-used skills helpful?''), not generation quality (``was my answer good?'').
+
+We validate this design empirically: across a prior deployment of 579 iterations and the 1,000 episodes in Experiment~1, dimension ratings show no detectable systematic upward drift ($p > 0.3$ for linear trend tests on all dimensions), consistent with the absence of in-context reward hacking.

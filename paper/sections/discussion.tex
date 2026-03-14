@@ -1,0 +1,94 @@
+% Section 6: Discussion (~0.75 pages)
+
+\subsection{Disentangling Prompt Effects from Retrieval Effects}
+
+Experiment~2 reveals that multi-step prevention, the apparent mechanism in Experiment~1, was a truncation artifact: only 1 of 1{,}200 episodes triggered multi-step reasoning.
+The actual mechanism is \emph{output-driven efficiency}: the feedback rubric constrains LLM generation length directly (C4 output tokens 33\% below C1), acting as a metacognitive anchor that reduces verbose exploration rather than preventing reasoning spirals.
+
+This has an immediate practical implication: any retrieval-augmented system can reduce token consumption by appending a structured feedback rubric, even without adaptive retrieval, a result independent of our Thompson Sampling contribution (see Appendix Figures~\ref{fig:token_trend} and~\ref{fig:theme_heatmap}).
+The effect scales with task complexity (12\% for easy, 21\% for medium and hard) and operates consistently across all themes.
+
+Experiment~2 also reveals a \emph{second} mechanism that was invisible in the small-library setting: retrieval differentiation.
+With Jaccard overlap dropping from ${>}$0.90 to 0.52--0.59 (Table~\ref{tab:v3_results}), weight presets now produce genuinely different skill sets, and C3's retrieval quality gains (NDCG@5 $+$26.3\%, MRR $+$35.9\% vs.\ C1) break through the saturation ceiling diagnosed in Experiment~1.
+The limitation was not fundamental to the R/I/V decomposition, but rather a consequence of insufficient library diversity.
+
+\subsection{Input Assessment vs.\ Output Assessment}
+
+Our design deliberately avoids output-level self-assessment~\citep{pan2024feedback}.
+The empirical evidence (no detectable rating drift over 579 iterations in a prior deployment, 1{,}000 episodes in Experiment~1, and 1{,}200 episodes in Experiment~2) supports this choice.
+Rating distributions in the first 50 episodes are statistically indistinguishable from the final 50 episodes across all dimensions ($p > 0.3$, Kolmogorov--Smirnov test; see Appendix Figure~\ref{fig:rating_stability}).
+Beyond stability, the ratings are \emph{informative}: composite Likert scores correlate positively with ground-truth NDCG@5 ($r{=}0.33$, $p{<}0.001$; $r{=}0.44$ for C2 and C3), confirming that higher ratings correspond to genuinely better retrieval.
+\citet{khalaf2025itrh} recently extended the ICRH finding to inference-time reward hacking, where best-of-$n$ sampling and inference-time alignment degrade quality; our input-assessment design is robust to both variants.
+
+The principle is transferable: any system using LLM self-assessment in a feedback loop should evaluate upstream signals (inputs, context, retrieval) rather than downstream outputs to avoid self-referential reward inflation.
+
+\subsection{When Does Weight Learning Matter?}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+\textbf{Design / Metric} & \textbf{Exp.~1 (v2)} & \textbf{Exp.~2 (v3)} \\
+\midrule
+Skills              & 50 generic      & 205 domain-specific \\
+Weight presets      & 5               & 12 \\
+Tasks $\times$ conds & 250 $\times$ 4 & 300 $\times$ 4 \\
+\texttt{max\_tokens} & 4{,}096        & 16{,}384 \\
+\midrule
+C1 mean tokens      & 6{,}481        & 5{,}517 \\
+Multi-step rate (C1) & 11.6\%         & 0.3\% \\
+\midrule
+Jaccard C1--C2      & 0.904           & 0.585 \\
+Jaccard C1--C3      & 0.909           & 0.517 \\
+Jaccard C1--C4      & 0.848           & 0.573 \\
+C3 NDCG@5           & ---             & 0.469 \\
+C3 MRR              & ---             & 0.411 \\
+\midrule
+C2/C3 convergence   & importance      & pure\_relevance \\
+C4 convergence      & none            & weak (importance) \\
+Primary mechanism   & multi-step prev.\ & output compression \\
+\bottomrule
+\end{tabular}
+\caption{Design changes and outcomes across experiments. Experiment~2's expanded library and de-saturated dimensions enable weight learning to produce differentiated retrieval (Jaccard $<$ 0.60), while eliminating truncation cascades reveals output compression as the primary efficiency mechanism.}
+\label{tab:v2v3_comparison}
+\end{table}
+
+Experiment~1 shows that weight learning is inert with small, generic skill libraries where dimensions are saturated (Table~\ref{tab:v2v3_comparison}).
+The mechanism is straightforward: Thompson Sampling's posterior width reflects uncertainty about each arm's quality, but when all presets retrieve nearly identical skill sets (Jaccard $> 0.90$), the observed reward variance is dominated by noise rather than genuine preset differences.
+The posterior converges, but to a distinction without a difference.
+
+Experiment~2 establishes the boundary condition.
+With 205 domain-specific skills and 12 weight presets, C3 converges to \texttt{pure\_relevance} ($E[\theta]{=}$0.749) within ${\sim}$50 tasks (changepoint at tasks 33--48), and its explanation embeddings appear to produce a higher-fidelity reward signal than C2's Likert ratings.
+The threshold at which weight learning begins to matter requires two conditions to be met simultaneously: sufficient library diversity (enough domain-specific skills that weight changes produce different rankings) and sufficient dimension variance (de-saturating recency and importance so that the weight space is not effectively one-dimensional).
+Experiment~1 failed the first condition; Experiment~2 satisfies both.
+
+The C4 result in the expanded setting is informative: C4 \emph{does} converge (to \texttt{pure\_importance}, $E[\theta]{=}$0.472), but with a compressed recency dimension (mean${=}$0.136).
+This represents a shift from Experiment~1, where C4 showed flat posteriors.
+The feedback rubric focuses the LLM's output regardless of what the bandit does with the weights.
+C4's token advantage is an output-driven efficiency effect: the rubric constrains the LLM's generation. C3's advantage is a retrieval engineering effect: the bandit learns to retrieve better skills, aided by higher-fidelity reward signals from explanation embeddings.
+These two mechanisms appear largely independent and can be combined.
+
+These observations yield a two-condition diagnostic for practitioners considering adaptive retrieval weights.
+First, compute the pairwise Jaccard similarity of top-$k$ retrievals across a representative sample of weight configurations: if Jaccard $> 0.80$, weight learning cannot differentiate presets and the investment is wasted (see Appendix Figure~\ref{fig:jaccard_vs_tokens} for the relationship between overlap and token consumption).
+Second, check dimension variance across the skill library: if any dimension has variance $< 0.10$ (as recency and importance did in v2 at ${\sim}0.95$), the scoring function collapses to relevance-only ranking regardless of weights.
+The Experiment~1 to Experiment~2 transition demonstrates this diagnostic in action: addressing both conditions dropped mean Jaccard from $>$0.90 to 0.52--0.59 and produced the retrieval quality improvements reported in Section~\ref{sec:experiment_v3}.
+
+In practice, start with the rubric-only baseline (C4), which captures output-driven efficiency without any bandit machinery.
+Upgrade to adaptive weight learning only if the Jaccard diagnostic shows sufficient skill diversity and the dimension variance check confirms a meaningful weight space.
+Thompson Sampling itself is cheap (12 Beta posteriors, episode-wise updates), but the surrounding instrumentation (parsing ratings, computing diagnostics, validating convergence) is not, and should be justified by expected retrieval quality gains.
+Where both diagnostic conditions are met, the investment pays off quickly: C3 converges in ${\sim}$50 tasks, and the two mechanisms (output efficiency + retrieval adaptation) can be combined.
+
+\subsection{Transferability Beyond RAG}
+
+While our experiments operate within vector-based RAG, the two primary findings are not structurally dependent on the retrieval architecture:
+
+\begin{enumerate}
+\item \textbf{Metalevel input assessment} (evaluating retrieval inputs rather than task outputs to avoid reward hacking) applies to any system that uses LLM self-assessment in a feedback loop.
+The absence of rating drift across 2{,}200+ episodes is a property of the reward design, not the retrieval architecture.
+
+\item \textbf{Output-driven efficiency} (structured feedback rubrics reducing output tokens by 33\%) operates through prompt structure, not retrieval.
+Any system that appends a structured evaluation rubric may observe similar output compression.
+\end{enumerate}
+
+The retrieval weight optimization itself is specific to the Park et al.\ (2023) paradigm and is most valuable for large-scale deployments (thousands of documents) where the corpus exceeds context-window limits and fine-tuning lacks sufficient training data.

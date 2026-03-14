@@ -1,0 +1,142 @@
+{
+  "source": "tier0_episodic_memory",
+  "source_path": "tier0_episodic_memory.db",
+  "iterations_extracted": 1496,
+  "feedback_entries": 952,
+  "scale_factor": 0.5,
+  "agents_found": [
+    "alice",
+    "athena",
+    "gio",
+    "laplace",
+    "simon"
+  ],
+  "tier0_presets_found": [
+    "balanced",
+    "maturity_heavy",
+    "relevance_heavy",
+    "relevance_success",
+    "success_heavy"
+  ],
+  "preset_mapping": {
+    "balanced": "balanced",
+    "relevance_heavy": "relevance_heavy",
+    "success_heavy": "importance_heavy",
+    "maturity_heavy": "recency_heavy",
+    "relevance_success": "relevance_importance"
+  },
+  "priors": {
+    "balanced": {
+      "alpha": 55.7988,
+      "beta": 14.7012,
+      "mean": 0.7915,
+      "source_preset": "balanced",
+      "source_success_rate": 0.8,
+      "scaled_observations": 68.5
+    },
+    "relevance_heavy": {
+      "alpha": 86.8637,
+      "beta": 19.1363,
+      "mean": 0.8195,
+      "source_preset": "relevance_heavy",
+      "source_success_rate": 0.8256,
+      "scaled_observations": 104.0
+    },
+    "importance_heavy": {
+      "alpha": 92.54,
+      "beta": 19.46,
+      "mean": 0.8262,
+      "source_preset": "success_heavy",
+      "source_success_rate": 0.8322,
+      "scaled_observations": 110.0
+    },
+    "recency_heavy": {
+      "alpha": 83.9562,
+      "beta": 20.0438,
+      "mean": 0.8073,
+      "source_preset": "maturity_heavy",
+      "source_success_rate": 0.8133,
+      "scaled_observations": 102.0
+    },
+    "relevance_importance": {
+      "alpha": 81.7775,
+      "beta": 17.7225,
+      "mean": 0.8219,
+      "source_preset": "relevance_success",
+      "source_success_rate": 0.8285,
+      "scaled_observations": 97.5
+    }
+  },
+  "tier0_success_rates": {
+    "balanced": {
+      "success_rate": 0.8,
+      "pseudo_observations": 137.0,
+      "pooled_alpha": 114.6,
+      "pooled_beta": 32.4,
+      "n_agents": 5
+    },
+    "relevance_heavy": {
+      "success_rate": 0.8256,
+      "pseudo_observations": 208.0,
+      "pooled_alpha": 176.73,
+      "pooled_beta": 41.27,
+      "n_agents": 5
+    },
+    "success_heavy": {
+      "success_rate": 0.8322,
+      "pseudo_observations": 220.0,
+      "pooled_alpha": 188.08,
+      "pooled_beta": 41.92,
+      "n_agents": 5
+    },
+    "maturity_heavy": {
+      "success_rate": 0.8133,
+      "pseudo_observations": 204.0,
+      "pooled_alpha": 170.91,
+      "pooled_beta": 43.09,
+      "n_agents": 5
+    },
+    "relevance_success": {
+      "success_rate": 0.8285,
+      "pseudo_observations": 195.0,
+      "pooled_alpha": 166.55,
+      "pooled_beta": 38.44,
+      "n_agents": 5
+    }
+  },
+  "dimension_stats": {
+    "balanced": {
+      "n": 138,
+      "avg_recency": 0.7772,
+      "avg_importance": 0.7518,
+      "avg_relevance": 0.8678
+    },
+    "maturity_heavy": {
+      "n": 206,
+      "avg_recency": 0.7573,
+      "avg_importance": 0.7888,
+      "avg_relevance": 0.892
+    },
+    "relevance_heavy": {
+      "n": 209,
+      "avg_recency": 0.7656,
+      "avg_importance": 0.8134,
+      "avg_relevance": 0.8911
+    },
+    "relevance_success": {
+      "n": 197,
+      "avg_recency": 0.7893,
+      "avg_importance": 0.797,
+      "avg_relevance": 0.8997
+    },
+    "success_heavy": {
+      "n": 220,
+      "avg_recency": 0.7807,
+      "avg_importance": 0.808,
+      "avg_relevance": 0.9057
+    }
+  },
+  "global_success_rate": 0.8214,
+  "total_pseudo_observations": 964.0,
+  "generated_at": "2026-03-09T00:02:50.273206+00:00"
+}

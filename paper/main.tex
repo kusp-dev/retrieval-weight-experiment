@@ -1,0 +1,85 @@
+% Paper 1: Gradient-Free Retrieval Weight Learning via Thompson Sampling
+% Target: arXiv preprint (cs.IR), ICML 2026 workshops
+% Format: No page limit
+
+\documentclass[10pt]{article}
+\usepackage[preprint]{tmlr}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{hyperref}
+
+% Metadata (unused in preprint mode, required by tmlr.sty)
+\def\month{03}
+\def\year{2026}
+\def\openreview{}
+
+% Custom commands
+\newcommand{\tsscore}{\text{score}}
+\newcommand{\wpreset}{\mathbf{w}}
+\newcommand{\dimR}{\text{R}}  % recency
+\newcommand{\dimI}{\text{I}}  % importance
+\newcommand{\dimV}{\text{V}}  % relevance
+
+\title{Gradient-Free Retrieval Weight Learning via Thompson Sampling with LLM Self-Assessment}
+
+\author{\name Alfonso A.~V.~DiRocco \email alfonso@kusp.dev \\
+  \addr Kusp}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{sections/introduction}
+
+\section{Related Work}
+\label{sec:related_work}
+\input{sections/related_work}
+
+\section{Method}
+\label{sec:method}
+\input{sections/method}
+
+\section{Experiment 1: Small Library (v2)}
+\label{sec:experiment_v2}
+\input{sections/experiment_v2}
+
+\section{Experiment 2: Expanded Library (v3)}
+\label{sec:experiment_v3}
+\input{sections/experiment_v3}
+
+\section{Discussion}
+\label{sec:discussion}
+\input{sections/discussion}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{sections/conclusion}
+
+\section*{Limitations}
+\input{sections/limitations}
+
+\section*{Reproducibility Statement}
+\input{sections/reproducibility}
+
+\section*{Ethics Statement}
+\input{sections/ethics}
+
+\bibliographystyle{tmlr}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

@@ -1,0 +1,15 @@
+% Abstract — ~250 words
+% NOTE: Updated with v3 re-run results (2026-03-11)
+
+Retrieval-augmented agent systems typically combine retrieval dimensions (recency, importance, and relevance) using fixed, hand-tuned weights.
+Park et al.\ (2023) hardcoded equal weights ($w^R = w^I = w^V = 1/3$), an assumption that has gone unchallenged.
+We present a gradient-free method for learning these weights online via Thompson Sampling over discrete weight presets, where reward comes from LLM self-assessment of \emph{retrieval input quality}, not task output quality.
+This metalevel input assessment---evaluating the system's retrieval choices rather than its generation quality---is designed to avoid the reward hacking identified by Pan et al.\ (2024), where output-level self-assessment inflates scores while quality stagnates.
+While recent work on agentic search, long-context models, and retrieval internalization via fine-tuning suggests that vector-based retrieval may not remain the dominant paradigm for small corpora, the mechanisms we study---gradient-free parameter learning and non-hackable self-assessment---are in principle architecture-agnostic and may apply wherever systems must learn configuration parameters online without labeled data.
+Across 1{,}200 episodes (300 tasks $\times$ 4 conditions, 205 domain-specific skills), feedback-guided retrieval reduces token consumption by 12--20\% versus the no-feedback control (Kruskal--Wallis $H(3){=}33.87$, $p{<}0.001$; all treatment-vs-control comparisons significant after Holm--Bonferroni correction).
+The mechanism is output-driven: feedback conditions produce shorter, more targeted LLM responses (control mean output 3{,}813 tokens vs.\ 2{,}537 for the best treatment, a 33\% reduction), consistent with more focused prompts from better-weighted retrieval.
+The full system with explanation embeddings achieves the strongest retrieval quality (NDCG@5 $= 0.469$, +26.3\% vs.\ control; MRR $= 0.411$, +35.9\% vs.\ control), while the qualitative anchor condition yields the largest token savings ($-19.7\%$).
+Convergence analysis reveals interpretable specialization: the full system converges to a pure-relevance preset (posterior mean 0.749), while qualitative anchors converge toward pure-importance (0.472).
+Skill-set overlap across conditions (Jaccard ${\sim}$0.52--0.59) confirms that learned weight configurations produce meaningfully differentiated retrieval.
+
+Our contributions are: (1)~a gradient-free method for online retrieval weight learning in agent memory systems; (2)~empirical evidence of an output-driven efficiency effect associated with improved retrieval quality; (3)~a diagnostic framework revealing when weight learning fails and how to fix it; and (4)~evidence that metalevel input assessment avoids output-level reward hacking.

@@ -1,0 +1,8 @@
+All code, data, and configuration files required to reproduce both experiments are publicly available at \url{https://github.com/kusp-dev/retrieval-weight-experiment} (code under Apache 2.0; data under CC BY 4.0).
+The repository contains the synthetic task corpora (250 tasks for v2, 300 for v3), both skill libraries (50 and 205 skills), ground truth task--skill annotations, and all analysis scripts used to generate the figures and statistics reported in this paper.
+Dependencies are specified in \texttt{pyproject.toml} (Python $\geq$3.11); a \texttt{Dockerfile} is provided for environment reproduction.
+All hyperparameters, including RRF constant $k{=}60$, weight preset definitions, and Thompson Sampling $\text{Beta}(1,1)$ priors, are centralized in a single configuration file.
+Task ordering is shuffled with a fixed seed (42) for deterministic condition assignment.
+The test suite (238 unit and integration tests) validates retrieval, scoring, and bandit update logic.
+Experiments were run on a Mac Mini M4 using the MiniMax M2.5 API for generation and Qwen3-Embedding-0.6B for local dense retrieval.
+Total compute for both experiments was approximately 52 hours.

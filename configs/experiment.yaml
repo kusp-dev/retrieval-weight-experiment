@@ -1,0 +1,134 @@
+# Experiment Configuration
+# Per-Agent Thompson Sampling over Retrieval Weight Configurations
+
+experiment:
+  name: "retrieval-weight-learning"
+  seed: 42
+  tasks_per_condition: 300
+  total_conditions: 4
+
+# Embedding model
+embeddings:
+  model: "Qwen/Qwen3-Embedding-0.6B"
+  dimensions: 1024
+  max_length: 8192  # conservative limit; model supports 32k
+  batch_size: 32
+  device: "cpu"  # will auto-detect mps/cuda if available
+
+# Hybrid search
+search:
+  bm25_weight: 0.4      # RRF contribution from BM25
+  dense_weight: 0.6     # RRF contribution from dense
+  rrf_k: 60             # RRF constant (standard value)
+  top_k: 10             # results to return
+
+# Retrieval weight presets (recency, importance, relevance)
+# These are the arms of the Thompson Sampling bandit
+# v3: 12 presets (up from 5) — extremes + heavy leans + balanced pairs
+# Source: V3_DESIGN.md §3
+weight_presets:
+  # Extremes (test boundaries)
+  pure_relevance:         [0.050, 0.050, 0.900]  # Nearly pure semantic match
+  pure_recency:           [0.850, 0.050, 0.100]  # Nearly pure freshness
+  pure_importance:        [0.050, 0.850, 0.100]  # Nearly pure track record
+  # Heavy leans
+  relevance_heavy:        [0.150, 0.150, 0.700]  # Topic-driven research
+  recency_heavy:          [0.600, 0.150, 0.250]  # Fast-changing domains
+  importance_heavy:       [0.150, 0.650, 0.200]  # Reliability-critical tasks
+  # Balanced pairs
+  recency_relevance:      [0.400, 0.100, 0.500]  # Fresh + relevant
+  importance_relevance:   [0.100, 0.400, 0.500]  # Proven + relevant
+  recency_importance:     [0.400, 0.450, 0.150]  # Fresh + proven (not semantic)
+  # Balanced
+  balanced:               [0.330, 0.330, 0.340]  # Park et al. baseline
+  # Anti-relevance (cross-domain transfer test)
+  diversity_seeker:       [0.450, 0.450, 0.100]  # Deliberately LOW relevance
+  exploration:            [0.250, 0.250, 0.500]  # Moderate with randomized tie-breaking
+
+# Thompson Sampling
+bandit:
+  prior_alpha: 1.0   # Beta distribution prior (uniform)
+  prior_beta: 1.0
+  discount: null     # Set to 0.99 for drift robustness in compound experiment
+  cost_aware: false  # Enable for compound experiment
+  cost_baseline_tokens: 2500
+
+# LLM (MiniMax M2.5)
+llm:
+  provider: "minimax"
+  model: "MiniMax-M2.5"
+  temperature: 0.7
+  max_tokens: 16384
+
+# Conditions
+conditions:
+  1:
+    name: "control"
+    agent_name: "control_a"
+    description: "Fixed equal weights, no feedback (Park et al. baseline)"
+    use_bandit: false
+    use_feedback: false
+    embed_explanations: false
+    fixed_preset: "balanced"
+  2:
+    name: "dimension_feedback"
+    agent_name: "feedback_a"
+    description: "Thompson Sampling + Likert rubric, explanations logged but NOT embedded"
+    use_bandit: true
+    use_feedback: true
+    embed_explanations: false
+  3:
+    name: "full_system"
+    agent_name: "full_a"
+    description: "Thompson Sampling + Likert rubric + explanations EMBEDDED for retrieval hints"
+    use_bandit: true
+    use_feedback: true
+    embed_explanations: true
+  4:
+    name: "qualitative"
+    agent_name: "qual_a"
+    description: "Thompson Sampling + free-text rubric, infer ratings from text"
+    use_bandit: true
+    use_feedback: true
+    embed_explanations: false
+
+# Runner settings
+runner:
+  max_steps: 35                # max LLM turns per task
+  synthesis_nudge_pct: 0.6     # inject nudge at this fraction of budget
+  top_k_skills: 5              # skills to inject into prompt
+  recency_decay_window: 50     # iterations for recency decay
+  retry_max: 3                 # retries on API failure
+  retry_backoff: [2, 4, 8]     # exponential backoff seconds
+
+# Rate control
+rate_control:
+  iterations_per_hour: 200     # total across all conditions (~5s/call, sleep handles pacing)
+  window_seconds: 3600
+
+# Task themes
+themes:
+  - "ML Fundamentals"
+  - "Agent Architectures"
+  - "Retrieval Systems"
+  - "Multi-Agent Systems"
+  - "Evaluation Methods"
+
+# Observability (Langfuse)
+# Keys read from environment: LANGFUSE_SECRET_KEY, LANGFUSE_PUBLIC_KEY, LANGFUSE_HOST
+# Same .env file as MINIMAX_API_KEY. Tracing disabled if keys missing.
+observability:
+  langfuse_enabled: true
+
+# Skill domains
+skill_domains:
+  - "research"
+  - "creative"
+  - "synthesis"
+  - "evaluation"
+  - "operational"
+  - "ml_fundamentals"
+  - "agent_arch"
+  - "retrieval"
+  - "multi_agent"
+  - "eval_methods"

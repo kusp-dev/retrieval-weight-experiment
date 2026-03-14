@@ -1,0 +1,17 @@
+\paragraph{Minimal ethical risk.}
+This work poses minimal ethical risk.
+All experiments use synthetic tasks designed by the authors; no human subjects were involved and no personally identifiable information was collected or processed.
+The LLM's own assessments serve as the reward signal for bandit learning; no human annotators or crowd workers were employed.
+The system generates only task-completion responses (e.g., summaries, analyses) with no capacity for harmful content production.
+
+\paragraph{Compute and environmental impact.}
+Total compute for both experiments was approximately 52 hours on a Mac Mini M4 (Apple Silicon, ${\sim}$20W TDP).
+LLM inference used the MiniMax M2.5 commercial API; local embedding inference used Qwen3-Embedding-0.6B.
+The energy footprint is modest: under 2~kWh for local computation across both experiments, negligible relative to model training runs.
+API-side energy consumption is not disclosed by the provider but is bounded by the small scale of inference (${\sim}$2{,}200 episodes, ${\sim}$4{,}000 tokens per episode).
+
+\paragraph{Broader impact.}
+The primary societal implication of this work is efficiency: reducing token consumption in LLM systems lowers inference costs and energy use at deployment time.
+The input-assessment reward design, by avoiding output-level self-assessment, may contribute to safer feedback loops in deployed agentic systems by reducing the risk of reward hacking.
+However, the techniques---input-assessment reward and gradient-free parameter learning---could in principle be applied to optimize configuration parameters in systems that serve harmful content; we recommend that practitioners apply these methods only within systems that maintain appropriate content safety guardrails.
+We release all code and data under open licenses (Apache 2.0 for code, CC BY 4.0 for data) to support reproducibility and downstream research.

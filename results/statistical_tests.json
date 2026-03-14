@@ -1,0 +1,189 @@
+{
+  "description": "Token consumption statistical tests across experiment conditions",
+  "reward_tests": {
+    "error": "Not enough control data for statistical tests"
+  },
+  "token_tests": {
+    "per_condition": {
+      "C1": {
+        "n": 300,
+        "mean": 5517.2,
+        "median": 4909.5,
+        "std": 2449.13,
+        "bootstrap_mean": 5518.01,
+        "ci_95": [
+          5259.02,
+          5804.4
+        ]
+      },
+      "C2": {
+        "n": 300,
+        "mean": 4824.22,
+        "median": 4204.0,
+        "std": 1895.85,
+        "bootstrap_mean": 4824.28,
+        "ci_95": [
+          4618.2,
+          5049.97
+        ]
+      },
+      "C3": {
+        "n": 300,
+        "mean": 4830.49,
+        "median": 4286.0,
+        "std": 1819.76,
+        "bootstrap_mean": 4831.2,
+        "ci_95": [
+          4632.71,
+          5056.18
+        ]
+      },
+      "C4": {
+        "n": 300,
+        "mean": 4429.46,
+        "median": 4100.0,
+        "std": 1428.94,
+        "bootstrap_mean": 4430.21,
+        "ci_95": [
+          4280.76,
+          4602.49
+        ]
+      }
+    },
+    "kruskal_wallis": {
+      "H_statistic": 33.8684,
+      "p_value": 2.1e-07,
+      "significant_05": true,
+      "df": 3,
+      "interpretation": "Significant difference across conditions"
+    },
+    "pairwise": {
+      "C1_vs_C2": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 5517.2,
+        "mean_b": 4824.22,
+        "diff_mean": -694.61,
+        "diff_ci_95": [
+          -1051.92,
+          -350.83
+        ],
+        "pct_diff": -12.56,
+        "prob_b_lower": 1.0,
+        "mann_whitney_U": 52659.0,
+        "mann_whitney_p": 0.00030946,
+        "cohens_d": -0.3164,
+        "effect_size": "small",
+        "mann_whitney_p_bonferroni": 0.00185677,
+        "significant_bonferroni_05": true,
+        "mann_whitney_p_bh": 0.00083854,
+        "significant_bh_05": true
+      },
+      "C1_vs_C3": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 5517.2,
+        "mean_b": 4830.49,
+        "diff_mean": -687.28,
+        "diff_ci_95": [
+          -1040.96,
+          -347.19
+        ],
+        "pct_diff": -12.45,
+        "prob_b_lower": 1.0,
+        "mann_whitney_U": 52490.0,
+        "mann_whitney_p": 0.00041927,
+        "cohens_d": -0.3183,
+        "effect_size": "small",
+        "mann_whitney_p_bonferroni": 0.00251562,
+        "significant_bonferroni_05": true,
+        "mann_whitney_p_bh": 0.00083854,
+        "significant_bh_05": true
+      },
+      "C1_vs_C4": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 5517.2,
+        "mean_b": 4429.46,
+        "diff_mean": -1088.33,
+        "diff_ci_95": [
+          -1417.54,
+          -773.0
+        ],
+        "pct_diff": -19.72,
+        "prob_b_lower": 1.0,
+        "mann_whitney_U": 57250.5,
+        "mann_whitney_p": 1e-08,
+        "cohens_d": -0.5425,
+        "effect_size": "medium",
+        "mann_whitney_p_bonferroni": 5e-08,
+        "significant_bonferroni_05": true,
+        "mann_whitney_p_bh": 5e-08,
+        "significant_bh_05": true
+      },
+      "C2_vs_C3": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 4824.22,
+        "mean_b": 4830.49,
+        "diff_mean": 4.7,
+        "diff_ci_95": [
+          -292.55,
+          295.5
+        ],
+        "pct_diff": 0.13,
+        "prob_b_lower": 0.489,
+        "mann_whitney_U": 44537.0,
+        "mann_whitney_p": 0.82755123,
+        "cohens_d": 0.0034,
+        "effect_size": "negligible",
+        "mann_whitney_p_bonferroni": 1.0,
+        "significant_bonferroni_05": false,
+        "mann_whitney_p_bh": 0.82755123,
+        "significant_bh_05": false
+      },
+      "C2_vs_C4": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 4824.22,
+        "mean_b": 4429.46,
+        "diff_mean": -396.14,
+        "diff_ci_95": [
+          -667.15,
+          -134.12
+        ],
+        "pct_diff": -8.18,
+        "prob_b_lower": 0.9985,
+        "mann_whitney_U": 49163.0,
+        "mann_whitney_p": 0.04992689,
+        "cohens_d": -0.2352,
+        "effect_size": "small",
+        "mann_whitney_p_bonferroni": 0.29956133,
+        "significant_bonferroni_05": false,
+        "mann_whitney_p_bh": 0.05991227,
+        "significant_bh_05": false
+      },
+      "C3_vs_C4": {
+        "n_a": 300,
+        "n_b": 300,
+        "mean_a": 4830.49,
+        "mean_b": 4429.46,
+        "diff_mean": -403.97,
+        "diff_ci_95": [
+          -667.04,
+          -139.16
+        ],
+        "pct_diff": -8.3,
+        "prob_b_lower": 0.9988,
+        "mann_whitney_U": 49771.0,
+        "mann_whitney_p": 0.02464225,
+        "cohens_d": -0.2451,
+        "effect_size": "small",
+        "mann_whitney_p_bonferroni": 0.14785352,
+        "significant_bonferroni_05": false,
+        "mann_whitney_p_bh": 0.03696338,
+        "significant_bh_05": true
+      }
+    }
+  }
+}

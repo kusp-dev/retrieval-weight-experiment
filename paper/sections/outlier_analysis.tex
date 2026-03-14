@@ -1,0 +1,33 @@
+% Outlier Robustness Analysis — for inclusion in Section 5
+% v3 re-run data (n=1200, 300 per condition, max_tokens=16384)
+
+\subsection{Robustness to Outliers}
+\label{sec:outlier_robustness}
+
+With truncation cascades eliminated (\texttt{max\_tokens}$=$16{,}384), all four conditions produce relatively well-behaved distributions.
+Mean-to-median ratios range from 1.08 (C4) to 1.15 (C2), with no extreme runaway episodes.
+The single multi-step episode (C1, task~023, 21{,}259 tokens) is a moderate outlier at $6.4\sigma$ from the C1 mean.
+
+To verify that the efficiency gains are not driven by a few high-token episodes, we apply progressively aggressive outlier filters, removing episodes exceeding $\mu + k\sigma$ for each condition independently at $k \in \{1, 2, 3\}$ (Table~\ref{tab:outlier_robustness}).
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Filter} & \textbf{C1 mean} & \textbf{C2 mean} & \textbf{C3 mean} & \textbf{C4 mean} & \textbf{Best $\Delta$C1} \\
+\midrule
+None       & 5{,}517 & 4{,}824 & 4{,}830 & 4{,}429 & $-$19.7\% \\
+$+3\sigma$ & 5{,}355 & 4{,}698 & 4{,}699 & 4{,}309 & $-$19.5\% \\
+$+2\sigma$ & 5{,}190 & 4{,}533 & 4{,}555 & 4{,}224 & $-$18.6\% \\
+$+1\sigma$ & 4{,}732 & 4{,}193 & 4{,}181 & 3{,}998 & $-$15.5\% \\
+\bottomrule
+\end{tabular}
+\caption{Outlier robustness analysis. Each row removes episodes exceeding $\mu + k\sigma$ \emph{within each condition independently}. The treatment effect is stable across cutoffs (15--20\% reduction), confirming that the output-driven efficiency gain is distributed across the full episode population rather than driven by a few extreme episodes. ``Best $\Delta$C1'' reports the largest reduction among C2--C4 at each cutoff.}
+\label{tab:outlier_robustness}
+\end{table}
+
+Two observations emerge.
+First, the treatment effect is robust: even at the most aggressive filter ($+1\sigma$, which removes 39--48 episodes per condition), C4 still reduces mean tokens by 15.5\% relative to C1.
+The stability across cutoffs (19.7\% raw $\rightarrow$ 15.5\% at $+1\sigma$) confirms that the effect is distributed across the full population of episodes, not concentrated in a few prevented catastrophes.
+Second, unlike Experiment~1 where C1's mean was dominated by a catastrophic tail (mean/median ratio of 2.1$\times$), Experiment~2's clean distributions (all ratios $<$1.15) indicate that the output-driven mechanism operates consistently across all episodes.

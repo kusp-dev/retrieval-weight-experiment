@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Primary metrics by condition (v3, 300 tasks $\times$ 4 conditions).}
+\label{tab:primary-metrics}
+\begin{tabular}{lrrrrrrl}
+\toprule
+Condition & N & Mean Reward & Steps & Tokens & NDCG@5 & MRR & Best Arm \\
+\midrule
+  C1 Control & 300 & --- & 1.0 & 5,517 & 0.2230 & 0.3024 & --- \\
+  C2 Dim Feedback & 300 & 0.6649 & 1.0 & 4,824 & 0.2506 & 0.3314 & pure_relevance \\
+  C3 Full System & 300 & 0.6871 & 1.0 & 4,830 & 0.3141 & 0.4108 & pure_relevance \\
+  C4 Qualitative & 300 & 0.4377 & 1.0 & 4,429 & 0.2447 & 0.3130 & pure_importance \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,5 @@
+condition,cid,episodes,mean_reward,mean_steps,mean_tokens,total_tokens,ndcg5,mrr,parse_rate,best_arm,best_arm_posterior
+C1 Control,1,300,,1.0,5517,1655161,0.223,0.3024,0.0,,
+C2 Dim Feedback,2,300,0.6649,1.0,4824,1447266,0.2506,0.3314,93.7,pure_relevance,0.7093
+C3 Full System,3,300,0.6871,1.0,4830,1449146,0.3141,0.4108,95.0,pure_relevance,0.7489
+C4 Qualitative,4,300,0.4377,1.0,4429,1328839,0.2447,0.313,96.7,pure_importance,0.4718

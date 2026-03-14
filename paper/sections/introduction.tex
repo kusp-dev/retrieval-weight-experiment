@@ -1,0 +1,47 @@
+% Section 1: Introduction (~1.25 pages)
+
+Agentic LLM systems increasingly rely on retrieval to inject relevant context (skills, memories, tools) at inference time.
+The dominant architecture for memory retrieval in generative agents, introduced by~\citet{park2023generative}, combines three scoring dimensions with fixed equal weights:
+\begin{equation}
+\tsscore(s) = \frac{1}{3}\dimR(s) + \frac{1}{3}\dimI(s) + \frac{1}{3}\dimV(s)
+\label{eq:park_baseline}
+\end{equation}
+where $\dimR$ captures recency (linear decay over iterations since last use, clamped at zero), $\dimI$ captures importance (historical success rate), and $\dimV$ captures relevance (embedding similarity to the current task).
+This equal-weight assumption has been adopted without question in subsequent work, despite the intuition that different tasks demand different retrieval priorities: a debugging task benefits from proven solutions ($\dimI$-heavy), while a trend analysis task benefits from recent information ($\dimR$-heavy).
+
+These weights represent an unexplored optimization target.
+Unlike retrieval strategy selection~\citep{tang2025mbarag,jeong2024adaptiverag} or retriever model training~\citep{asai2024selfrag}, no prior work learns the \emph{weighting parameters within a single retrieval scoring function} online during deployment.
+
+The central challenge is obtaining a reward signal without task-level ground truth.
+One natural approach, having the LLM rate its own output quality, leads to reward hacking:~\citet{pan2024feedback} showed that when LLM-generated scores feed back into the system that produced them, scores inflate while actual quality stagnates or degrades.
+Our key insight is to assess \emph{input quality} rather than \emph{output quality}: the rubric asks ``how useful was the retrieved context for this task?'' rather than ``how good was my response?''
+This metalevel judgment---assessing the system's inputs rather than its outputs---does not directly optimize the evaluated signal, avoiding the self-referential feedback loop that enables reward hacking.
+
+We operationalize this insight through Thompson Sampling~\citep{thompson1933likelihood,chapelle2011empirical} over a discrete set of weight presets.
+Each preset $\wpreset_k = (w_k^R, w_k^I, w_k^V)$ defines a configuration on the weight simplex.
+After each task, the LLM provides dimension-specific Likert ratings of retrieval quality, which are aggregated into a composite reward for Bayesian posterior updating.
+Over episodes, presets that produce context rated as more useful accumulate evidence and are selected more frequently.
+
+We present two experiments with contrasting findings:
+
+\paragraph{Experiment 1 (v2)} reveals a confounded design.
+Across 250 tasks with 50 generic skills, feedback-guided retrieval reduces mean token consumption by 40--50\% (bootstrap $p \leq 0.012$), but skill overlap between conditions remains 85--91\%, indicating that learned weights do not change what gets retrieved.
+We diagnose the root cause: with only 50 generic skills, the recency and importance dimensions are near-saturated (${\sim}$0.95), leaving insufficient variance for weight differences to affect rankings.
+The token savings appear driven by the feedback rubric itself rather than by weight adaptation, motivating the redesigned v3 experiment.
+
+\paragraph{Experiment 2 (v3)} corrects the design flaws identified in v2 and provides evidence that weight learning genuinely improves retrieval quality.
+With 205 domain-specific skills (30 base + 175 specialized), 12 weight presets (including extreme configurations), and 300 harder tasks across 1,200 episodes, the full system (C3) achieves NDCG@5${=}$0.469 (+26.3\% vs.\ C1) and MRR${=}$0.411 (+35.9\% vs.\ C1), with all treatment conditions significantly different from C1 (Holm--Bonferroni corrected).
+The primary mechanism is output-driven efficiency: the structured feedback rubric and better-targeted retrieval produce more focused prompts, which in turn yield shorter LLM outputs (C4 mean output tokens${=}$2{,}537 vs.\ C1${=}$3{,}813, a 33\% reduction).
+Skill-set overlap across conditions (Jaccard $J{\approx}0.52$--$0.59$) confirms that weight learning changes \emph{what} gets retrieved, not merely how the LLM responds to it.
+
+\paragraph{Scope.}
+We study our mechanisms \emph{within} the RAG paradigm, where retrieval weighting remains a live optimization target, particularly for large-scale deployments where context-window and fine-tuning alternatives do not scale.
+The core contributions---gradient-free parameter learning via Thompson Sampling and non-hackable self-assessment reward---are not specific to retrieval weights and could apply to any system that must learn configuration parameters online without labeled data (Section~\ref{sec:discussion}).
+
+\paragraph{Contributions.} We make four contributions:
+\begin{enumerate}
+\item A gradient-free method for online retrieval weight learning via Thompson Sampling with dimension-specific LLM self-assessment as the reward signal.
+\item Empirical evidence of an output-driven efficiency effect: feedback conditions produce shorter LLM outputs (33\% token reduction), suggesting that retrieval optimization and structured rubric prompts have downstream benefits beyond ranking accuracy.
+\item A diagnostic framework revealing when weight learning fails (saturated dimensions, small skill libraries) and how to fix it (domain-specific skills, expanded preset space).
+\item Evidence that metalevel input assessment avoids the reward hacking identified in output-level self-assessment loops, confirmed by no detectable rating drift across 2{,}200+ episodes.
+\end{enumerate}

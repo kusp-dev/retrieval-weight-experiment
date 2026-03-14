@@ -1,0 +1,26 @@
+% Section 7: Conclusion (~0.3 pages)
+
+This work identifies two largely independent mechanisms in gradient-free retrieval weight learning for agent systems.
+The first, \emph{output-driven efficiency}, operates through output length reduction: feedback conditions produce shorter, more focused outputs, reducing token consumption by up to 19.7\% (C4 vs.\ C1), consistent with more focused prompts from better-weighted retrieval.
+The second, \emph{adaptive retrieval}, is a retrieval engineering effect: the bandit learns to retrieve qualitatively different and higher-quality skill sets, with C3 improving NDCG@5 by 26.3\% and MRR by 35.9\% over the fixed-weight control.
+C3 converges strongly to \texttt{pure\_relevance} within approximately 50 tasks; C2 trends toward \texttt{pure\_relevance} but with a near-tie against \texttt{recency\_heavy}; C4 converges weakly to \texttt{pure\_importance}.
+All treatment-vs-control differences are significant after Holm--Bonferroni correction.
+
+The transition from Experiment~1 (50 generic skills) to Experiment~2 (205 domain-specific skills) reveals the boundary condition for weight learning.
+With a small, saturated library, all weight configurations retrieve near-identical skill sets (Jaccard $>$ 0.90) and the bandit converges to a distinction without a difference.
+Expanding the library and de-saturating embedding dimensions drops mean Jaccard to 0.52--0.59, a structural shift that enables weight differences to produce genuinely different retrievals.
+Across 1,200 episodes (300 tasks $\times$ 4 conditions), the v3 results suggest that retrieval quality improvement and output-driven efficiency are largely separable effects that can compound when both mechanisms are active.
+
+These findings yield a two-step practitioner diagnostic.
+First, compute pairwise Jaccard similarity of top-$k$ retrievals across weight configurations: if Jaccard $>$ 0.80, weight learning cannot differentiate presets and the efficiency benefit alone may not justify the bandit machinery.
+Second, check per-dimension variance across the skill library: if any dimension has variance $<$ 0.10, the scoring function collapses to effectively one-dimensional ranking regardless of weights.
+Only when both checks pass does adaptive weight learning add value beyond a static weight baseline.
+
+Our input-assessment reward design, evaluating retrieval inputs rather than task outputs, shows no detectable rating drift across 2{,}200+ episodes (1,000 in Experiment~1 and 1,200 in Experiment~2), supporting the strategy of avoiding self-referential reward loops identified by~\citet{pan2024feedback}.
+Unlike gradient-based alternatives, the approach requires no labeled data and works with proprietary LLMs without fine-tuning access.
+
+The most immediate extension is multi-model validation: testing whether the output-driven efficiency effect transfers beyond MiniMax M2.5 to frontier models with different verbosity profiles.
+A second direction is adaptive skill libraries that grow or prune over time, introducing non-stationarity that the current bandit formulation does not handle.
+A third direction is user-level diversity-aware metrics such as UDCG, which would capture whether adaptive weights improve not just relevance but topical coverage across retrieved skills.
+A fourth direction is a comparative architecture study: evaluating Thompson Sampling adaptation within RAG against agentic keyword search and fine-tuning on the same task corpus, to determine where each approach dominates in the cost-performance landscape.
+Finally, isolating the output-length reduction from content changes, via controlled ablations that hold response content fixed while varying prompt structure, would strengthen the causal claim behind the efficiency mechanism.

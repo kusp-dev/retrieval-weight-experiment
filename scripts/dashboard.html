@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Experiment Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── fonz-ai Design System (OLED Dark) ──────────────────────────────── */
+    :root {
+      --bg-base: #0a0a0a; --bg-surface: #111111; --bg-elevated: #1a1a1a;
+      --bg-hover: #222222;
+      --text-primary: #ededed; --text-secondary: #9ca3af; --text-muted: #6b7280;
+      --color-success: #34d399; --color-warning: #fbbf24; --color-error: #f87171;
+      --color-info: #60a5fa;
+      --border-subtle: #1e1e1e; --border-default: #2a2a2a; --border-strong: #3a3a3a;
+      --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px;
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.4);
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --c1: #9ca3af; --c2: #60a5fa; --c3: #34d399; --c4: #a78bfa;
+      --dim-r: #60a5fa; --dim-i: #fbbf24; --dim-v: #34d399;
+      --topbar-h: 52px; --tab-h: 44px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-ui); background: var(--bg-base); color: var(--text-primary);
+      font-size: 14px; line-height: 1.5; min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Topbar ──────────────────────────────────────────────────────────── */
+    #topbar {
+      position: sticky; top: 0; z-index: 50; height: var(--topbar-h);
+      background: var(--bg-surface); border-bottom: 1px solid var(--border-default);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; gap: 12px;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .logo {
+      width: 30px; height: 30px; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--c4), var(--c2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; color: #fff; flex-shrink: 0;
+    }
+    .topbar-title { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--color-success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .live-dot.error { background: var(--color-error); animation: none; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    #run-select {
+      background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px; font-family: var(--font-ui);
+      max-width: 140px;
+    }
+
+    /* ── Tab Navigation ──────────────────────────────────────────────────── */
+    #tabs {
+      position: sticky; top: var(--topbar-h); z-index: 40;
+      background: var(--bg-surface); border-bottom: 1px solid var(--border-default);
+      display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      height: var(--tab-h); align-items: stretch; gap: 0;
+    }
+    #tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex-shrink: 0; padding: 0 16px; display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer;
+      border-bottom: 2px solid transparent; transition: all 0.15s ease;
+      white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+      font-family: var(--font-ui);
+    }
+    .tab:hover { color: var(--text-secondary); }
+    .tab.active { color: var(--text-primary); border-bottom-color: var(--c2); }
+    .tab-badge {
+      font-size: 10px; padding: 1px 6px; border-radius: 10px;
+      background: var(--bg-elevated); color: var(--text-muted); font-family: var(--font-mono);
+    }
+    .tab.active .tab-badge { background: rgba(96,165,250,0.15); color: var(--c2); }
+
+    /* ── Content ─────────────────────────────────────────────────────────── */
+    #content {
+      max-width: 1400px; margin: 0 auto; padding: 16px;
+      padding-bottom: calc(24px + var(--safe-bottom));
+    }
+
+    /* ── Section ─────────────────────────────────────────────────────────── */
+    .section { margin-bottom: 24px; }
+    .section-title {
+      font-size: 13px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;
+    }
+
+    /* ── Progress ────────────────────────────────────────────────────────── */
+    .progress-card {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 16px; margin-bottom: 16px;
+    }
+    .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .progress-pct { font-size: 28px; font-weight: 700; font-family: var(--font-mono); }
+    .progress-detail { font-size: 12px; color: var(--text-secondary); }
+    .progress-bar-bg {
+      height: 8px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--c2), var(--c3));
+      border-radius: 4px; transition: width 0.5s ease;
+    }
+    .progress-stats {
+      display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap;
+    }
+    .progress-stat { font-size: 12px; color: var(--text-secondary); }
+    .progress-stat strong { color: var(--text-primary); font-family: var(--font-mono); }
+
+    /* ── KPI Grid ────────────────────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px; margin-bottom: 20px;
+    }
+    .kpi {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-md); padding: 12px; text-align: center;
+    }
+    .kpi-value {
+      font-size: 22px; font-weight: 700; font-family: var(--font-mono);
+      line-height: 1.2; margin-bottom: 2px;
+    }
+    .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+    /* ── Card ─────────────────────────────────────────────────────────────── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .card {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 16px; position: relative;
+      transition: border-color 0.15s ease; cursor: pointer;
+    }
+    .card:hover { border-color: var(--border-strong); }
+    .card-accent { position: absolute; top: 0; left: 16px; right: 16px; height: 2px; border-radius: 0 0 2px 2px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .card-title { font-size: 14px; font-weight: 600; }
+    .card-subtitle { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+    .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-bottom: 12px; }
+    .card-stat-label { font-size: 11px; color: var(--text-muted); }
+    .card-stat-value { font-size: 14px; font-weight: 600; font-family: var(--font-mono); }
+
+    /* ── Dimension Bars ──────────────────────────────────────────────────── */
+    .dim-bars { margin-top: 8px; }
+    .dim-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .dim-label { width: 14px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+    .dim-track { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+    .dim-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+    .dim-val { width: 32px; text-align: right; font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); }
+
+    /* ── Preset Pills ────────────────────────────────────────────────────── */
+    .preset-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .preset-pill {
+      font-size: 10px; padding: 2px 8px; border-radius: 10px;
+      background: var(--bg-elevated); color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+    .preset-pill.best { background: rgba(52,211,153,0.15); color: var(--c3); }
+
+    /* ── Theme Progress Table ────────────────────────────────────────────── */
+    .theme-table { width: 100%; border-collapse: collapse; }
+    .theme-row {
+      display: flex; align-items: center; gap: 12px; padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle); cursor: pointer;
+    }
+    .theme-row:hover { background: var(--bg-hover); margin: 0 -8px; padding: 8px; border-radius: var(--radius-sm); }
+    .theme-name { flex: 1; font-size: 13px; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .theme-bar-bg { width: 120px; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+    .theme-bar-fill { height: 100%; background: var(--c2); border-radius: 3px; transition: width 0.4s ease; }
+    .theme-pct { width: 36px; text-align: right; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); flex-shrink: 0; }
+    .theme-count { width: 50px; text-align: right; font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); flex-shrink: 0; }
+
+    /* ── Bandit Section ──────────────────────────────────────────────────── */
+    .bandit-card {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 14px; margin-bottom: 8px;
+    }
+    .bandit-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .bandit-title { font-size: 13px; font-weight: 600; }
+    .bandit-meta { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+    .arm-row {
+      display: flex; align-items: center; gap: 8px; padding: 4px 0;
+      font-size: 12px; font-family: var(--font-mono);
+    }
+    .arm-name { width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .arm-bar-bg { flex: 1; height: 8px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden; }
+    .arm-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .arm-pulls { width: 32px; text-align: right; color: var(--text-muted); }
+    .arm-mean { width: 40px; text-align: right; }
+    .arm-best { color: var(--c3); font-weight: 600; }
+
+    /* ── Diagnostics ─────────────────────────────────────────────────────── */
+    .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .diag-item {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-md); padding: 12px;
+    }
+    .diag-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .diag-value { font-size: 16px; font-weight: 600; font-family: var(--font-mono); }
+    .diag-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .drift-ok { color: var(--color-success); }
+    .drift-warn { color: var(--color-warning); }
+    .drift-bad { color: var(--color-error); }
+
+    /* ── Recent Episodes ─────────────────────────────────────────────────── */
+    .episodes-list { display: flex; flex-direction: column; gap: 2px; }
+    .episode-row {
+      display: flex; align-items: center; gap: 8px; padding: 6px 8px;
+      border-radius: var(--radius-sm); font-size: 12px;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    }
+    .episode-time { width: 52px; font-family: var(--font-mono); color: var(--text-muted); flex-shrink: 0; }
+    .episode-cond {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .episode-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .episode-preset { color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; flex-shrink: 0; }
+    .episode-tokens { width: 50px; text-align: right; font-family: var(--font-mono); color: var(--text-secondary); flex-shrink: 0; }
+    .episode-fb { font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); flex-shrink: 0; }
+
+    /* ── Modal ────────────────────────────────────────────────────────────── */
+    .modal {
+      position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.7);
+      display: none; align-items: flex-end; justify-content: center;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .modal.visible { display: flex; }
+    .modal-content {
+      background: var(--bg-base); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      width: 100%; max-width: 800px; max-height: 85dvh; overflow-y: auto;
+      animation: slideUp 0.2s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-header {
+      position: sticky; top: 0; z-index: 10; background: var(--bg-base);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px; border-bottom: 1px solid var(--border-default);
+    }
+    .modal-title { font-size: 16px; font-weight: 600; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: var(--bg-elevated); border: 1px solid var(--border-default);
+      color: var(--text-secondary); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-body { padding: 16px; }
+    .chart-section { margin-bottom: 24px; }
+    .chart-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+    .chart-wrap {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-md); padding: 12px; position: relative; height: 200px;
+    }
+
+    /* ── Trend Chart Section ─────────────────────────────────────────────── */
+    .trend-section {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px;
+    }
+    .trend-controls {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px;
+    }
+    .trend-metric-tabs {
+      display: flex; gap: 2px; background: var(--bg-elevated); border-radius: var(--radius-sm);
+      padding: 2px; margin-right: auto;
+    }
+    .trend-metric-tab {
+      padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 500;
+      color: var(--text-muted); cursor: pointer; border: none; background: none;
+      font-family: var(--font-ui); transition: all 0.15s ease; white-space: nowrap;
+    }
+    .trend-metric-tab.active {
+      background: var(--bg-surface); color: var(--text-primary);
+      box-shadow: var(--shadow-md);
+    }
+    .trend-metric-tab:hover:not(.active) { color: var(--text-secondary); }
+    .trend-cond-toggles { display: flex; gap: 6px; flex-wrap: wrap; }
+    .trend-cond-toggle {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 10px 4px 6px; border-radius: 20px; font-size: 11px; font-weight: 500;
+      cursor: pointer; border: 1px solid var(--border-default);
+      background: var(--bg-elevated); color: var(--text-muted);
+      font-family: var(--font-ui); transition: all 0.15s ease;
+    }
+    .trend-cond-toggle.active {
+      border-color: var(--border-strong); color: var(--text-primary);
+    }
+    .trend-cond-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .trend-cond-toggle:not(.active) .trend-cond-dot { opacity: 0.35; }
+    .trend-chart-wrap {
+      position: relative; width: 100%; height: 300px;
+    }
+
+    /* ── Convergence Sparklines ─────────────────────────────────────────── */
+    .convergence-section { margin-bottom: 20px; }
+    .convergence-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;
+    }
+    .convergence-card {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 14px;
+    }
+    .convergence-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+    }
+    .convergence-title { font-size: 13px; font-weight: 600; }
+    .convergence-meta { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+    .convergence-chart { position: relative; width: 100%; height: 120px; }
+
+    /* ── Parse Rate Trend ────────────────────────────────────────────────── */
+    .parse-trend-section {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px;
+    }
+    .parse-trend-chart { position: relative; width: 100%; height: 160px; }
+
+    /* ── Completion Rate Section ─────────────────────────────────────────── */
+    .completion-rate-section {
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px;
+    }
+    .completion-rate-chart { position: relative; width: 100%; height: 160px; }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      #content { padding: 12px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+      .kpi-value { font-size: 18px; }
+      .progress-pct { font-size: 24px; }
+      .theme-bar-bg { width: 80px; }
+      .episode-preset, .episode-tokens { display: none; }
+      .diag-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1024px) {
+      #content { padding: 24px; }
+      .card-grid { grid-template-columns: repeat(4, 1fr); }
+      .modal-content { border-radius: var(--radius-lg); max-height: 80dvh; margin-bottom: 40px; }
+      .modal { align-items: center; }
+      .trend-chart-wrap { height: 400px; }
+    }
+    @media (min-width: 1441px) {
+      .kpi-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="logo">VL</div>
+    <span class="topbar-title">Experiment Dashboard</span>
+  </div>
+  <div class="topbar-right">
+    <span id="live-dot" class="live-dot"></span>
+    <select id="run-select"></select>
+  </div>
+</header>
+
+<nav id="tabs"></nav>
+<main id="content"></main>
+<div id="modal" class="modal"></div>
+
+<script>
+/* ── Config & State ──────────────────────────────────────────────────────── */
+const COND = {
+  1: {name:'Control', short:'C1 No FB', color:'#9ca3af'},
+  2: {name:'Dim Feedback', short:'C2 Likert', color:'#60a5fa'},
+  3: {name:'Full System', short:'C3 Full', color:'#34d399'},
+  4: {name:'Qualitative', short:'C4 Qual', color:'#a78bfa'},
+};
+const DIM_COLORS = {R:'#60a5fa', I:'#fbbf24', V:'#34d399'};
+
+let state = {
+  view: 'overview', theme: null, db: 'experiment.db',
+  data: null, themeData: null, charts: [], refreshTimer: null,
+};
+
+/* ── DOM Helpers ─────────────────────────────────────────────────────────── */
+function h(tag, attrs) {
+  const el = document.createElement(tag);
+  if (attrs) {
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v == null) continue;
+      if (k === 'cls') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k === 'onclick') el.addEventListener('click', v);
+      else if (k === 'style' && typeof v === 'object') Object.assign(el.style, v);
+      else el.setAttribute(k, String(v));
+    }
+  }
+  const children = Array.from(arguments).slice(2);
+  for (const c of children) {
+    if (c == null) continue;
+    if (typeof c === 'string') el.appendChild(document.createTextNode(c));
+    else if (Array.isArray(c)) c.forEach(x => x && el.appendChild(x));
+    else el.appendChild(c);
+  }
+  return el;
+}
+
+const fmt = {
+  n: v => v != null ? Number(v).toLocaleString() : '\u2014',
+  d: (v, p=3) => v != null ? Number(v).toFixed(p) : '\u2014',
+  p: v => v != null ? v + '%' : '\u2014',
+  tok: v => {
+    if (v == null) return '\u2014';
+    if (v >= 1e6) return (v/1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return (v/1e3).toFixed(1) + 'K';
+    return String(v);
+  },
+};
+
+/* ── API ─────────────────────────────────────────────────────────────────── */
+async function api(path, params={}) {
+  params.db = state.db;
+  const qs = new URLSearchParams(params).toString();
+  try {
+    const r = await fetch('/api/' + path + '?' + qs);
+    return await r.json();
+  } catch(e) {
+    console.error('API error:', e);
+    return null;
+  }
+}
+
+/* ── Rendering: Tabs ─────────────────────────────────────────────────────── */
+function renderTabs(themes) {
+  const nav = document.getElementById('tabs');
+  const tabs = [
+    h('button', {cls: 'tab' + (state.view === 'overview' ? ' active' : ''), onclick: () => switchView('overview')},
+      h('span', {text: 'Overview'})
+    ),
+  ];
+  for (const t of (themes || [])) {
+    const shortName = t.theme.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const isActive = state.view === 'theme' && state.theme === t.theme;
+    const badge = h('span', {cls: 'tab-badge', text: t.pct + '%'});
+    const btn = h('button', {cls: 'tab' + (isActive ? ' active' : ''), onclick: () => switchView('theme', t.theme)},
+      h('span', {text: shortName}), badge
+    );
+    tabs.push(btn);
+  }
+  nav.replaceChildren(...tabs);
+}
+
+/* ── Rendering: Overview ─────────────────────────────────────────────────── */
+function renderOverview(d) {
+  const content = document.getElementById('content');
+  const sections = [];
+
+  // Progress card — enhanced with completion rate
+  const cr = d.completion_rate || {};
+  const progFill = h('div', {cls:'progress-bar-fill', style:{width: d.pct+'%'}});
+  const recentRateText = cr.recent_rate != null ? cr.recent_rate + ' ep/h' : d.tasks_per_hour + '/h';
+  const etaText = cr.projected_hours != null ? cr.projected_hours + 'h' : d.eta_hours + 'h';
+  const etaDateText = cr.projected_completion ? ' (' + cr.projected_completion + ')' : '';
+  const progStats = h('div', {cls:'progress-stats'},
+    h('span', {cls:'progress-stat'}, h('strong', {text: d.tasks_done+'/'+d.total_tasks}), ' tasks'),
+    h('span', {cls:'progress-stat'}, h('strong', {text: d.total_episodes+'/1000'}), ' episodes'),
+    h('span', {cls:'progress-stat'}, h('strong', {text: d.elapsed_hours+'h'}), ' elapsed'),
+    h('span', {cls:'progress-stat'}, h('strong', {text: recentRateText}), ' recent rate'),
+    h('span', {cls:'progress-stat'}, h('strong', {text: etaText}), ' ETA' + etaDateText),
+  );
+  sections.push(h('div', {cls:'progress-card'},
+    h('div', {cls:'progress-header'},
+      h('span', {cls:'progress-pct', text: d.pct+'%'}),
+      h('span', {cls:'progress-detail', text: 'Retrieval Weight Experiment'}),
+    ),
+    h('div', {cls:'progress-bar-bg'}, progFill),
+    progStats,
+  ));
+
+  // Trend chart (full-width, all conditions)
+  const trendEl = buildTrendSection();
+  sections.push(trendEl);
+  requestAnimationFrame(() => loadTrendChart(null));
+
+  // KPIs
+  const conds = d.conditions || [];
+  const avgReward = conds.filter(c=>c.avg_reward!=null).reduce((s,c)=>s+c.avg_reward,0) / (conds.filter(c=>c.avg_reward!=null).length||1);
+  const avgNdcg = conds.filter(c=>c.ndcg5!=null).reduce((s,c)=>s+c.ndcg5,0) / (conds.filter(c=>c.ndcg5!=null).length||1);
+  const avgMrr = conds.filter(c=>c.mrr!=null).reduce((s,c)=>s+c.mrr,0) / (conds.filter(c=>c.mrr!=null).length||1);
+  const totalParse = conds.reduce((s,c)=>s+c.episodes,0);
+  const totalFb = conds.filter(c=>c.id>1).reduce((s,c)=>s + Math.round(c.episodes * c.parse_rate/100), 0);
+  const parseOverall = totalParse > 0 ? Math.round(totalFb / conds.filter(c=>c.id>1).reduce((s,c)=>s+c.episodes,0) * 100) : 0;
+
+  sections.push(h('div', {cls:'kpi-grid'},
+    makeKpi(fmt.tok(d.total_tokens), 'Total Tokens'),
+    makeKpi(fmt.tok(Math.round(d.total_tokens / (d.total_episodes || 1))), 'Avg Tok/Ep'),
+    makeKpi(fmt.d(avgReward), 'Avg Reward', avgReward > 0.6 ? '--color-success' : null),
+    makeKpi(fmt.d(avgNdcg), 'NDCG@5'),
+    makeKpi(fmt.d(avgMrr), 'MRR'),
+    makeKpi(fmt.p(parseOverall), 'Parse Rate'),
+    makeKpi(d.c3_embeddings + '/' + d.c3_feedback, 'C3 Embeds'),
+  ));
+
+  // Completion rate chart
+  if (cr.rate_points && cr.rate_points.length > 1) {
+    const crSection = h('div', {cls:'completion-rate-section'});
+    crSection.appendChild(h('div', {cls:'section-title', text: 'Throughput (Episodes / Hour)'}));
+    const crChartWrap = h('div', {cls:'completion-rate-chart'});
+    const crCanvas = h('canvas');
+    crChartWrap.appendChild(crCanvas);
+    crSection.appendChild(crChartWrap);
+    sections.push(crSection);
+    requestAnimationFrame(() => {
+      const rateChart = makeLineChart(
+        crCanvas,
+        cr.rate_points.map(p => p.iter),
+        [{
+          label: 'Episodes/hour',
+          data: cr.rate_points.map(p => p.rate),
+          borderColor: '#60a5fa',
+          fill: {target: 'origin', backgroundColor: 'rgba(96,165,250,0.08)'},
+        }],
+        {min: 0}
+      );
+      state.charts.push(rateChart);
+    });
+  }
+
+  // Parse rate trend
+  if (d.parse_rate_trend && d.parse_rate_trend.length > 1) {
+    const prSection = h('div', {cls:'parse-trend-section'});
+    prSection.appendChild(h('div', {cls:'section-title', text: 'Parse Rate Trend (Rolling 10)'}));
+    const prChartWrap = h('div', {cls:'parse-trend-chart'});
+    const prCanvas = h('canvas');
+    prChartWrap.appendChild(prCanvas);
+    prSection.appendChild(prChartWrap);
+    sections.push(prSection);
+    requestAnimationFrame(() => {
+      const lastRate = d.parse_rate_trend[d.parse_rate_trend.length - 1].rate;
+      const trendColor = lastRate >= 90 ? '#34d399' : lastRate >= 70 ? '#fbbf24' : '#f87171';
+      const prChart = makeLineChart(
+        prCanvas,
+        d.parse_rate_trend.map(p => p.iter),
+        [{
+          label: 'Parse Rate %',
+          data: d.parse_rate_trend.map(p => p.rate),
+          borderColor: trendColor,
+          fill: {target: 'origin', backgroundColor: trendColor + '12'},
+        }],
+        {min: 0, max: 100}
+      );
+      state.charts.push(prChart);
+    });
+  }
+
+  // Theme progress
+  if (d.themes && d.themes.length) {
+    const rows = d.themes.map(t => {
+      const fill = h('div', {cls:'theme-bar-fill', style:{width: t.pct+'%'}});
+      return h('div', {cls:'theme-row', onclick: () => switchView('theme', t.theme)},
+        h('span', {cls:'theme-name', text: t.theme.replace(/_/g,' ')}),
+        h('div', {cls:'theme-bar-bg'}, fill),
+        h('span', {cls:'theme-pct', text: t.pct+'%'}),
+        h('span', {cls:'theme-count', text: t.episodes+'/'+t.total_possible}),
+      );
+    });
+    sections.push(h('div', {cls:'section'},
+      h('div', {cls:'section-title', text: 'Theme Progress'}),
+      h('div', null, rows),
+    ));
+  }
+
+  // Condition cards
+  sections.push(h('div', {cls:'section'},
+    h('div', {cls:'section-title', text: 'Conditions'}),
+    h('div', {cls:'card-grid'}, conds.map(c => makeCondCard(c))),
+  ));
+
+  // Bandit state
+  if (d.bandits && d.bandits.length) {
+    sections.push(h('div', {cls:'section'},
+      h('div', {cls:'section-title', text: 'Bandit State (Thompson Sampling)'}),
+      d.bandits.map(b => makeBanditCard(b)),
+    ));
+  }
+
+  // Bandit convergence sparklines (async load)
+  const convergenceSection = h('div', {cls:'convergence-section'},
+    h('div', {cls:'section-title', text: 'Bandit Convergence'}),
+    h('div', {cls:'convergence-grid', id: 'convergence-grid'}),
+  );
+  sections.push(convergenceSection);
+  requestAnimationFrame(() => loadBanditConvergence());
+
+  // Diagnostics
+  const diagItems = [];
+  diagItems.push(makeDiag('C3 Embeddings', d.c3_embeddings + '/' + d.c3_feedback, 'Should store explanations'));
+  diagItems.push(makeDiag('C2 Embeddings', String(d.c2_embeddings), d.c2_embeddings === 0 ? 'Correct (no embeds)' : 'WARNING: should be 0', d.c2_embeddings === 0));
+  for (const cid of ['2','3','4']) {
+    const dr = d.drift && d.drift[cid];
+    if (dr && dr.status !== 'insufficient_data') {
+      const cls = dr.status === 'ok' ? 'drift-ok' : dr.status === 'warning' ? 'drift-warn' : 'drift-bad';
+      diagItems.push(makeDiag('C'+cid+' Drift', dr.drift > 0 ? '+'+fmt.d(dr.drift) : fmt.d(dr.drift),
+        dr.first_half != null ? fmt.d(dr.first_half)+' \u2192 '+fmt.d(dr.second_half) : '', null, cls));
+    }
+  }
+  // Efficiency
+  for (const cid of ['2','3','4']) {
+    const ef = d.efficiency && d.efficiency[cid];
+    if (ef) {
+      const label = 'C'+cid+' Efficiency';
+      const val = ef.savings_pct > 0 ? '+'+ef.savings_pct+'%' : ef.savings_pct+'%';
+      diagItems.push(makeDiag(label, val, 'vs Control step count', ef.savings_pct >= 0));
+    }
+  }
+  if (diagItems.length) {
+    sections.push(h('div', {cls:'section'},
+      h('div', {cls:'section-title', text: 'Diagnostics'}),
+      h('div', {cls:'diag-grid'}, diagItems),
+    ));
+  }
+
+  // Recent episodes
+  if (d.recent && d.recent.length) {
+    sections.push(h('div', {cls:'section'},
+      h('div', {cls:'section-title', text: 'Recent Episodes'}),
+      h('div', {cls:'episodes-list'}, d.recent.map(ep => makeEpisodeRow(ep))),
+    ));
+  }
+
+  content.replaceChildren(...sections);
+}
+
+function makeKpi(value, label, colorVar) {
+  const valEl = h('div', {cls:'kpi-value', text: value});
+  if (colorVar) valEl.style.color = 'var('+colorVar+')';
+  return h('div', {cls:'kpi'}, valEl, h('div', {cls:'kpi-label', text: label}));
+}
+
+function makeCondCard(c) {
+  const accent = h('div', {cls:'card-accent', style:{background: c.color}});
+  const stats = h('div', {cls:'card-stats'},
+    makeStat('Episodes', String(c.episodes)),
+    makeStat('Parse %', c.id === 1 ? 'N/A' : fmt.p(c.parse_rate)),
+    makeStat('Avg Reward', c.id === 1 ? 'N/A' : fmt.d(c.avg_reward)),
+    makeStat('NDCG@5', fmt.d(c.ndcg5)),
+    makeStat('MRR', fmt.d(c.mrr)),
+    makeStat('Avg Tokens', fmt.n(c.avg_tokens)),
+    makeStat('Avg In', fmt.n(c.avg_input_tokens)),
+    makeStat('Avg Out', fmt.n(c.avg_output_tokens)),
+    makeStat('Avg Steps', fmt.d(c.avg_steps, 1)),
+  );
+  const dims = c.id > 1 ? makeDimBars(c.avg_recency, c.avg_importance, c.avg_relevance) : null;
+  const card = h('div', {cls:'card', onclick: () => openConditionModal(c.id)},
+    accent,
+    h('div', {cls:'card-header'},
+      h('span', {cls:'card-title', style:{color: c.color}, text: c.name}),
+      h('span', {cls:'card-subtitle', text: c.short}),
+    ),
+    stats,
+    dims,
+  );
+  return card;
+}
+
+function makeStat(label, value) {
+  return h('div', null,
+    h('div', {cls:'card-stat-label', text: label}),
+    h('div', {cls:'card-stat-value', text: value}),
+  );
+}
+
+function makeDimBars(r, i, v) {
+  return h('div', {cls:'dim-bars'},
+    makeDimRow('R', r, DIM_COLORS.R),
+    makeDimRow('I', i, DIM_COLORS.I),
+    makeDimRow('V', v, DIM_COLORS.V),
+  );
+}
+
+function makeDimRow(label, value, color) {
+  const pct = value != null ? Math.round(value * 100) : 0;
+  return h('div', {cls:'dim-row'},
+    h('span', {cls:'dim-label', style:{color: color}, text: label}),
+    h('div', {cls:'dim-track'},
+      h('div', {cls:'dim-fill', style:{width: pct+'%', background: color}}),
+    ),
+    h('span', {cls:'dim-val', text: value != null ? fmt.d(value, 2) : '\u2014'}),
+  );
+}
+
+function makeBanditCard(b) {
+  const maxPulls = Math.max(...b.arms.map(a => a.pulls), 1);
+  const armRows = b.arms.map((a, i) => {
+    const pct = Math.round(a.pulls / maxPulls * 100);
+    const isBest = i === 0 && a.pulls > 0;
+    const nameEl = h('span', {cls:'arm-name' + (isBest ? ' arm-best' : ''), text: a.preset});
+    const fillEl = h('div', {cls:'arm-bar-fill', style:{width: pct+'%', background: isBest ? b.color : 'var(--bg-hover)'}});
+    return h('div', {cls:'arm-row'},
+      nameEl,
+      h('div', {cls:'arm-bar-bg'}, fillEl),
+      h('span', {cls:'arm-pulls', text: String(a.pulls)}),
+      h('span', {cls:'arm-mean' + (isBest ? ' arm-best' : ''), text: fmt.d(a.mean, 2)}),
+    );
+  });
+  const metaParts = [];
+  if (b.exploration_ratio != null) metaParts.push('expl=' + fmt.d(b.exploration_ratio, 2));
+  if (b.preset_entropy != null) metaParts.push('H=' + fmt.d(b.preset_entropy, 2));
+  if (b.cumulative_regret != null) metaParts.push('regret=' + fmt.d(b.cumulative_regret, 1));
+
+  return h('div', {cls:'bandit-card'},
+    h('div', {cls:'bandit-header'},
+      h('span', {cls:'bandit-title', style:{color: b.color}, text: b.name}),
+      h('span', {cls:'bandit-meta', text: b.total_pulls + ' pulls  ' + metaParts.join('  ')}),
+    ),
+    h('div', null, armRows),
+  );
+}
+
+function makeDiag(label, value, sub, isOk, cls) {
+  const valEl = h('div', {cls:'diag-value' + (cls ? ' '+cls : ''), text: value});
+  if (isOk === true) valEl.style.color = 'var(--color-success)';
+  else if (isOk === false) valEl.style.color = 'var(--color-error)';
+  return h('div', {cls:'diag-item'},
+    h('div', {cls:'diag-label', text: label}),
+    valEl,
+    sub ? h('div', {cls:'diag-sub', text: sub}) : null,
+  );
+}
+
+function makeEpisodeRow(ep) {
+  const fbStr = ep.feedback
+    ? 'R='+ep.feedback.r+' I='+ep.feedback.i+' V='+ep.feedback.v
+    : (ep.cid === 1 ? 'no fb' : '\u2014');
+  return h('div', {cls:'episode-row'},
+    h('span', {cls:'episode-time', text: ep.time}),
+    h('span', {cls:'episode-cond', style:{background: ep.color}}),
+    h('span', {cls:'episode-title', text: ep.title || ep.task_id}),
+    h('span', {cls:'episode-preset', text: ep.preset || ''}),
+    h('span', {cls:'episode-tokens', text: fmt.tok(ep.tokens)}),
+    h('span', {cls:'episode-fb', text: fbStr}),
+  );
+}
+
+/* ── Rendering: Theme View ───────────────────────────────────────────────── */
+function renderTheme(d) {
+  const content = document.getElementById('content');
+  const sections = [];
+
+  // Header
+  const themeName = (d.theme || '').replace(/_/g, ' ');
+  sections.push(h('div', {cls:'section'},
+    h('div', {cls:'section-title', text: themeName + ' \u2014 ' + (d.total_tasks || 0) + ' tasks'}),
+  ));
+
+  // Trend chart (full-width, all conditions for this theme)
+  const trendEl = buildTrendSection();
+  sections.push(trendEl);
+  requestAnimationFrame(() => loadTrendChart(d.theme));
+
+  // Condition cards (detailed)
+  const cards = (d.conditions || []).map(c => {
+    const accent = h('div', {cls:'card-accent', style:{background: c.color}});
+    const stats = h('div', {cls:'card-stats'},
+      makeStat('Episodes', String(c.episodes)),
+      makeStat('Parse %', c.id === 1 ? 'N/A' : fmt.p(c.parse_rate)),
+      makeStat('Avg Reward', c.id === 1 ? 'N/A' : fmt.d(c.avg_reward)),
+      makeStat('NDCG@5', fmt.d(c.ndcg5)),
+      makeStat('MRR', fmt.d(c.mrr)),
+      makeStat('Avg Tokens', fmt.n(c.avg_tokens)),
+      makeStat('Avg In', fmt.n(c.avg_input_tokens)),
+      makeStat('Avg Out', fmt.n(c.avg_output_tokens)),
+      makeStat('Avg Steps', fmt.d(c.avg_steps, 1)),
+      makeStat('Total Tokens', fmt.tok(c.total_tokens)),
+    );
+    const dims = c.id > 1 ? makeDimBars(c.avg_recency, c.avg_importance, c.avg_relevance) : null;
+    const presets = c.presets && c.presets.length ? h('div', {cls:'preset-row'},
+      c.presets.map((p, i) =>
+        h('span', {cls:'preset-pill' + (i===0 ? ' best' : ''), text: p.id + '(' + p.count + ')'})
+      ),
+    ) : null;
+
+    return h('div', {cls:'card', onclick: () => openConditionModal(c.id)},
+      accent,
+      h('div', {cls:'card-header'},
+        h('span', {cls:'card-title', style:{color: c.color}, text: c.name}),
+        h('span', {cls:'card-subtitle', text: c.short}),
+      ),
+      stats, dims, presets,
+    );
+  });
+  sections.push(h('div', {cls:'section'},
+    h('div', {cls:'card-grid'}, cards),
+  ));
+
+  // Recent
+  if (d.recent && d.recent.length) {
+    sections.push(h('div', {cls:'section'},
+      h('div', {cls:'section-title', text: 'Recent Episodes'}),
+      h('div', {cls:'episodes-list'}, d.recent.map(ep => makeEpisodeRow(ep))),
+    ));
+  }
+
+  content.replaceChildren(...sections);
+}
+
+/* ── Condition Detail Modal ──────────────────────────────────────────────── */
+async function openConditionModal(cid) {
+  const d = await api('condition', {cid: cid});
+  if (!d) return;
+
+  const modal = document.getElementById('modal');
+  const c = COND[cid];
+
+  // Destroy old charts
+  state.charts.forEach(ch => ch.destroy());
+  state.charts = [];
+
+  const body = h('div', {cls:'modal-body'});
+
+  // Reward trend chart
+  if (d.reward_trend && d.reward_trend.length > 1) {
+    const wrap = h('div', {cls:'chart-wrap'});
+    const canvas = h('canvas');
+    wrap.appendChild(canvas);
+    body.appendChild(h('div', {cls:'chart-section'},
+      h('div', {cls:'chart-label', text: 'Reward Trend (Rolling Avg)'}), wrap));
+    requestAnimationFrame(() => {
+      state.charts.push(makeLineChart(canvas, d.reward_trend.map(p=>p.iter), [{
+        label: 'Reward', data: d.reward_trend.map(p=>p.value), borderColor: c.color, fill: false,
+      }], {min: 0, max: 1}));
+    });
+  }
+
+  // Dimension trends
+  if (d.dim_trends && d.dim_trends.orders && d.dim_trends.orders.length > 1) {
+    const wrap = h('div', {cls:'chart-wrap'});
+    const canvas = h('canvas');
+    wrap.appendChild(canvas);
+    body.appendChild(h('div', {cls:'chart-section'},
+      h('div', {cls:'chart-label', text: 'Dimension Trends (R / I / V)'}), wrap));
+    requestAnimationFrame(() => {
+      state.charts.push(makeLineChart(canvas, d.dim_trends.orders, [
+        {label: 'Recency', data: d.dim_trends.recency, borderColor: DIM_COLORS.R},
+        {label: 'Importance', data: d.dim_trends.importance, borderColor: DIM_COLORS.I},
+        {label: 'Relevance', data: d.dim_trends.relevance, borderColor: DIM_COLORS.V},
+      ], {min: 0, max: 1}));
+    });
+  }
+
+  // Step trend
+  if (d.step_trend && d.step_trend.length > 1) {
+    const wrap = h('div', {cls:'chart-wrap'});
+    const canvas = h('canvas');
+    wrap.appendChild(canvas);
+    body.appendChild(h('div', {cls:'chart-section'},
+      h('div', {cls:'chart-label', text: 'Step Count Trend'}), wrap));
+    requestAnimationFrame(() => {
+      state.charts.push(makeLineChart(canvas, d.step_trend.map(p=>p.iter), [{
+        label: 'Steps', data: d.step_trend.map(p=>p.value), borderColor: '#fbbf24', fill: false,
+      }], {min: 0}));
+    });
+  }
+
+  // Cumulative regret
+  if (d.regret_points && d.regret_points.length > 1) {
+    const wrap = h('div', {cls:'chart-wrap'});
+    const canvas = h('canvas');
+    wrap.appendChild(canvas);
+    body.appendChild(h('div', {cls:'chart-section'},
+      h('div', {cls:'chart-label', text: 'Cumulative Regret'}), wrap));
+    requestAnimationFrame(() => {
+      state.charts.push(makeLineChart(canvas, d.regret_points.map(p=>p.iter), [{
+        label: 'Regret', data: d.regret_points.map(p=>p.regret), borderColor: '#f87171',
+        fill: {target: 'origin', backgroundColor: 'rgba(248,113,113,0.1)'},
+      }], {min: 0}));
+    });
+  }
+
+  // Drift indicator
+  if (d.drift && d.drift.status !== 'insufficient_data') {
+    const cls = d.drift.status === 'ok' ? 'drift-ok' : d.drift.status === 'warning' ? 'drift-warn' : 'drift-bad';
+    const statusText = d.drift.status === 'ok' ? 'No significant drift' : d.drift.status === 'warning' ? 'Upward drift detected' : 'Negative drift';
+    body.appendChild(h('div', {cls:'diag-grid', style:{marginTop:'16px'}},
+      makeDiag('Reward Drift', (d.drift.drift > 0 ? '+' : '') + fmt.d(d.drift.drift), statusText, null, cls),
+      makeDiag('1st Half Avg', fmt.d(d.drift.first_half), 'First 50% of episodes'),
+      makeDiag('2nd Half Avg', fmt.d(d.drift.second_half), 'Last 50% of episodes'),
+    ));
+  }
+
+  const closeBtn = h('button', {cls:'modal-close', text: '\u2715', onclick: closeModal});
+  const header = h('div', {cls:'modal-header'},
+    h('span', {cls:'modal-title', style:{color: c.color}, text: c.name + ' \u2014 Detail'}),
+    closeBtn,
+  );
+
+  const modalContent = h('div', {cls:'modal-content'}, header, body);
+  modal.replaceChildren(modalContent);
+  modal.classList.add('visible');
+
+  // Close on backdrop click
+  modal.addEventListener('click', function handler(e) {
+    if (e.target === modal) { closeModal(); modal.removeEventListener('click', handler); }
+  });
+}
+
+function closeModal() {
+  const modal = document.getElementById('modal');
+  modal.classList.remove('visible');
+  state.charts.forEach(ch => ch.destroy());
+  state.charts = [];
+}
+
+/* ── Chart Factory ───────────────────────────────────────────────────────── */
+function makeLineChart(canvas, labels, datasets, scaleOpts) {
+  const ds = datasets.map(d => ({
+    label: d.label, data: d.data, borderColor: d.borderColor,
+    borderWidth: 2, pointRadius: 0, tension: 0.3,
+    fill: d.fill || false, backgroundColor: d.backgroundColor,
+  }));
+  return new Chart(canvas, {
+    type: 'line',
+    data: {labels, datasets: ds},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {legend: {labels: {boxWidth: 12, padding: 8, font: {size: 11}}}},
+      scales: {
+        x: {grid: {color: 'rgba(42,42,42,0.5)'}, ticks: {maxTicksLimit: 8, font: {size: 10}}},
+        y: {grid: {color: 'rgba(42,42,42,0.5)'}, ticks: {font: {size: 10}},
+           min: scaleOpts && scaleOpts.min, max: scaleOpts && scaleOpts.max},
+      },
+    },
+  });
+}
+
+/* ── Trend Chart (full-width, all conditions) ───────────────────────────── */
+const TREND_METRICS = [
+  {key: 'reward', label: 'Reward Trend'},
+  {key: 'steps',  label: 'Step Count'},
+  {key: 'tokens', label: 'Tokens/Episode'},
+  {key: 'input_tokens', label: 'Input Tokens'},
+  {key: 'output_tokens', label: 'Output Tokens'},
+  {key: 'recency', label: 'Recency'},
+  {key: 'importance', label: 'Importance'},
+  {key: 'relevance', label: 'Relevance'},
+];
+
+let trendState = {chart: null, data: null, metric: 'reward', visible: {1:true, 2:true, 3:true, 4:true}, canvas: null};
+
+function buildTrendSection() {
+  const section = h('div', {cls: 'trend-section'});
+
+  // Metric tabs
+  const tabBar = h('div', {cls: 'trend-metric-tabs'});
+  for (const m of TREND_METRICS) {
+    const btn = h('button', {
+      cls: 'trend-metric-tab' + (trendState.metric === m.key ? ' active' : ''),
+      text: m.label,
+      onclick: () => {
+        trendState.metric = m.key;
+        updateTrendChart();
+        tabBar.querySelectorAll('.trend-metric-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      },
+    });
+    tabBar.appendChild(btn);
+  }
+
+  // Condition toggles
+  const toggles = h('div', {cls: 'trend-cond-toggles'});
+  for (const cid of [1,2,3,4]) {
+    const c = COND[cid];
+    const dot = h('span', {cls: 'trend-cond-dot', style: {background: c.color}});
+    const btn = h('button', {
+      cls: 'trend-cond-toggle' + (trendState.visible[cid] ? ' active' : ''),
+      onclick: () => {
+        trendState.visible[cid] = !trendState.visible[cid];
+        btn.classList.toggle('active');
+        updateTrendChart();
+      },
+    }, dot, document.createTextNode(c.short));
+    toggles.appendChild(btn);
+  }
+
+  const controls = h('div', {cls: 'trend-controls'}, tabBar, toggles);
+  const chartWrap = h('div', {cls: 'trend-chart-wrap'});
+  const canvas = h('canvas');
+  chartWrap.appendChild(canvas);
+
+  section.appendChild(h('div', {cls: 'section-title', text: 'Condition Trends'}));
+  section.appendChild(controls);
+  section.appendChild(chartWrap);
+  trendState.canvas = canvas;
+  return section;
+}
+
+function updateTrendChart() {
+  if (trendState.chart) {
+    trendState.chart.destroy();
+    trendState.chart = null;
+  }
+  const td = trendState.data;
+  if (!td) return;
+
+  const metric = trendState.metric;
+  const datasets = [];
+  let allLabels = [];
+  const needsRefLine = []; // conditions that need a flat reference line
+
+  for (const cid of [1,2,3,4]) {
+    if (!trendState.visible[cid]) continue;
+    const cd = td[String(cid)];
+    if (!cd) continue;
+    const c = COND[cid];
+
+    if (metric === 'reward') {
+      const pts = cd.reward_trend || [];
+      if (pts.length === 0) { needsRefLine.push(cid); continue; }
+      const labels = pts.map(p => p.iter);
+      if (labels.length > allLabels.length) allLabels = labels;
+      datasets.push({label: c.short, data: pts.map(p => p.value), borderColor: c.color, labels: labels});
+    } else if (metric === 'steps') {
+      const pts = cd.step_trend || [];
+      if (pts.length === 0) continue;
+      const labels = pts.map(p => p.iter);
+      if (labels.length > allLabels.length) allLabels = labels;
+      datasets.push({label: c.short, data: pts.map(p => p.value), borderColor: c.color, labels: labels});
+    } else if (metric === 'tokens') {
+      const pts = cd.token_trend || [];
+      if (pts.length === 0) continue;
+      const labels = pts.map(p => p.iter);
+      if (labels.length > allLabels.length) allLabels = labels;
+      datasets.push({label: c.short, data: pts.map(p => p.value), borderColor: c.color, labels: labels});
+    } else if (metric === 'input_tokens') {
+      const pts = cd.input_token_trend || [];
+      if (pts.length === 0) continue;
+      const labels = pts.map(p => p.iter);
+      if (labels.length > allLabels.length) allLabels = labels;
+      datasets.push({label: c.short, data: pts.map(p => p.value), borderColor: c.color, labels: labels});
+    } else if (metric === 'output_tokens') {
+      const pts = cd.output_token_trend || [];
+      if (pts.length === 0) continue;
+      const labels = pts.map(p => p.iter);
+      if (labels.length > allLabels.length) allLabels = labels;
+      datasets.push({label: c.short, data: pts.map(p => p.value), borderColor: c.color, labels: labels});
+    } else {
+      const dim = cd.dim_trends || {};
+      const orders = dim.orders || [];
+      const vals = dim[metric] || [];
+      if (orders.length === 0) { needsRefLine.push(cid); continue; }
+      if (orders.length > allLabels.length) allLabels = orders;
+      datasets.push({label: c.short, data: vals, borderColor: c.color, labels: orders});
+    }
+  }
+
+  // For conditions with no feedback data (e.g. C1 Control), add a flat reference
+  // line using step_trend x-axis points as the baseline spans the same iterations.
+  for (const cid of needsRefLine) {
+    const cd = td[String(cid)];
+    if (!cd) continue;
+    const c = COND[cid];
+    // Use step_trend to get x-axis points (episodes exist, just no feedback)
+    const stepPts = cd.step_trend || [];
+    const refLabels = stepPts.length > 0
+      ? stepPts.map(p => p.iter)
+      : (allLabels.length > 0 ? allLabels : []);
+    if (refLabels.length === 0) continue;
+    if (refLabels.length > allLabels.length) allLabels = refLabels;
+    // Flat baseline: 0.333 for reward and dimension metrics (uniform weights)
+    const baseline = 0.333;
+    datasets.push({
+      label: c.short, data: refLabels.map(() => baseline),
+      borderColor: c.color, labels: refLabels, isRefLine: true,
+    });
+  }
+
+  if (datasets.length === 0 || allLabels.length < 2) return;
+
+  const canvas = trendState.canvas;
+  if (!canvas) return;
+
+  const scaleOpts = (metric === 'steps' || metric === 'tokens' || metric === 'input_tokens' || metric === 'output_tokens') ? {min: 0} : {min: 0, max: 1};
+
+  const chartDatasets = datasets.map(ds => {
+    const isControl = ds.label === COND[1].short;
+    return {
+      label: ds.label, data: ds.data, borderColor: ds.borderColor,
+      borderWidth: isControl ? 2.5 : 2, pointRadius: 0, tension: 0.3, fill: false,
+      borderDash: isControl ? [6, 3] : [],
+    };
+  });
+
+  trendState.chart = new Chart(canvas, {
+    type: 'line',
+    data: {labels: allLabels, datasets: chartDatasets},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {legend: {labels: {boxWidth: 12, padding: 8, font: {size: 11}}}},
+      scales: {
+        x: {grid: {color: 'rgba(42,42,42,0.5)'}, ticks: {maxTicksLimit: 10, font: {size: 10}}},
+        y: {grid: {color: 'rgba(42,42,42,0.5)'}, ticks: {font: {size: 10}},
+           min: scaleOpts.min, max: scaleOpts.max},
+      },
+    },
+  });
+}
+
+async function loadTrendChart(theme) {
+  let td;
+  if (theme) {
+    td = await api('theme-trends', {theme: theme});
+  } else {
+    td = await api('trends');
+  }
+  if (!td || td.error) return;
+  trendState.data = td;
+  updateTrendChart();
+}
+
+/* ── Bandit Convergence Visualization ────────────────────────────────────── */
+async function loadBanditConvergence() {
+  const bh = await api('bandit-history');
+  if (!bh || bh.error) return;
+
+  const grid = document.getElementById('convergence-grid');
+  if (!grid) return;
+
+  const cards = [];
+  for (const cid of ['2', '3', '4']) {
+    const condData = bh[cid];
+    if (!condData || !condData.best_arm_history || condData.best_arm_history.length < 2) continue;
+
+    const c = COND[parseInt(cid)];
+    const bestHistory = condData.best_arm_history;
+    const lastEntry = bestHistory[bestHistory.length - 1];
+    const metaText = 'best: ' + lastEntry.arm + ' (' + fmt.d(lastEntry.mean, 3) + ')';
+
+    const card = h('div', {cls: 'convergence-card'});
+    card.appendChild(h('div', {cls: 'convergence-header'},
+      h('span', {cls: 'convergence-title', style: {color: c.color}, text: c.name}),
+      h('span', {cls: 'convergence-meta', text: metaText}),
+    ));
+
+    const chartWrap = h('div', {cls: 'convergence-chart'});
+    const canvas = h('canvas');
+    chartWrap.appendChild(canvas);
+    card.appendChild(chartWrap);
+    cards.push(card);
+
+    // Build datasets for all arms
+    const armHistories = condData.arm_histories || {};
+    const armNames = Object.keys(armHistories);
+    const datasets = [];
+
+    // Color palette for arms (muted variants)
+    const armColors = ['#60a5fa', '#34d399', '#fbbf24', '#a78bfa', '#f87171'];
+
+    for (let i = 0; i < armNames.length; i++) {
+      const armName = armNames[i];
+      const armData = armHistories[armName];
+      if (!armData || armData.length < 2) continue;
+
+      const isBestArm = armName === lastEntry.arm;
+      datasets.push({
+        label: armName,
+        data: armData.map(p => p.mean),
+        borderColor: isBestArm ? c.color : armColors[i % armColors.length] + '60',
+        borderWidth: isBestArm ? 2.5 : 1,
+        pointRadius: 0,
+        tension: 0.3,
+        fill: false,
+        borderDash: isBestArm ? [] : [3, 3],
+      });
+    }
+
+    const labels = bestHistory.map(p => p.iter);
+
+    // Defer chart creation to after DOM insertion
+    ((cv, lb, ds) => {
+      requestAnimationFrame(() => {
+        const chart = new Chart(cv, {
+          type: 'line',
+          data: {labels: lb, datasets: ds},
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: {mode: 'index', intersect: false},
+            plugins: {
+              legend: {
+                display: true,
+                labels: {boxWidth: 8, padding: 6, font: {size: 9}},
+              },
+            },
+            scales: {
+              x: {display: false},
+              y: {
+                grid: {color: 'rgba(42,42,42,0.5)'},
+                ticks: {font: {size: 9}},
+                min: 0.3, max: 0.8,
+              },
+            },
+          },
+        });
+        state.charts.push(chart);
+      });
+    })(canvas, labels, datasets);
+  }
+
+  grid.replaceChildren(...cards);
+}
+
+/* ── Navigation ──────────────────────────────────────────────────────────── */
+async function switchView(view, theme) {
+  state.view = view;
+  state.theme = theme || null;
+  closeModal();
+  // Destroy any inline charts (convergence, parse rate, completion rate)
+  state.charts.forEach(ch => ch.destroy());
+  state.charts = [];
+  if (trendState.chart) { trendState.chart.destroy(); trendState.chart = null; }
+  trendState.data = null;
+  trendState.metric = 'reward';
+  trendState.visible = {1:true, 2:true, 3:true, 4:true};
+
+  if (view === 'overview') {
+    const d = await api('overview');
+    if (!d || d.error) return;
+    state.data = d;
+    renderTabs(d.themes);
+    renderOverview(d);
+  } else if (view === 'theme') {
+    const d = await api('theme', {theme});
+    if (!d || d.error) return;
+    state.themeData = d;
+    // Update tab active state
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    const idx = (state.data && state.data.themes) ? state.data.themes.findIndex(x => x.theme === theme) + 1 : -1;
+    if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+    renderTheme(d);
+  }
+}
+
+/* ── Auto-refresh ────────────────────────────────────────────────────────── */
+function startRefresh() {
+  if (state.refreshTimer) clearInterval(state.refreshTimer);
+  state.refreshTimer = setInterval(async () => {
+    if (state.view === 'overview') {
+      const d = await api('overview');
+      if (d && !d.error) {
+        state.data = d;
+        renderTabs(d.themes);
+        renderOverview(d);
+      }
+    } else if (state.view === 'theme' && state.theme) {
+      const d = await api('theme', {theme: state.theme});
+      if (d && !d.error) {
+        state.themeData = d;
+        renderTheme(d);
+      }
+    }
+  }, 15000);
+}
+
+/* ── Init ────────────────────────────────────────────────────────────────── */
+async function init() {
+  // Chart.js dark defaults
+  Chart.defaults.color = '#9ca3af';
+  Chart.defaults.borderColor = '#2a2a2a';
+  Chart.defaults.font.family = "'Inter', sans-serif";
+
+  // Load runs
+  const runs = await api('runs');
+  const sel = document.getElementById('run-select');
+  if (runs && runs.length) {
+    for (const r of runs) {
+      const opt = h('option', {value: r.file, text: r.label});
+      sel.appendChild(opt);
+    }
+    sel.addEventListener('change', () => {
+      state.db = sel.value;
+      switchView(state.view, state.theme);
+    });
+  }
+
+  // Initial load
+  await switchView('overview');
+  startRefresh();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

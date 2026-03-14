@@ -1,0 +1,32 @@
+# Experiment runner with Langfuse observability
+# Usage: docker compose up experiment
+#
+# Credentials: Create a .env file or set environment variables.
+# Required: MINIMAX_API_KEY
+# Optional: LANGFUSE_SECRET_KEY, LANGFUSE_PUBLIC_KEY, LANGFUSE_HOST
+
+services:
+  experiment:
+    build: .
+    env_file:
+      - ${CREDENTIALS_FILE:-.env}
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data
+      - hf-cache:/root/.cache/huggingface
+    command: ["uv", "run", "python", "scripts/run_full_experiment.py"]
+
+  integration-test:
+    build: .
+    env_file:
+      - ${CREDENTIALS_FILE:-.env}
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data
+      - hf-cache:/root/.cache/huggingface
+    command: ["uv", "run", "python", "scripts/run_integration_test.py"]
+    profiles:
+      - test
+
+volumes:
+  hf-cache:

@@ -1,0 +1,2402 @@
+[
+  {
+    "task_id": "task_001",
+    "theme": "ml_fundamentals",
+    "title": "Explain Backpropagation Algorithm",
+    "description": "Define backpropagation and explain how gradients flow backward through a neural network. Describe the chain rule application for computing partial derivatives with respect to each weight parameter.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_002",
+    "theme": "ml_fundamentals",
+    "title": "Compare SGD vs Adam Optimizer",
+    "description": "Compare Stochastic Gradient Descent (SGD) and Adam optimizers in terms of convergence speed, memory requirements, and typical use cases. When would you choose one over the other?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_003",
+    "theme": "ml_fundamentals",
+    "title": "Explain Attention Mechanism",
+    "description": "Explain the scaled dot-product attention mechanism used in Transformers. Describe what queries, keys, and values represent, how attention weights are computed via softmax, and why the scaling factor prevents gradient saturation in high-dimensional spaces.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_004",
+    "theme": "ml_fundamentals",
+    "title": "Define CNN Architecture",
+    "description": "Define the basic architecture of a Convolutional Neural Network. Explain convolutional layers, pooling, and how they extract spatial features from image data. Discuss stride, padding, and the role of fully connected layers in final classification.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_005",
+    "theme": "ml_fundamentals",
+    "title": "Explain Regularization Techniques",
+    "description": "Define L1 and L2 regularization. Explain how they prevent overfitting by penalizing large weights and what the geometric difference is between them. Discuss sparsity effects of L1 versus the weight decay behavior of L2.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_006",
+    "theme": "ml_fundamentals",
+    "title": "Understanding Loss Functions",
+    "description": "Explain three common loss functions: cross-entropy, mean squared error, and hinge loss. Describe when each is appropriate, what objective they optimize, and how the choice of loss function affects gradient magnitude and model convergence behavior.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_007",
+    "theme": "ml_fundamentals",
+    "title": "RNN vs LSTM Comparison",
+    "description": "Compare Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks. Explain the vanishing gradient problem and how LSTMs address it through gating mechanisms including forget, input, and output gates that control information flow.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_008",
+    "theme": "ml_fundamentals",
+    "title": "Batch Normalization Overview",
+    "description": "Explain batch normalization: what problem does it solve, how does it normalize inputs, and what are the benefits for training speed and stability? Discuss the role of learnable scale and shift parameters during inference.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_009",
+    "theme": "ml_fundamentals",
+    "title": "What is Transfer Learning",
+    "description": "Define transfer learning and explain why pre-training on large datasets then fine-tuning on task-specific data is effective. Provide one concrete example, such as using ImageNet features for medical image classification with limited labeled data.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_010",
+    "theme": "ml_fundamentals",
+    "title": "Few-Shot Learning Basics",
+    "description": "Explain few-shot learning: what is it, how does it differ from traditional supervised learning, and name two approaches (e.g., meta-learning, in-context learning). Discuss how support sets and query sets structure the learning problem.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_011",
+    "theme": "ml_fundamentals",
+    "title": "Dropout Regularization Mechanism",
+    "description": "Explain how dropout prevents overfitting during training. Describe the dropout probability parameter and how it affects network training vs inference. Discuss the relationship between dropout and ensemble learning, and typical dropout rates for different layer types.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_012",
+    "theme": "ml_fundamentals",
+    "title": "Neural Architecture Search Intro",
+    "description": "Briefly explain Neural Architecture Search (NAS): what problem does it solve, what are the main search strategies (e.g., reinforcement learning, evolutionary), and computational cost considerations.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_013",
+    "theme": "ml_fundamentals",
+    "title": "Gradient Descent Variants",
+    "description": "Compare Batch GD, Stochastic GD, and Mini-batch GD in terms of computational cost, noise level, and convergence properties. Discuss how mini-batch size affects gradient variance, memory usage, and the ability to escape local minima.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_014",
+    "theme": "ml_fundamentals",
+    "title": "Activation Functions in Deep Learning",
+    "description": "Name and explain four activation functions (ReLU, Sigmoid, Tanh, SoftMax). Describe when each is used and advantages/disadvantages. Include the dying ReLU problem, saturation regions, and how Leaky ReLU and GELU address these limitations.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_015",
+    "theme": "ml_fundamentals",
+    "title": "Overfitting and Underfitting",
+    "description": "Define overfitting and underfitting. Explain the bias-variance tradeoff and strategies to diagnose and mitigate each. Discuss learning curves, regularization techniques, early stopping, and how model complexity interacts with dataset size to determine generalization.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_016",
+    "theme": "ml_fundamentals",
+    "title": "Normalization Techniques Overview",
+    "description": "Compare batch normalization, layer normalization, and instance normalization. For each technique, explain the axis of normalization, typical use cases (CNNs vs RNNs vs style transfer), and how the choice affects training stability and convergence speed. When would you choose one over the others?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_017",
+    "theme": "ml_fundamentals",
+    "title": "Initialization Strategies",
+    "description": "Explain why proper weight initialization matters in deep networks. Describe Xavier/Glorot and He initialization and why they prevent vanishing/exploding gradients. Discuss how each method accounts for layer width and activation function characteristics.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_018",
+    "theme": "ml_fundamentals",
+    "title": "Classification vs Regression",
+    "description": "Define classification and regression problems. Name one loss function and one metric appropriate for each. Explain how the output layer design differs between them, including softmax for classification versus linear activation for regression tasks.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_019",
+    "theme": "ml_fundamentals",
+    "title": "Cross-Validation for Model Selection",
+    "description": "Explain k-fold cross-validation: why it's better than a single train-test split for hyperparameter tuning and how it estimates generalization error. Discuss stratified k-fold for imbalanced datasets and typical choices for k in practice.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_020",
+    "theme": "ml_fundamentals",
+    "title": "Embedding Layers in Neural Networks",
+    "description": "Explain what embedding layers do, why they're useful for categorical data, and how they reduce dimensionality while capturing semantic relationships. Discuss how embeddings are learned during training and their use in word representations and recommendation systems.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_021",
+    "theme": "ml_fundamentals",
+    "title": "Advanced Backpropagation Analysis",
+    "description": "You have a 4-layer feedforward network with ReLU activations and squared error loss. The gradient for weight w2 in layer 2 is computed as ∂L/∂w2 = (∂L/∂y)(∂y/∂o3)(∂o3/∂o2)(∂o2/∂w2). Explain why certain intermediate terms might vanish and how residual connections or skip connections mitigate this.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_022",
+    "theme": "ml_fundamentals",
+    "title": "Design Optimizer for Sparse Data",
+    "description": "You need to optimize a model for a task with sparse feature vectors and infrequent updates to different parameters. Compare why AdaGrad or Proximal SGD might be better than vanilla Adam for this scenario. What does each do to handle sparsity?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_023",
+    "theme": "ml_fundamentals",
+    "title": "Multi-Head Attention Deep Dive",
+    "description": "A Transformer layer uses 8 attention heads. Explain why multiple heads help capture different relationships. Design an experiment to measure if all heads learn distinct patterns or if some are redundant.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_024",
+    "theme": "ml_fundamentals",
+    "title": "Analyzing CNN Filter Learning",
+    "description": "After training a CNN on 100,000 images, you notice that many filters in early layers look similar (e.g., edge detectors). Is this redundancy a problem? Explain why it happens and whether you should prune similar filters or use regularization to encourage diversity.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_025",
+    "theme": "ml_fundamentals",
+    "title": "Loss Function Landscape Analysis",
+    "description": "Compare cross-entropy loss vs focal loss for imbalanced classification. Given a dataset where one class is 95% of data, explain how focal loss reshapes the landscape to focus on hard examples. Derive or explain the mathematical difference.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_026",
+    "theme": "ml_fundamentals",
+    "title": "Dropout Rate Optimization",
+    "description": "You're training a model and observing underfitting with dropout=0.2 but overfitting with dropout=0.5. Explain what's happening and design a principled approach to select the optimal dropout rate given validation data.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_027",
+    "theme": "ml_fundamentals",
+    "title": "Meta-Learning vs Transfer Learning",
+    "description": "Compare meta-learning (learning to learn) and transfer learning. When would you use MAML (Model-Agnostic Meta-Learning) over fine-tuning a pre-trained model? Provide a concrete scenario illustrating each approach's strengths and limitations.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_028",
+    "theme": "ml_fundamentals",
+    "title": "NAS Search Space Design",
+    "description": "You're designing a search space for NAS to find optimal architectures for medical image segmentation. What architectural choices would you include (e.g., layers, widths, skip connections)? How would you constrain the search to keep computational cost reasonable?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_029",
+    "theme": "ml_fundamentals",
+    "title": "Gradient Checkpointing Trade-offs",
+    "description": "Gradient checkpointing trades memory for computation time by recomputing activations during backward pass. Analyze when this trade-off is worth it. How does it affect training speed for different batch sizes?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_030",
+    "theme": "ml_fundamentals",
+    "title": "Mixed Precision Training",
+    "description": "Explain mixed precision training: why use FP16 for activations but FP32 for weights? Describe loss scaling and why it's necessary. What are the speedups vs numerical stability risks?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_031",
+    "theme": "ml_fundamentals",
+    "title": "Curriculum Learning Strategy",
+    "description": "Design a curriculum learning strategy for training a vision model on images of varying complexity (simple geometric shapes → complex real-world scenes). Explain how to order examples and adapt difficulty progression.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_032",
+    "theme": "ml_fundamentals",
+    "title": "Knowledge Distillation Pipeline",
+    "description": "You have a large teacher model (1B params) and want to distill it to a small student (50M params) for deployment. Design the distillation process: what is the student trained to mimic (hard targets, soft targets, both)? How do you weight the two objectives?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_033",
+    "theme": "ml_fundamentals",
+    "title": "Adversarial Training Analysis",
+    "description": "Explain adversarial training for robustness: why it makes models more robust but sometimes hurts clean accuracy. Design an experiment to measure the clean vs robust accuracy frontier.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_034",
+    "theme": "ml_fundamentals",
+    "title": "Explainability via Attention Visualization",
+    "description": "Using a Transformer model, you want to explain which tokens the model attended to when making a prediction. Design a visualization and analysis strategy to interpret attention patterns. How do you distinguish genuine reasoning from noise?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_035",
+    "theme": "ml_fundamentals",
+    "title": "Data Augmentation Strategy Design",
+    "description": "For a medical imaging task (X-rays), design a comprehensive data augmentation pipeline. Which augmentations are safe (preserve diagnostic information) vs risky? How do you validate that augmentation doesn't introduce bias?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_036",
+    "theme": "ml_fundamentals",
+    "title": "Hyperparameter Interaction Effects",
+    "description": "Learning rate and batch size have complex interactions (you can often increase LR proportionally to batch size). Explain this interaction theoretically (noise scale, gradient magnitude) and design an experiment to find the optimal (batch_size, lr) pairs.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_037",
+    "theme": "ml_fundamentals",
+    "title": "Continual Learning Without Catastrophic Forgetting",
+    "description": "A model is trained on Task A, then fine-tuned on Task B. It forgets Task A performance (catastrophic forgetting). Name two approaches to prevent this (e.g., elastic weight consolidation, replay buffers) and compare their computational/memory costs.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_038",
+    "theme": "ml_fundamentals",
+    "title": "Model Pruning vs Quantization",
+    "description": "Compare weight pruning (removing small weights) and quantization (lower bit precision) for model compression. Which is better for inference latency vs accuracy? Can you combine them?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_039",
+    "theme": "ml_fundamentals",
+    "title": "Ensemble Methods Beyond Voting",
+    "description": "Simple ensemble voting often improves accuracy. Design a more sophisticated ensemble strategy: how would you weight models, combine predictions for regression, or use stacking to train a meta-model?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_040",
+    "title": "Class Imbalance Mitigation Comparative Analysis",
+    "description": "A classification task has 1% positive examples. Compare oversampling, undersampling, weighted loss, threshold adjustment, and cost-sensitive learning. For each, explain the bias-variance implications and computational cost.",
+    "theme": "ml_fundamentals",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_041",
+    "theme": "ml_fundamentals",
+    "title": "System Design: Image Classification Pipeline",
+    "description": "Design a complete image classification system from scratch for a startup. Include: data preprocessing, model architecture choice, training strategy (single vs ensemble), deployment considerations (latency, memory), and monitoring for concept drift. Justify each design decision.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_042",
+    "theme": "ml_fundamentals",
+    "title": "Scaling Laws and Compute Optimal Architecture Search",
+    "description": "Recent work (Kaplan et al., Hoffmann et al.) shows that model size, training tokens, and compute budget follow power laws. Given a fixed compute budget C, how do you allocate between model parameters N and training tokens T? Analyze the Chinchilla scaling laws and design optimal model configurations.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_043",
+    "theme": "ml_fundamentals",
+    "title": "Generalization Bounds and Empirical Risk Minimization",
+    "description": "Derive or explain VC dimension, Rademacher complexity, or PAC learning bounds. Given a training set of size n, how do these inform what test error you can expect? How do regularization parameters (λ) relate to these generalization bounds?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_044",
+    "theme": "ml_fundamentals",
+    "title": "Designing Federated Learning System",
+    "description": "You're building a federated learning system where models train on edge devices without centralizing data. Design the communication protocol, aggregation strategy (FedAvg vs FedProx), and robustness against client dropout or adversarial clients.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_045",
+    "theme": "ml_fundamentals",
+    "title": "Causal Inference in Deep Learning",
+    "description": "Explain the difference between correlation and causation in ML. Design an experiment to distinguish correlation-based learning from causal learning using interventional data or causal graphs. How would you test if a model captures causal relationships?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_046",
+    "theme": "ml_fundamentals",
+    "title": "Interpretable ML System Design",
+    "description": "For a high-stakes decision system (e.g., loan approval), design a ML approach that is both accurate and interpretable. Compare rule-based systems, decision trees, linear models, and attention-based neural networks. How do you balance accuracy vs interpretability?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_047",
+    "theme": "ml_fundamentals",
+    "title": "Benchmark Gaming and Robust Evaluation",
+    "description": "Many models achieve high accuracy on standard benchmarks but fail in deployment. Analyze why (benchmark saturation, distribution shift, adversarial examples, spurious correlations). Design a robust evaluation protocol that better predicts real-world performance.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_048",
+    "theme": "ml_fundamentals",
+    "title": "Multi-Task Learning Architecture Design",
+    "description": "Design a multi-task learning system that learns 5 related tasks simultaneously. How do you handle conflicting gradients between tasks? Compare hard parameter sharing, soft parameter sharing, and task-specific adapters. When is MTL better than single-task?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_049",
+    "theme": "ml_fundamentals",
+    "title": "Automating Hyperparameter Tuning",
+    "description": "Compare random search, grid search, Bayesian optimization, and evolutionary algorithms for hyperparameter tuning. Design a meta-learning approach that predicts good hyperparameters for new datasets based on dataset characteristics.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_050",
+    "theme": "ml_fundamentals",
+    "title": "Foundation Model Adaptation Framework",
+    "description": "You have access to a large pre-trained foundation model. Design a framework for efficiently adapting it to 100 different downstream tasks with limited labeled data per task. Include parameter-efficient methods (LoRA, adapters), transfer learning strategies, and multi-task optimization.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_051",
+    "theme": "agent_architectures",
+    "title": "Explain ReAct Framework",
+    "description": "Describe the ReAct (Reasoning + Acting) framework. Explain how interleaving reasoning steps with actions helps agents solve complex tasks. Provide one example prompt that demonstrates the ReAct pattern.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_052",
+    "theme": "agent_architectures",
+    "title": "Chain-of-Thought Prompting",
+    "description": "Explain chain-of-thought (CoT) prompting and why it improves model performance on reasoning tasks. How does it differ from direct prompting? Give a concrete example of a problem where CoT helps.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_053",
+    "theme": "agent_architectures",
+    "title": "Tool Use in Language Models",
+    "description": "Define tool use for language models: what tools might an agent use, how does it decide when to call a tool, and how does it interpret results? Name three example tools.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_054",
+    "theme": "agent_architectures",
+    "title": "AutoGPT Agent Components",
+    "description": "Describe the key components of an AutoGPT-style agent: memory, planning, task decomposition, and execution. How does it iteratively refine tasks and handle failures? Discuss the role of self-reflection loops and external tool integration.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_055",
+    "theme": "agent_architectures",
+    "title": "Planning Algorithms for Agents",
+    "description": "Compare breadth-first search, depth-first search, and A* for agent planning. When would each be appropriate? How do you define heuristics for A*? Discuss computational complexity and how plan quality varies across these algorithms.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_056",
+    "theme": "agent_architectures",
+    "title": "Memory Systems in Agents",
+    "description": "Explain three types of memory for agents: episodic (what happened), semantic (facts and concepts), and procedural (skills). How should an agent use each type when solving problems?",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_057",
+    "theme": "agent_architectures",
+    "title": "Reflection and Self-Improvement",
+    "description": "What is reflection in agents? How can an agent review its past actions, identify mistakes, and improve future behavior? Provide one concrete implementation approach, such as maintaining a reflection buffer that stores action-outcome pairs for periodic self-evaluation.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_058",
+    "theme": "agent_architectures",
+    "title": "Function Calling and API Integration",
+    "description": "Explain function calling: how an LLM decides what function to call, with what arguments, and how it handles the return value. Describe the JSON schema format commonly used.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_059",
+    "theme": "agent_architectures",
+    "title": "Prompt Chaining Patterns",
+    "description": "Define prompt chaining: sequencing multiple LLM calls where output from one becomes input to the next. Give two examples of chaining patterns and explain why it helps complex tasks.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_060",
+    "theme": "agent_architectures",
+    "title": "Error Handling in Agents",
+    "description": "Describe strategies for error handling in LLM agents: detecting errors, recovering from failures, retrying with modified prompts. What's a principled approach to error recovery? Include exponential backoff, fallback strategies, and graceful degradation patterns.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_061",
+    "theme": "agent_architectures",
+    "title": "Agent Evaluation Metrics",
+    "description": "What metrics would you use to evaluate an agent? Consider task success rate, step efficiency, cost, safety, and robustness. How would you measure each? Discuss the challenge of comparing agents across tasks of varying difficulty.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_062",
+    "theme": "agent_architectures",
+    "title": "Tree-of-Thought vs Chain-of-Thought",
+    "description": "Compare chain-of-thought (single path reasoning) with tree-of-thought (exploring multiple reasoning paths). When is branching exploration better? How do you manage the exponential cost? Discuss pruning heuristics and beam search as practical alternatives.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_063",
+    "theme": "agent_architectures",
+    "title": "Grounding LLM Outputs",
+    "description": "Explain why grounding (connecting LLM outputs to facts, tools, external knowledge) is important for agents. Name three grounding mechanisms and when each is useful. Discuss verification loops that check generated claims against retrieved evidence.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_064",
+    "theme": "agent_architectures",
+    "title": "Agent State Management",
+    "description": "How should an agent maintain state across multiple interactions? What should be stored (context, decisions, outcomes)? How do you balance completeness with context length limitations?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_065",
+    "theme": "agent_architectures",
+    "title": "Uncertainty Quantification in Agents",
+    "description": "How can an agent quantify uncertainty in its decisions? What mechanisms allow it to express confidence, request clarification, or defer to humans? Discuss calibration techniques, entropy-based thresholds, and when to escalate versus proceed autonomously.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_066",
+    "theme": "agent_architectures",
+    "title": "Advanced ReAct Analysis",
+    "description": "The basic ReAct loop is: Thought → Action → Observation → repeat. Analyze failure modes: when does an agent get stuck in loops? How would you detect and break infinite loops? Design a mechanism to force progression (e.g., limiting repeated thoughts).",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_067",
+    "theme": "agent_architectures",
+    "title": "Combining CoT with Tool Use",
+    "description": "Design an agent that interleaves reasoning (CoT) with tool calls. When should the agent reason before calling a tool vs calling immediately? How do you prevent excessive reasoning or unnecessary tool calls?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_068",
+    "theme": "agent_architectures",
+    "title": "Hierarchical Task Decomposition",
+    "description": "An agent faces a complex goal: 'Write a research paper.' Design a hierarchical decomposition: top-level tasks, subtasks, and atomic actions. How does the agent decide which level to work at?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_069",
+    "theme": "agent_architectures",
+    "title": "Memory Optimization for Long Tasks",
+    "description": "An agent works on a task for 50 steps, accumulating 50k tokens of context. Context windows are limited to 8k tokens. Design a memory summarization strategy: what to keep verbatim vs summarize vs discard?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_070",
+    "theme": "agent_architectures",
+    "title": "Reflection Mechanism Design",
+    "description": "Design a reflection step for agents: how often should an agent reflect? What should it review (recent actions, success/failure patterns, goal progress)? How does reflection output modify future behavior?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_071",
+    "theme": "agent_architectures",
+    "title": "Function Specification and Validation",
+    "description": "An agent has access to 20 functions with complex signatures. Design a specification format (JSON schema, docstrings) that lets the agent understand what each does. How do you validate that the agent calls functions correctly?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_072",
+    "theme": "agent_architectures",
+    "title": "Prompt Chaining with Branching",
+    "description": "Design a system for chained prompts where some chains branch conditionally: 'If X, then do A-B-C, else do D-E.' How do you manage state across branches and merge results?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_073",
+    "theme": "agent_architectures",
+    "title": "Robust Error Recovery Strategy",
+    "description": "An agent encounters a parsing error from a tool (malformed JSON). Design a recovery strategy: retry with reformatted input, use a fallback tool, or ask for clarification. How do you prevent infinite error loops?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_074",
+    "theme": "agent_architectures",
+    "title": "Multi-Agent Coordination Patterns",
+    "description": "You want two agents to collaborate: Agent A focuses on research, Agent B on synthesis. Design a communication protocol: how do they share findings, resolve conflicts, and coordinate work?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_075",
+    "theme": "agent_architectures",
+    "title": "Cost Control in Agentic Systems",
+    "description": "An agentic system costs $1 per task if it works in 10 steps but $10 if it takes 100 steps. Design a cost-aware agent that trades accuracy for speed. How do you balance quality vs cost?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_076",
+    "theme": "agent_architectures",
+    "title": "Safety and Alignment in Agents",
+    "description": "Design safety guardrails for an agent system: preventing harmful actions, misuse of tools, and goal misalignment. What constraints, monitors, and overrides would you implement? Include permission hierarchies and human-in-the-loop approval gates.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_077",
+    "theme": "agent_architectures",
+    "title": "Agent Behavior Logging and Debugging",
+    "description": "An agent fails on 10% of tasks silently (produces wrong output without error). Design a logging and debugging system: what to log, how to identify failure modes, and how to trace the root cause?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_078",
+    "theme": "agent_architectures",
+    "title": "Scaling Agents to Many Tasks",
+    "description": "You need to deploy agents to handle 1,000 concurrent tasks. Design the infrastructure: task queue, agent pool management, result aggregation. How do you handle rate limiting and resource contention?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_079",
+    "theme": "agent_architectures",
+    "title": "Dynamic Tool Selection",
+    "description": "An agent has access to 30 specialized tools but using wrong tool wastes tokens. Design a mechanism for the agent to select appropriate tools: tool recommendation, cost-benefit analysis, or meta-reasoning about tool applicability?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_080",
+    "theme": "agent_architectures",
+    "title": "Learning from Agent Failures",
+    "description": "You have logs of 1,000 agent failures. Design a pipeline to: analyze failure patterns, extract insights, and update the agent system (prompts, tools, or parameters) to avoid similar failures.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_081",
+    "theme": "agent_architectures",
+    "title": "Complex System Orchestration with Agents",
+    "description": "Design an agentic system for a complex workflow: research legal precedents → analyze case details → generate legal brief → present to client with confidence scores. Include agent roles, communication, and quality gates.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_082",
+    "theme": "agent_architectures",
+    "title": "Agent Behavior Prediction and Control",
+    "description": "Given historical logs of agent behavior, design a method to predict what an agent will do next and intervene if needed. Use causal modeling or behavioral clustering to identify patterns.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_083",
+    "theme": "agent_architectures",
+    "title": "Emergent Behaviors in Multi-Agent Systems",
+    "description": "When you deploy multiple agents with simple individual rules, complex emergent behaviors arise (cooperation, specialization, conflict). Design experiments to measure and control emergence. How do you prevent unintended behaviors?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_084",
+    "theme": "agent_architectures",
+    "title": "Agent Self-Improvement Without Retraining",
+    "description": "Design an agent system that improves its own prompts, tools, or reasoning without retraining the underlying LLM. How do you ensure improvements generalize and don't overfit to specific tasks?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_085",
+    "theme": "agent_architectures",
+    "title": "Adversarial Robustness of Agents",
+    "description": "An attacker can manipulate tool outputs or provide adversarial prompts. Design defenses: input validation, anomaly detection, fallback mechanisms. How do you measure robustness? Include threat modeling and red-teaming evaluation protocols.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_086",
+    "theme": "agent_architectures",
+    "title": "Agent Curriculum Learning",
+    "description": "Instead of random task order, design a curriculum where agents solve easier tasks first, building skills for harder tasks. Define task difficulty, skill dependencies, and progression criteria.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_087",
+    "theme": "agent_architectures",
+    "title": "Meta-Learning for Agent Prompting",
+    "description": "Collect 100 tasks with their optimal prompts (found via grid search). Train a meta-learner to predict the best prompt for a new task based on task characteristics. How do you encode tasks and prompts for meta-learning?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_088",
+    "theme": "agent_architectures",
+    "title": "Collaborative Agent Frameworks",
+    "description": "Design a framework for agents to collaborate on a complex problem (e.g., scientific research): roles (observer, experimenter, analyst), communication protocols, conflict resolution, and consensus mechanisms.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_089",
+    "theme": "agent_architectures",
+    "title": "Verifiable Reasoning in Agents",
+    "description": "Design an agent system where all reasoning steps are verifiable by external validators. How do you generate proofs of reasoning? When is formal verification tractable vs intractable?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_090",
+    "theme": "agent_architectures",
+    "title": "Adaptive Agent Architectures",
+    "description": "Design an agent system that adapts its own architecture per task: selects planning algorithm, memory type, tool set, and reasoning depth based on task properties. Formalize task properties and architecture decisions.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_091",
+    "theme": "agent_architectures",
+    "title": "Inverse Reinforcement Learning for Agent Goals",
+    "description": "Given logs of successful agent trajectories, infer the underlying reward function the agent optimizes for. How do you handle ambiguity (multiple reward functions explain data)? Use maximum entropy IRL or Bayesian approaches.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_092",
+    "theme": "agent_architectures",
+    "title": "Real-Time Agent Monitoring and Adaptation",
+    "description": "Build a system that monitors agent health metrics (success rate, cost per task, error frequency) in real-time and adapts agent behavior (parameter tuning, prompt modification, tool pool changes) based on performance.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_093",
+    "theme": "agent_architectures",
+    "title": "Agent Knowledge Graph Construction",
+    "description": "Design a system where agents build and maintain a knowledge graph of entities, relationships, and facts encountered during task solving. How do you update the graph, resolve conflicts, and query it for reasoning?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_094",
+    "theme": "agent_architectures",
+    "title": "Scalable Agent Execution Framework",
+    "description": "You need to run 100,000 agent tasks simultaneously. Design a distributed execution framework: task distribution, agent process management, result aggregation, fault tolerance, and cost optimization.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_095",
+    "theme": "agent_architectures",
+    "title": "Human-in-the-Loop Agent Improvement",
+    "description": "Design a pipeline for iteratively improving agents with human feedback: collect trajectories, identify suboptimal decisions, gather human corrections, update agent policy. Balance human effort with improvement gains.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_096",
+    "theme": "agent_architectures",
+    "title": "Agent Capability Benchmarking",
+    "description": "You want to systematically measure what agents can and cannot do. Design a benchmark suite covering breadth (20 task types), depth (3 difficulty levels), and novel tasks. Define success criteria and measure sample efficiency.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_097",
+    "theme": "agent_architectures",
+    "title": "Compositional Reasoning in Agents",
+    "description": "Design an agent system that solves problems by composing learned skills from a skill library. How do you ensure skills compose correctly? Handle skill interactions and dependencies?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_098",
+    "theme": "agent_architectures",
+    "title": "Counterfactual Reasoning for Agent Improvement",
+    "description": "Given an agent trajectory, generate counterfactuals (what if the agent made decision X instead of Y). Use counterfactuals to measure decision impact and train agents on contrastive examples.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_099",
+    "theme": "agent_architectures",
+    "title": "Privacy-Preserving Agent Collaboration",
+    "description": "Multiple agents need to collaborate on tasks with sensitive data. Design privacy-preserving mechanisms: federated learning, differential privacy, secure multi-party computation. Trade-off privacy vs agent capability.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_100",
+    "theme": "agent_architectures",
+    "title": "Agent Fairness and Bias Detection",
+    "description": "Design a system to detect and mitigate bias in agentic decisions. What biases can agents develop (historical data, tool bias, prompt bias)? How do you audit fairness and ensure equitable outcomes across demographics?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_101",
+    "theme": "retrieval_systems",
+    "title": "RAG Pipeline Fundamentals",
+    "description": "Explain Retrieval-Augmented Generation (RAG): how it retrieves relevant context before generation. Compare RAG to fine-tuning for knowledge injection. When is each better? Discuss how retrieval quality directly impacts generation accuracy and hallucination rates.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_102",
+    "theme": "retrieval_systems",
+    "title": "Dense vs Sparse Retrieval",
+    "description": "Compare dense retrieval (embeddings + nearest neighbor) and sparse retrieval (BM25, keyword search). When is each better? Can they be combined? Discuss hybrid search approaches and how reciprocal rank fusion merges results from both methods.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_103",
+    "theme": "retrieval_systems",
+    "title": "Embedding Models for Retrieval",
+    "description": "Explain what makes a good embedding model for retrieval. Describe MTEB benchmarks and metrics like nDCG and MRR. Name three popular embedding models. Discuss how training data diversity and contrastive learning objectives affect retrieval performance.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_104",
+    "theme": "retrieval_systems",
+    "title": "Query Expansion Techniques",
+    "description": "Define query expansion: why it helps retrieval, and name three techniques (pseudo-relevance feedback, synonyms, semantic expansion). Give an example where expansion helps. Discuss how LLM-generated query reformulations can improve recall on ambiguous queries.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_105",
+    "theme": "retrieval_systems",
+    "title": "Vector Databases Basics",
+    "description": "Explain vector databases (FAISS, Pinecone, Weaviate). What indexing structures do they use (LSH, HNSW, IVF)? When would you use each? Discuss trade-offs between recall accuracy, query latency, and memory consumption for different index types.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_106",
+    "theme": "retrieval_systems",
+    "title": "Chunking Strategies for Documents",
+    "description": "When indexing long documents for retrieval, chunking matters. Compare fixed-size chunking, sentence-level, and semantic chunking. What are the trade-offs? Discuss how chunk overlap, size tuning, and document structure awareness affect retrieval relevance.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_107",
+    "theme": "retrieval_systems",
+    "title": "Re-ranking and Cross-Encoders",
+    "description": "Explain re-ranking: why retrieve many candidates (top-100) then re-rank to top-5? Describe cross-encoders vs bi-encoders. What's the computational trade-off? Discuss how cross-encoder re-ranking improves precision while maintaining acceptable latency for production systems.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_108",
+    "theme": "retrieval_systems",
+    "title": "Knowledge Graphs for Retrieval",
+    "description": "How do knowledge graphs improve retrieval? Compare graph-based retrieval to embedding-based. When would you use each? Discuss entity linking, subgraph traversal, and how structured relationships complement unstructured text search for complex queries.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_109",
+    "theme": "retrieval_systems",
+    "title": "BM25 Algorithm Details",
+    "description": "Explain BM25: the formula, parameters (k1, b), and why it works well for keyword matching. How does it compare to TF-IDF? Discuss document length normalization and how parameter tuning affects performance across different document collections.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_110",
+    "theme": "retrieval_systems",
+    "title": "Evaluation Metrics for Retrieval",
+    "description": "Define nDCG (Normalized Discounted Cumulative Gain), MRR (Mean Reciprocal Rank), and MAP (Mean Average Precision). Why measure each? Which is best for different scenarios? Discuss how metric choice depends on whether users examine one result or many.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_111",
+    "theme": "retrieval_systems",
+    "title": "Hybrid Search Best Practices",
+    "description": "Hybrid search combines multiple retrieval methods (dense + sparse, embedding + keyword). Compare RRF (Reciprocal Rank Fusion) vs learned combination weights. Discuss when fixed fusion rules outperform learned weights and how to tune the balance.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_112",
+    "theme": "retrieval_systems",
+    "title": "Cold Start Problem in Retrieval",
+    "description": "When first deploying a retrieval system, there's minimal interaction data. How do you bootstrap: content-based features, transfer learning, or human judgments? Discuss synthetic query generation and using LLMs to create training pairs for initial retrieval models.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_113",
+    "theme": "retrieval_systems",
+    "title": "Personalization in Retrieval",
+    "description": "How do you personalize retrieval systems? Consider user history, preferences, and context. Compare collaborative filtering, content-based, and hybrid approaches. Discuss privacy implications of user profiling and how to balance personalization with diversity.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_114",
+    "theme": "retrieval_systems",
+    "title": "Retrieval Feedback Loops",
+    "description": "Explain how user clicks, dwell time, and explicit feedback train retrieval models. What's the difference between implicit and explicit feedback? How do you handle position bias?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_115",
+    "theme": "retrieval_systems",
+    "title": "Semantic Search Fundamentals",
+    "description": "Explain semantic search: embedding both queries and documents, then finding nearest neighbors. Compare to keyword search. When is semantic better? Discuss failure modes where semantic search misses exact terms that keyword search would capture.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_116",
+    "theme": "retrieval_systems",
+    "title": "Advanced RAG Architecture",
+    "description": "Design an advanced RAG system: multi-stage retrieval (retrieve docs → sentences → facts), adaptive retrieval (query-dependent top-k), and multi-hop reasoning where retrieved context triggers more retrievals.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_117",
+    "theme": "retrieval_systems",
+    "title": "Embedding Space Analysis",
+    "description": "You notice that your embedding model clusters documents by date instead of topic. Analyze why (temporal bias in training data). Design experiments to measure and correct this.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_118",
+    "theme": "retrieval_systems",
+    "title": "Query Expansion Strategy Design",
+    "description": "Design a comprehensive query expansion system: analyze query intent (yes/no question vs fact-seeking), use pseudo-relevance feedback to identify related terms, and weight original vs expanded terms.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_119",
+    "theme": "retrieval_systems",
+    "title": "Vector Database Index Optimization",
+    "description": "You're indexing 100M documents. Compare HNSW, IVF, and SCANN in terms of memory, search speed, and accuracy. Design an indexing strategy for your constraints. Include quantization techniques like product quantization to reduce memory footprint.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_120",
+    "theme": "retrieval_systems",
+    "title": "Semantic Chunking Strategy",
+    "description": "Design a semantic chunking algorithm: detect natural boundaries in text (paragraph breaks, topic shifts, section headers) and chunk accordingly. How do you handle cross-chunk dependencies?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_121",
+    "theme": "retrieval_systems",
+    "title": "Learned Ranking Pipeline",
+    "description": "Design a learning-to-rank (LTR) system: feature engineering (query-doc relevance, retrieval scores, document quality), training data collection, and ranking model training. What model would you use?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_122",
+    "theme": "retrieval_systems",
+    "title": "Handling Retrieval Failures",
+    "description": "Your retrieval system sometimes returns irrelevant context, degrading generation quality. Design detection mechanisms: relevance thresholding, consistency checking, or semantic similarity gating. Include confidence scores and fallback strategies when no relevant passage is found.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_123",
+    "theme": "retrieval_systems",
+    "title": "Knowledge Graph Embedding for Retrieval",
+    "description": "You have a knowledge graph (entities, relationships). Design embeddings that capture both entity semantics and relationship structure. Use techniques like TransE or GCN. How do you query the graph?",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_124",
+    "theme": "retrieval_systems",
+    "title": "Multimodal Retrieval System",
+    "description": "Design a retrieval system for multimodal data (text, images, tables). Use aligned embeddings (CLIP-style) that project different modalities into a shared space. How do you handle modality-specific features?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_125",
+    "theme": "retrieval_systems",
+    "title": "Temporal Awareness in Retrieval",
+    "description": "Retrieval systems should prefer recent documents but also value classics. Design a temporal weighting scheme: decay old documents but allow high-quality classics to rank highly.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_126",
+    "theme": "retrieval_systems",
+    "title": "Domain Adaptation for Embeddings",
+    "description": "You're using a general-purpose embedding model (trained on web data) but need to retrieve scientific papers. Design a domain adaptation pipeline: fine-tune embeddings on in-domain data, evaluate on domain-specific benchmarks.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_127",
+    "theme": "retrieval_systems",
+    "title": "Retrieval at Scale with Constraints",
+    "description": "Design retrieval for 1B documents with <100ms latency and <1GB memory per server. What indexing strategy, quantization, and distribution would you use? Discuss sharding approaches, approximate nearest neighbor trade-offs, and caching strategies for frequent queries.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_128",
+    "theme": "retrieval_systems",
+    "title": "Diversity in Retrieval Results",
+    "description": "Simple retrieval often returns similar documents (all discussing the same aspect). Design diversity-aware retrieval: measure diversity, select diverse subsets (maximal marginal relevance, determinantal point processes).",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_129",
+    "theme": "retrieval_systems",
+    "title": "Retrieval for Long-Form Generation",
+    "description": "For generating long documents (research paper, novel), simple retrieval doesn't work — need multiple relevant passages from different sources. Design a multi-document retrieval system. Include iterative retrieval, query decomposition, and passage deduplication strategies.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_130",
+    "theme": "retrieval_systems",
+    "title": "Cross-Lingual Retrieval",
+    "description": "Design a retrieval system that finds relevant documents across languages. Use multilingual embeddings (mE5, mBERT) or translation. Compare approaches. Discuss zero-shot cross-lingual transfer versus translate-then-retrieve and how language coverage affects quality.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_131",
+    "theme": "retrieval_systems",
+    "title": "End-to-End RAG System Optimization",
+    "description": "You're building a RAG system for customer support: retrieve relevant docs → generate answer. Optimize the entire pipeline: retrieval speed, generation latency, accuracy. Measure end-to-end performance.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_132",
+    "theme": "retrieval_systems",
+    "title": "Adaptive Retrieval based on Query Complexity",
+    "description": "Simple queries need simple retrieval, complex queries need multi-hop reasoning. Design a system that estimates query complexity and adapts retrieval accordingly (depth, number of hops, reranking rounds).",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_133",
+    "theme": "retrieval_systems",
+    "title": "Retrieval with Explanations",
+    "description": "Design a retrieval system that not only ranks documents but also explains why each is relevant. Generate explanations (query-doc similarity, keyword overlap, semantic connection). Validate with human judgment.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_134",
+    "theme": "retrieval_systems",
+    "title": "Handling Contradictory Retrieved Information",
+    "description": "Retrieved documents sometimes contradict each other. Design a system to detect contradictions and synthesize conflicting information. When should the generator merge viewpoints vs ask for clarification?",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_135",
+    "theme": "retrieval_systems",
+    "title": "Continual Learning for Retrieval",
+    "description": "A retrieval system in production encounters new documents daily and user feedback on relevance judgments. Design a continual learning pipeline: update embeddings, rerank models, without full retraining.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_136",
+    "theme": "retrieval_systems",
+    "title": "Retrieval for Code Search",
+    "description": "Design a retrieval system for code repositories: handle code-specific structure (functions, classes, patterns). Compare text retrieval, AST-based retrieval, and semantic code embeddings. Evaluate on code search benchmarks.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_137",
+    "theme": "retrieval_systems",
+    "title": "Privacy-Preserving Dense Retrieval",
+    "description": "Design a dense retrieval system where queries and documents are encrypted (using secure multiparty computation or homomorphic encryption). Measure the privacy-utility tradeoff. Discuss latency overhead and how approximation techniques can make encrypted search practical.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_138",
+    "theme": "retrieval_systems",
+    "title": "Retrieval with Causal Reasoning",
+    "description": "Some queries require causal reasoning (why did X happen), not just relevance matching. Design a causal retrieval system using causal graphs or counterfactual reasoning. Discuss how to identify causal passages versus merely correlated content.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_139",
+    "theme": "retrieval_systems",
+    "title": "Dynamic Weighting of Retrieval Dimensions",
+    "description": "Retrieval systems typically use static weights (0.5*relevance + 0.3*freshness + 0.2*popularity). Design a system that learns query-specific weights using Thompson Sampling or reinforcement learning. Discuss exploration-exploitation trade-offs in online weight adaptation.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_140",
+    "theme": "retrieval_systems",
+    "title": "Evaluating Retrieval System Robustness",
+    "description": "Design a robustness evaluation framework for retrieval systems: adversarial queries, distribution shift, adversarial documents. Measure performance degradation and design defenses. Include benchmark construction with systematically perturbed queries and poisoned document sets.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_141",
+    "theme": "retrieval_systems",
+    "title": "Meta-Learning for Retrieval Hyperparameters",
+    "description": "Retrieval systems have many hyperparameters (weights, chunk size, rerank cutoff). Collect a dataset of (task_metadata, optimal_hyperparameters) and train a meta-learner to predict hyperparameters for new tasks.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_142",
+    "theme": "retrieval_systems",
+    "title": "Retrieval-Augmented Fine-Tuning",
+    "description": "Instead of fine-tuning a model directly, use retrieval during fine-tuning to inject task-relevant context. Design a curriculum: early epochs use broad retrieval, later epochs use targeted retrieval.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_143",
+    "theme": "retrieval_systems",
+    "title": "Graph Neural Networks for Retrieval",
+    "description": "Design a GNN-based retrieval system where documents are nodes, edges represent citations/references. Use GNN to propagate relevance signals through the graph. How does performance compare to non-graph retrieval?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_144",
+    "theme": "retrieval_systems",
+    "title": "Retrieval System Fairness and Bias",
+    "description": "Analyze potential biases in retrieval systems: does the system retrieve documents about certain demographics less frequently? Design fairness metrics and mitigation strategies. Discuss re-ranking for demographic parity and auditing embedding spaces for representational bias.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_145",
+    "theme": "retrieval_systems",
+    "title": "Zero-Shot Retrieval Generalization",
+    "description": "Train a retrieval system on one domain (news articles), then test on a new domain (scientific papers) without fine-tuning. Measure generalization. Design domain-agnostic retrieval architectures.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_146",
+    "theme": "retrieval_systems",
+    "title": "Instruction-Tuned Retrieval Models",
+    "description": "Design a retrieval system where both queries and documents are conditioned on task instructions (e.g., 'Find documents relevant for summarization' vs 'Find documents relevant for question answering'). Train instruction-tuned embeddings.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_147",
+    "theme": "retrieval_systems",
+    "title": "Retrieval for Fact Verification",
+    "description": "Design a retrieval system that finds evidence to support/refute claims. Compare retrieval for evidence vs retrieval for general relevance. How do you validate retrieved facts?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_148",
+    "theme": "retrieval_systems",
+    "title": "Efficient Dense Retrieval for Mobile",
+    "description": "Design a dense retrieval system that runs on mobile devices (limited memory, CPU). Use quantization, distillation, and lightweight embeddings. Trade accuracy for efficiency. Discuss model pruning and how on-device caching can reduce repeated computation.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_149",
+    "theme": "retrieval_systems",
+    "title": "Retrieval Interaction Effects",
+    "description": "Some queries have synergistic interactions (query A + query B together retrieve better results than separately). Design a system that detects and exploits query interactions.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_150",
+    "theme": "retrieval_systems",
+    "title": "Benchmark Development for Advanced Retrieval",
+    "description": "Design a benchmark that goes beyond keyword matching: requires semantic understanding, multi-hop reasoning, temporal reasoning, and real-world difficulty. Collect or generate 500+ examples, collect human annotations, and establish baselines.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_151",
+    "theme": "multi_agent_systems",
+    "title": "Agent Roles and Specialization",
+    "description": "In a multi-agent system, agents can have different roles (researcher, synthesizer, critic). Explain how role specialization improves collective performance. Give one example. Discuss how dynamic role switching based on task demands can further boost team effectiveness.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_152",
+    "theme": "multi_agent_systems",
+    "title": "Agent Communication Protocols",
+    "description": "How do agents communicate in multi-agent systems? Compare message passing, publish-subscribe, and shared memory. When is each appropriate? Discuss bandwidth constraints, latency requirements, and how communication topology affects coordination efficiency.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_153",
+    "theme": "multi_agent_systems",
+    "title": "Task Allocation in Multi-Agent Systems",
+    "description": "How do agents decide who does what task? Compare centralized assignment, decentralized negotiation, and market-based allocation. What are trade-offs? Discuss how task dependencies and agent capabilities influence the optimal allocation strategy.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_154",
+    "theme": "multi_agent_systems",
+    "title": "Coordination Mechanisms",
+    "description": "Name three coordination mechanisms in multi-agent systems (blackboard architecture, contract net, auction). Explain when each is useful. Discuss how problem structure, agent count, and communication constraints determine which coordination mechanism performs best.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_155",
+    "theme": "multi_agent_systems",
+    "title": "Consensus Algorithms",
+    "description": "How do agents reach consensus on decisions? Compare majority voting, weighted voting, and Byzantine fault-tolerant algorithms. When is each used? Discuss convergence guarantees and how network partitions affect consensus in distributed agent systems.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_156",
+    "theme": "multi_agent_systems",
+    "title": "Conflict Resolution in Teams",
+    "description": "When agents disagree, how do they resolve conflicts? Compare voting, negotiation, hierarchical override. When would each be appropriate? Discuss how conflict resolution strategy affects agent autonomy, decision speed, and overall system fairness.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_157",
+    "theme": "multi_agent_systems",
+    "title": "Agent Scalability",
+    "description": "How does multi-agent performance scale with the number of agents? Compare O(1), O(log n), O(n), and O(n²) communication protocols. Discuss bottlenecks in scaling and how hierarchical communication structures reduce overhead while preserving coordination quality.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_158",
+    "theme": "multi_agent_systems",
+    "title": "Emergent Behavior",
+    "description": "What is emergent behavior in multi-agent systems? Give two examples where simple individual rules lead to complex collective behavior. Discuss how emergence relates to self-organization and why predicting emergent properties from individual agent rules remains challenging.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_159",
+    "theme": "multi_agent_systems",
+    "title": "Agent Learning from Interactions",
+    "description": "How can agents improve by learning from their interactions with other agents? Compare centralized learning, federated learning, and decentralized learning. Discuss how interaction data provides richer training signals than isolated experience and the role of shared reward functions.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_160",
+    "theme": "multi_agent_systems",
+    "title": "Debate Framework for Multi-Agent Reasoning",
+    "description": "In a debate framework, agents argue for/against propositions. Explain how debate can improve reasoning compared to single agents. Give a concrete example. Discuss how adversarial argumentation surfaces hidden assumptions and reduces confirmation bias.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_161",
+    "theme": "multi_agent_systems",
+    "title": "Hierarchical vs Flat Organization",
+    "description": "Compare hierarchical (manager → workers) vs flat (all equal) agent organizations. What are the trade-offs in communication, responsiveness, and robustness? Discuss how task complexity and urgency influence which organizational structure yields better outcomes.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_162",
+    "theme": "multi_agent_systems",
+    "title": "Shared Knowledge Bases",
+    "description": "Agents working together often maintain shared knowledge. Design a system for maintaining consistency when multiple agents update knowledge simultaneously. Discuss conflict resolution via version vectors, last-writer-wins, or merge functions for concurrent updates.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_163",
+    "theme": "multi_agent_systems",
+    "title": "Agent Accountability",
+    "description": "In multi-agent systems, how do you track which agent made which decision? Design an accountability mechanism that enables auditing and debugging. Include structured logging, provenance tracking, and causal attribution for tracing decision chains across agents.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_164",
+    "theme": "multi_agent_systems",
+    "title": "Advanced Coordination Protocol Design",
+    "description": "Design a coordination protocol for 10 agents solving a complex task: define message types, decision points, and error handling. How do you ensure no agent blocks progress?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_165",
+    "theme": "multi_agent_systems",
+    "title": "Task Allocation Optimization",
+    "description": "You have 5 agents with different skills and 20 tasks with different requirements. Formalize the allocation problem (knapsack-style) and design an algorithm to assign tasks optimally.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_166",
+    "theme": "multi_agent_systems",
+    "title": "Heterogeneous Agent Teams",
+    "description": "Design a team of heterogeneous agents (different capabilities, knowledge, speeds). How does diversity help or hurt? Design team composition for complex tasks. Discuss complementary skill coverage, communication overhead, and optimal diversity metrics.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_167",
+    "theme": "multi_agent_systems",
+    "title": "Communication Bandwidth Constraints",
+    "description": "Agents have limited bandwidth to communicate. Design efficient communication protocols: what information is critical, what can be approximated, and how do you handle information loss?",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_168",
+    "theme": "multi_agent_systems",
+    "title": "Handling Agent Failures",
+    "description": "In a team of 5 agents, one becomes unavailable. Design mechanisms to detect failures, reassign tasks, and maintain progress without restarting. Include heartbeat monitoring, task checkpointing, and graceful degradation when specialized agents go offline.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_169",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Planning Algorithms",
+    "description": "Design a planning algorithm where agents collectively plan how to solve a complex problem. Compare centralized planning, decentralized planning, and iterative refinement. Discuss how plan conflicts are resolved and how partial plans are merged into coherent strategies.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_170",
+    "theme": "multi_agent_systems",
+    "title": "Debate and Voting for Accuracy",
+    "description": "You want to use agent debate to improve decision quality. Design the debate format: what information agents share, how many rounds, how voting works, and how to detect collusion.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_171",
+    "theme": "multi_agent_systems",
+    "title": "Incentive Design for Cooperation",
+    "description": "Design incentives (rewards, penalties) that encourage agents to cooperate rather than act selfishly. Analyze game-theoretic stability: will agents maintain cooperation? Discuss mechanism design principles and how repeated interactions foster trust-based collaboration.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_172",
+    "theme": "multi_agent_systems",
+    "title": "Knowledge Synthesis from Multiple Agents",
+    "description": "Multiple agents provide partial information (each observes different aspects). Design a synthesis mechanism to merge observations into a complete picture, handling contradictions. Discuss confidence-weighted aggregation and how to detect and resolve conflicting reports.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_173",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Goal Alignment",
+    "description": "Agents may have conflicting goals. Design a framework for aligning individual goals with team objectives. When should you compromise individual vs team goals? Discuss Pareto-optimal negotiation and how utility functions can formalize goal priority trade-offs.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_174",
+    "theme": "multi_agent_systems",
+    "title": "Emergent Specialization",
+    "description": "In a team without explicit role assignment, agents naturally specialize (some become researchers, others synthesizers). Design mechanisms to encourage beneficial specialization. Discuss how reward shaping and task feedback loops drive agents toward complementary roles over time.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_175",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Reinforcement Learning",
+    "description": "Design a multi-agent RL system where agents learn policies that coordinate without central authority. Handle non-stationarity (other agents' policies changing). Compare centralized vs decentralized training.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_176",
+    "theme": "multi_agent_systems",
+    "title": "Distributed Data Processing with Agents",
+    "description": "Design a system where agents process data chunks in parallel, then aggregate results. Handle skewed data distribution, straggler agents, and result merging. Discuss load balancing strategies and how speculative execution can mitigate straggler delays.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_177",
+    "theme": "multi_agent_systems",
+    "title": "Trust and Reputation in Agent Teams",
+    "description": "Design a trust system for agents: track reputation based on accuracy/reliability, use trust to weight agent contributions, and update trust over time. Discuss decay functions, cold-start trust initialization, and how to prevent gaming of reputation scores.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_178",
+    "theme": "multi_agent_systems",
+    "title": "Optimization for Multi-Agent Systems",
+    "description": "Design an optimization algorithm for multi-agent tasks: each agent's objective affects others. Compare federated optimization, gradient sharing, and consensus algorithms. Discuss convergence guarantees and how communication frequency trades off with solution quality.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_179",
+    "theme": "multi_agent_systems",
+    "title": "Scalable Multi-Agent Coordination",
+    "description": "Design coordination for 1,000 agents. Traditional protocols have O(n²) communication. Design scalable alternatives using hierarchies, gossip, or approximations. Discuss how gossip protocols achieve probabilistic convergence and how cluster-based hierarchies reduce message complexity.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_180",
+    "theme": "multi_agent_systems",
+    "title": "Testing and Debugging Multi-Agent Systems",
+    "description": "Multi-agent systems are hard to test (non-determinism, race conditions, emergent behaviors). Design a testing framework: reproducibility, scenario generation, and bug detection. Discuss deterministic replay, chaos testing, and formal property verification approaches.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_181",
+    "theme": "multi_agent_systems",
+    "title": "Large-Scale Coordination Protocol Design",
+    "description": "Design a coordination protocol for 100+ agents working on a complex, long-running task. Include deadlock detection, failure recovery, and progress guarantees. Validate with simulations. Discuss timeout mechanisms and how to ensure liveness under partial failures.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_182",
+    "theme": "multi_agent_systems",
+    "title": "Emergent Strategy Formation",
+    "description": "Agents learn strategies through interaction. Design mechanisms to measure and encourage emergence of sophisticated strategies (e.g., deception, alliance formation, niche specialization). Discuss how population diversity metrics and strategy taxonomies enable tracking strategic evolution.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_183",
+    "theme": "multi_agent_systems",
+    "title": "Agent Heterogeneity and Diversity",
+    "description": "Analyze how diverse agent teams (different architectures, knowledge, reasoning styles) outperform homogeneous teams. Design diversity metrics and selection algorithms. Discuss ensemble effects, how cognitive diversity reduces blind spots, and optimal team composition strategies.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_184",
+    "theme": "multi_agent_systems",
+    "title": "Byzantine-Tolerant Multi-Agent Systems",
+    "description": "Design a system where some agents are adversarial (Byzantine). Use Byzantine fault-tolerant consensus algorithms. How many adversarial agents can you tolerate? Discuss the classic f < n/3 bound and practical BFT protocols like PBFT for agent coordination.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_185",
+    "theme": "multi_agent_systems",
+    "title": "Optimal Agent Debate Format",
+    "description": "Design an optimal debate format for 3 agents: Who speaks when? How is information shared? How is consensus determined? Use game theory and information theory to justify design.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_186",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent System Dynamics Modeling",
+    "description": "Model multi-agent system dynamics as differential equations (agent populations, knowledge diffusion, cooperation levels). Analyze stability, equilibria, and transient behavior. Discuss how mean-field approximations simplify analysis when agent counts are large.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_187",
+    "theme": "multi_agent_systems",
+    "title": "Information Aggregation in Prediction Markets",
+    "description": "Design a prediction market where agents trade contracts based on beliefs about outcomes. Analyze whether market prices aggregate information efficiently. Compare to voting and other aggregation methods.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_188",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Inverse Reinforcement Learning",
+    "description": "Given multi-agent trajectories, infer the reward functions and constraints each agent optimizes. Handle partial observability and agent interdependencies. Discuss maximum entropy inverse RL and how strategic interactions complicate reward inference compared to single-agent settings.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_189",
+    "theme": "multi_agent_systems",
+    "title": "Learning Communication Protocols",
+    "description": "Design a system where agents learn to communicate efficiently without predefined protocols. Use emergent communication or multi-agent reinforcement learning. Measure protocol interpretability. Discuss how environmental pressure shapes message semantics and compositional language emergence.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_190",
+    "theme": "multi_agent_systems",
+    "title": "Adaptive Organization Structure",
+    "description": "Design a system where agents dynamically reorganize (hierarchy ↔ flat ↔ clusters) based on task demands. When is reorganization beneficial? Measure reorganization cost vs benefit.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_191",
+    "theme": "multi_agent_systems",
+    "title": "Fairness in Multi-Agent Outcomes",
+    "description": "Design fairness mechanisms for multi-agent systems: ensure all agents benefit from cooperation, prevent exploitation, and handle distributional fairness. Formalize and measure fairness. Discuss envy-freeness, proportional share guarantees, and how to audit fairness over time.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_192",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent System Verification",
+    "description": "Design formal verification techniques for multi-agent systems: safety properties (agents never reach bad states), liveness properties (agents make progress), and robustness. Discuss model checking complexity and how compositional verification scales to large agent populations.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_193",
+    "theme": "multi_agent_systems",
+    "title": "Scalable Knowledge Sharing",
+    "description": "Design a knowledge-sharing system for 1,000 agents: efficient representation, query mechanisms, consistency maintenance, and privacy preservation. Measure communication overhead. Discuss distributed hash tables, content-addressable storage, and selective sharing based on relevance.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_194",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Planning with Uncertainty",
+    "description": "Agents plan collaboratively but face uncertain outcomes (actions fail, observations are noisy). Design robust planning: contingency planning, reactive replanning, and uncertainty propagation. Discuss how decentralized POMDPs model multi-agent planning under uncertainty.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_195",
+    "theme": "multi_agent_systems",
+    "title": "Agent Meta-Learning for Collaboration",
+    "description": "Train agents to collaborate with new teammates they've never met. Use meta-learning to develop adaptable collaboration strategies. Test on novel team compositions. Discuss how few-shot adaptation and theory-of-mind modeling enable rapid coordination with unfamiliar partners.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_196",
+    "theme": "multi_agent_systems",
+    "title": "Conflict-Free Multi-Agent Consensus",
+    "description": "Design consensus algorithms that always converge, even with Byzantine agents and incomplete information. Analyze convergence guarantees and communication complexity. Discuss randomized protocols, the FLP impossibility result, and practical workarounds for asynchronous networks.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_197",
+    "theme": "multi_agent_systems",
+    "title": "Measuring Collective Intelligence",
+    "description": "Design metrics for collective intelligence: wisdom of crowds, diversity bonus, coordination efficiency. Compare agent teams to centralized systems and human teams. Discuss how synergy effects emerge when team performance exceeds the sum of individual contributions.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_198",
+    "theme": "multi_agent_systems",
+    "title": "Incentive Compatibility in Multi-Agent Design",
+    "description": "Design multi-agent systems that are incentive-compatible: agents honestly report information and follow protocol without manipulation. Use game theory, mechanism design. Discuss the revelation principle, Vickrey-Clarke-Groves mechanisms, and strategy-proof allocation rules.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_199",
+    "theme": "multi_agent_systems",
+    "title": "Temporal Coordination in Multi-Agent Systems",
+    "description": "Design temporal coordination when agents have different speeds, communication latencies, and timing constraints. Handle synchronization, deadline coordination, and time-sensitive decisions. Discuss logical clocks, barrier synchronization, and how asynchronous execution affects plan coherence.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_200",
+    "theme": "multi_agent_systems",
+    "title": "Long-Horizon Multi-Agent Task Execution",
+    "description": "Design a system where agents collaboratively solve a complex, long-duration task (days or weeks). Include progress tracking, milestone planning, role evolution, and recovery from disruptions.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_201",
+    "theme": "evaluation_methods",
+    "title": "LLM-as-Judge for Text Quality",
+    "description": "Explain how to use an LLM as a judge for evaluating text quality. Describe the rubric, prompt design, and how to reduce judge bias. What are failure modes?",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_202",
+    "theme": "evaluation_methods",
+    "title": "Standard Benchmarks Overview",
+    "description": "Name five standard ML benchmarks: MMLU, HumanEval, SQuAD, ImageNet, and one other. Briefly describe what each measures. Discuss how benchmark saturation drives the creation of harder evaluation suites and the limitations of leaderboard-driven research.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_203",
+    "theme": "evaluation_methods",
+    "title": "Human Evaluation Protocols",
+    "description": "Design a human evaluation protocol: sampling strategy, annotator instructions, quality control, and inter-annotator agreement measurement. Discuss calibration sessions, annotation guidelines design, and how to handle edge cases where annotators legitimately disagree.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_204",
+    "theme": "evaluation_methods",
+    "title": "Inter-Annotator Agreement",
+    "description": "Define Cohen's Kappa, Fleiss' Kappa, and Krippendorff's Alpha. When is each appropriate? How do you interpret agreement levels? Discuss how prevalence and marginal distributions affect kappa scores and when to prefer one coefficient over another.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_205",
+    "theme": "evaluation_methods",
+    "title": "Automatic Metrics for NLP",
+    "description": "Explain BLEU, ROUGE, and METEOR. What do they measure and why? What are their limitations? Discuss how n-gram overlap metrics fail to capture semantic equivalence and why learned metrics like BERTScore offer improved correlation with human judgments.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_206",
+    "theme": "evaluation_methods",
+    "title": "Bias Detection in ML Systems",
+    "description": "Describe methods for detecting bias in ML systems: stratified analysis, demographic parity, equalized odds. When would you use each? Discuss how intersectional bias analysis reveals disparities hidden by single-attribute fairness checks and the role of causal reasoning.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_207",
+    "theme": "evaluation_methods",
+    "title": "Robustness Testing",
+    "description": "Explain robustness testing: adversarial examples, distribution shift, out-of-distribution data. Design a robustness test for an image classifier. Include perturbation budgets, attack methods like FGSM and PGD, and how to measure certified robustness bounds.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_208",
+    "theme": "evaluation_methods",
+    "title": "Calibration and Uncertainty",
+    "description": "Explain calibration: when a model says 90% confidence, it should be right ~90% of the time. How do you measure calibration? How do you improve it?",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_209",
+    "theme": "evaluation_methods",
+    "title": "A/B Testing for ML Models",
+    "description": "Design an A/B test to compare two model versions. How do you determine sample size, randomization, and statistical significance? Discuss power analysis, multiple comparison corrections, and how to handle network effects in online experimentation.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_210",
+    "theme": "evaluation_methods",
+    "title": "Fairness Metrics and Trade-offs",
+    "description": "Define fairness metrics (demographic parity, equalized odds, predictive parity). Explain why different metrics can conflict. How do you choose? Discuss the impossibility theorem showing that certain fairness criteria cannot be simultaneously satisfied except in degenerate cases.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_211",
+    "theme": "evaluation_methods",
+    "title": "Interpretability and Explainability",
+    "description": "Distinguish interpretability (is the model transparent) from explainability (can you explain decisions). Name three explainability techniques. Discuss SHAP, LIME, and attention visualization, including their assumptions and when each provides faithful explanations.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_212",
+    "theme": "evaluation_methods",
+    "title": "Reward Hacking Prevention",
+    "description": "Explain reward hacking: when agents optimize the metric instead of the true objective. Give two examples. How do you prevent it? Discuss reward specification challenges, the Goodhart's Law problem, and how multi-dimensional evaluation reduces single-metric gaming.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_213",
+    "theme": "evaluation_methods",
+    "title": "Cross-Validation Strategies",
+    "description": "Compare k-fold, stratified k-fold, and time-series cross-validation strategies. For each, explain the assumptions about data distribution, when the strategy is appropriate (e.g., class imbalance, temporal dependencies), and common pitfalls like data leakage in time-series splits. When is each the right choice?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_214",
+    "theme": "evaluation_methods",
+    "title": "Statistical Significance Testing",
+    "description": "Explain p-values, confidence intervals, and power analysis. Design a significance test for comparing two models. Discuss paired bootstrap testing, effect size measures like Cohen's d, and why multiple hypothesis correction matters when comparing many models.",
+    "difficulty": "easy",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_215",
+    "theme": "evaluation_methods",
+    "title": "Advanced LLM Judging Design",
+    "description": "Design a sophisticated LLM-as-judge system: multi-dimensional evaluation (fluency, relevance, factuality), chain-of-thought judging, confidence scores, and bias mitigation. Discuss positional bias, self-preference bias, and calibration techniques for reliable automated judgment.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_216",
+    "theme": "evaluation_methods",
+    "title": "Custom Benchmark Design",
+    "description": "Design a custom benchmark for evaluating agents on reasoning tasks: define difficulty levels, include diverse task types (logic, math, language), collect gold-standard annotations. Discuss contamination prevention and how to ensure the benchmark remains valid over time.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_217",
+    "theme": "evaluation_methods",
+    "title": "Scale Human Evaluation",
+    "description": "You need to annotate 10,000 examples but human annotation is expensive. Design a strategy: sampling, crowdsourcing, expert/non-expert splits, quality control thresholds. Discuss active learning to prioritize uncertain examples and how to estimate annotation budget requirements.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_218",
+    "theme": "evaluation_methods",
+    "title": "Measuring Hallucination in LLMs",
+    "description": "Design metrics and methods to measure hallucination (when LLMs generate false information). Compare factuality checking, consistency scores, and semantic entailment. Discuss how retrieval-grounded verification and self-consistency sampling help detect hallucinated content.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_219",
+    "theme": "evaluation_methods",
+    "title": "Sensitivity Analysis for Metrics",
+    "description": "A model's performance depends on evaluation metric choice (BLEU vs METEOR for translation). Design a sensitivity analysis: how much do rankings change between metrics? Discuss rank correlation coefficients and when metric disagreement signals evaluation validity concerns.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_220",
+    "theme": "evaluation_methods",
+    "title": "Temporal Drift Detection",
+    "description": "A deployed model's performance degrades over time (data distribution shifts). Design a drift detection system: metrics, thresholds, and retraining triggers. Discuss population stability index, Kolmogorov-Smirnov tests, and how monitoring windows affect detection sensitivity.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_221",
+    "theme": "evaluation_methods",
+    "title": "Adversarial Robustness Benchmarking",
+    "description": "Design a benchmark for adversarial robustness: adversarial examples (FGSM, PGD), backdoor attacks, and poisoning. Measure both robustness and clean accuracy. Discuss the accuracy-robustness trade-off and how certified defenses provide provable guarantees.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_222",
+    "theme": "evaluation_methods",
+    "title": "Fairness in Multi-Class Classification",
+    "description": "You have 10 output classes and 5 demographic groups. Design fairness metrics and mitigation: which fairness constraint (group fairness, individual fairness, causal fairness)? Discuss per-class calibration, threshold adjustment, and how to handle intersectional subgroups.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_223",
+    "theme": "evaluation_methods",
+    "title": "Error Analysis Methodology",
+    "description": "Design a systematic error analysis pipeline: categorize errors (false positives, false negatives), root cause analysis, and failure mode taxonomy. Discuss how confusion matrix decomposition and error clustering reveal actionable patterns for targeted model improvement.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_224",
+    "theme": "evaluation_methods",
+    "title": "Measuring Agent Efficiency",
+    "description": "Design metrics for agent efficiency: tokens used, steps taken, wall-clock time, compute cost. How do you compare efficiency across tasks of varying difficulty? Discuss normalized efficiency scores and Pareto analysis of quality-cost trade-offs.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_225",
+    "theme": "evaluation_methods",
+    "title": "Confounding Variable Analysis",
+    "description": "Model A outperforms Model B on your benchmark. Design an analysis to check if B's poor performance is due to the modeling approach or confounding factors (data quality, hyperparameter tuning).",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_226",
+    "theme": "evaluation_methods",
+    "title": "Few-Shot Learning Evaluation",
+    "description": "Design an evaluation protocol for few-shot learning: vary sample sizes, measure learning curves, compare zero-shot, one-shot, and few-shot performance. Discuss episode sampling strategies and how to report confidence intervals across varying support set compositions.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_227",
+    "theme": "evaluation_methods",
+    "title": "Long-Form Generation Evaluation",
+    "description": "Evaluating long documents (essays, reports) with short metrics (BLEU) fails. Design comprehensive evaluation: structure, coherence, factuality, relevance. Combine automatic and human judgment. Discuss rubric-based scoring and how hierarchical evaluation captures discourse-level quality.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_228",
+    "theme": "evaluation_methods",
+    "title": "Negative Results and Publication Bias",
+    "description": "Analyze publication bias: positive results are published, negative results disappear. Design a process to scientifically document negative results and ensure fair statistical reporting. Discuss pre-registration, funnel plots, and how file-drawer effects distort the scientific record.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_229",
+    "theme": "evaluation_methods",
+    "title": "Multi-Objective Optimization Evaluation",
+    "description": "You want to optimize multiple objectives (accuracy, fairness, latency). Design evaluation: Pareto frontier analysis, trade-off visualization, and multi-objective metrics. Discuss hypervolume indicators and how scalarization methods convert multi-objective problems into tractable single-objective ones.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_230",
+    "theme": "evaluation_methods",
+    "title": "Evaluation in Domain Shift",
+    "description": "Model trained on ImageNet is deployed on medical images. Design evaluation for domain shift: in-distribution vs out-of-distribution performance, adaptation methods. Discuss domain adaptation techniques like fine-tuning, domain adversarial training, and calibration under distribution shift.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_231",
+    "theme": "evaluation_methods",
+    "title": "Comprehensive LLM Evaluation Framework",
+    "description": "Design an end-to-end evaluation framework for LLMs: multiple tasks (reasoning, knowledge, language, code), diverse metrics (accuracy, efficiency, robustness), bias detection. Create taxonomy of capabilities. Discuss how composite scoring prevents single-metric optimization.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_232",
+    "theme": "evaluation_methods",
+    "title": "Designing Unbiased Evaluation Benchmarks",
+    "description": "Design a benchmark that resists gaming and cheating: diverse examples, no data leakage, hard negatives, adversarial examples. Validate that solutions must understand the problem, not memorize.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_233",
+    "theme": "evaluation_methods",
+    "title": "Human-LLM Evaluation Agreement",
+    "description": "Investigate disagreement between human and LLM judgments: statistical analysis, error patterns, sources of disagreement. When should you trust human vs LLM judgment? Discuss annotation difficulty, subjective tasks, and how to calibrate LLM judges against gold-standard human labels.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_234",
+    "theme": "evaluation_methods",
+    "title": "Scalable Fairness Auditing",
+    "description": "Audit fairness of a recommender system with billions of users/items: sampling strategies, group representation, fairness metrics, and interventions. Measure fairness violations post-hoc. Discuss scalable auditing pipelines and how to surface systematic disparities in recommendation exposure.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_235",
+    "theme": "evaluation_methods",
+    "title": "Causal Evaluation of Model Changes",
+    "description": "You changed a model and metrics improved. Was it because of your change or confounding factors? Design causal inference methods: randomized trials, difference-in-differences, propensity score matching.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_236",
+    "theme": "evaluation_methods",
+    "title": "Detecting Shortcuts and Spurious Correlations",
+    "description": "A model achieves high accuracy but uses spurious correlations (e.g., background patterns instead of objects). Design detection methods: saliency maps, causal analysis, adversarial tests. Discuss counterfactual data augmentation and how stress-testing reveals shortcut dependencies.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_237",
+    "theme": "evaluation_methods",
+    "title": "Metric Aggregation and Ranking",
+    "description": "You have 15 different evaluation metrics. Design a principled approach to aggregate them into a single ranking. Handle metric weights, normalize scales, and detect conflicts.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_238",
+    "theme": "evaluation_methods",
+    "title": "Generalization Assessment",
+    "description": "Test if a model truly generalizes or just memorizes. Design evaluation: hold-out test sets, domain shift tests, adversarial examples, and extrapolation tasks beyond training distribution.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_239",
+    "theme": "evaluation_methods",
+    "title": "Cost-Benefit Analysis of Evaluation",
+    "description": "Comprehensive evaluation is expensive (annotation, compute, time). Design a cost-benefit analysis: which evaluation methods are worth their cost? When can you use cheaper proxies? Discuss how pilot studies and correlation analysis identify which expensive evaluations can be safely replaced.",
+    "difficulty": "medium",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_240",
+    "theme": "evaluation_methods",
+    "title": "Competitive Benchmarking Analysis",
+    "description": "You have leaderboard rankings from 50 models. Analyze: what makes top models succeed (architectural choices, training data, hyperparameters)? Design a meta-analysis to extract insights. Discuss ablation studies and how controlling for compute budget reveals true architectural advantages.",
+    "difficulty": "medium",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_241",
+    "theme": "evaluation_methods",
+    "title": "Interpretability-Performance Trade-off",
+    "description": "More interpretable models (trees, linear) often have lower accuracy than black-box models (neural networks). Design evaluation to measure this trade-off. When is interpretability worth accuracy loss?",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_242",
+    "theme": "evaluation_methods",
+    "title": "Stress Testing ML Systems",
+    "description": "Design comprehensive stress tests for deployed ML systems: adversarial inputs, noise injection, resource constraints, latency variations, and cascading failures. Discuss how chaos engineering principles apply to ML infrastructure and how to define acceptable degradation thresholds.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_243",
+    "theme": "evaluation_methods",
+    "title": "Meta-Analysis of Evaluation Methods",
+    "description": "Compare different evaluation methods (LLM-as-judge vs human annotation vs automatic metrics) on the same 1,000 examples. Measure agreement, cost, and correlation with real-world outcomes. Discuss how meta-evaluation reveals which method is most reliable for each task type.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_244",
+    "theme": "evaluation_methods",
+    "title": "Temporal Evaluation for Continual Learning",
+    "description": "A model learns continuously over months, encountering new data and tasks. Design evaluation: learning curves, forgetting measurements, forward/backward transfer, task interference. Discuss how elastic weight consolidation and replay buffers affect continual learning evaluation.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_245",
+    "theme": "evaluation_methods",
+    "title": "Reproducibility and Replicability",
+    "description": "Design a framework for reproducibility: code/data release, hyperparameter documentation, random seed control. Measure how many results replicate independently. Analyze failure modes. Discuss containerization, dependency pinning, and how hardware variability affects reproducibility.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_246",
+    "theme": "evaluation_methods",
+    "title": "Backdoor Detection and Evaluation",
+    "description": "Design evaluation to detect backdoor attacks in models: trigger patterns, targeted misclassification, and verification. Create adversarial benchmarks for backdoor robustness. Discuss neural cleanse, activation clustering, and how fine-pruning can remove backdoor triggers.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_247",
+    "theme": "evaluation_methods",
+    "title": "Privacy Preservation in Evaluation",
+    "description": "Evaluate a model without revealing sensitive data: differential privacy for evaluation, federated evaluation, and secure computation. Measure privacy-accuracy trade-off. Discuss noise calibration in differential privacy and how privacy budgets constrain the number of evaluation queries.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_248",
+    "theme": "evaluation_methods",
+    "title": "Sample Efficiency Evaluation",
+    "description": "Design evaluation to measure sample efficiency: learning curves with varying data sizes, extrapolation to infinite data, comparison of data efficiency across models. Discuss power-law scaling fits and how sample efficiency metrics inform data collection budget decisions.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_249",
+    "theme": "evaluation_methods",
+    "title": "Axiom-Based Evaluation",
+    "description": "Define axioms that models should satisfy (consistency, transitivity, monotonicity). Design tests to verify axioms. When do models violate axioms? Can you enforce them? Discuss axiomatic evaluation as a complement to benchmark scores and how constraint enforcement affects model flexibility.",
+    "difficulty": "hard",
+    "source": "adapted"
+  },
+  {
+    "task_id": "task_250",
+    "theme": "evaluation_methods",
+    "title": "Comprehensive Research System Evaluation",
+    "description": "Design a complete evaluation framework for a complex research system: task decomposition, independent component testing, end-to-end integration testing, failure mode analysis, comparison with baselines, and statistical reporting with effect sizes and confidence intervals.",
+    "difficulty": "hard",
+    "source": "synthetic"
+  },
+  {
+    "task_id": "task_251",
+    "theme": "ml_fundamentals",
+    "title": "Diagnosing Training Instability in Deep Residual Networks",
+    "description": "A 152-layer ResNet with batch normalization is experiencing loss spikes every ~500 iterations during training on ImageNet. The learning rate is 0.1 with cosine annealing, and gradient norms oscillate between 0.01 and 100. Diagnose the likely causes, explain how skip connections interact with batch norm statistics during these instabilities, and propose a fix that addresses the root cause without simply reducing the learning rate.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_252",
+    "theme": "ml_fundamentals",
+    "title": "Debugging Mode Collapse in Conditional GANs",
+    "description": "A conditional GAN trained on a multi-label image generation task produces high-quality images for 3 of 10 categories but generates near-identical outputs for the remaining 7. The discriminator loss is near zero while the generator loss plateaus. Analyze the interplay between the conditioning mechanism, discriminator overfitting, and label imbalance in the training set. Design a multi-pronged fix incorporating spectral normalization, label smoothing, and architectural changes to the conditioning pathway.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_253",
+    "theme": "ml_fundamentals",
+    "title": "Optimal Tokenization Strategy for Multilingual Scientific Models",
+    "description": "You are pre-training a transformer model on a corpus containing English scientific papers, Chinese patent filings, and mathematical notation with LaTeX. BPE tokenization fragments mathematical expressions and Chinese characters while over-allocating vocabulary to English. Design a tokenization strategy that balances vocabulary allocation across languages and modalities, handles out-of-vocabulary mathematical symbols gracefully, and minimizes fertility (tokens per word) disparity. Analyze how tokenization choices propagate to downstream task performance in cross-lingual retrieval and equation understanding.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_254",
+    "theme": "ml_fundamentals",
+    "title": "Memory-Efficient Training Under Heterogeneous Hardware Constraints",
+    "description": "You have a cluster with 4 A100 GPUs (80GB), 8 V100 GPUs (32GB), and 16 T4 GPUs (16GB) to train a 13B parameter model. Design a training strategy that uses all available hardware efficiently, combining pipeline parallelism, tensor parallelism, and data parallelism appropriately across the heterogeneous nodes. Address load balancing when different GPUs have different throughputs, gradient synchronization overhead, and how to handle the memory disparity for activation checkpointing decisions.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_255",
+    "theme": "ml_fundamentals",
+    "title": "Catastrophic Interference in Multi-Domain Continual Pre-Training",
+    "description": "A foundation model pre-trained on general web text is being continually pre-trained on three sequential domains: biomedical literature, legal documents, then financial reports. After each domain, performance on earlier domains degrades by 15-30%. Elastic Weight Consolidation (EWC) reduces forgetting but caps peak domain performance at 85% of single-domain fine-tuning. Design a training regime that combines replay buffers with domain-specific adapter modules and progressive knowledge distillation to achieve less than 5% forgetting while maintaining at least 95% peak performance. Justify your memory budget allocation across replay, adapters, and base model parameters.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_256",
+    "theme": "ml_fundamentals",
+    "title": "Theoretical Analysis of LoRA Rank Selection and Loss Landscape Geometry",
+    "description": "When fine-tuning a 7B parameter model using LoRA, practitioners often choose rank r=8 or r=16 by convention. Analyze theoretically how LoRA rank interacts with the intrinsic dimensionality of the downstream task, the pre-trained weight matrix spectrum, and the loss landscape curvature. For a task where the optimal weight update has effective rank 12 but the pre-trained weight matrix has a sharp spectral decay after the top 50 singular values, determine whether r=8 or r=16 is better and why. Propose a method to adaptively select rank per layer based on gradient information during early training.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_257",
+    "theme": "ml_fundamentals",
+    "title": "Diagnosing and Fixing Numerical Instability in Mixture-of-Experts Models",
+    "description": "A Mixture-of-Experts transformer with 64 experts and top-2 routing experiences training collapse after 10K steps: the router converges to sending 90% of tokens to 2 experts while 50 experts receive near-zero traffic. Loss suddenly spikes when auxiliary load-balancing loss weight is increased. Analyze the interaction between router softmax temperature, load-balancing loss gradients, expert capacity factors, and FP16 precision. Design a fix that uses expert-choice routing, progressive capacity adjustment, and router z-loss to stabilize training without expert collapse.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_258",
+    "theme": "ml_fundamentals",
+    "title": "Designing a Self-Supervised Pretext Task for Tabular Data",
+    "description": "Unlike images (masked patches) or text (masked tokens), tabular data lacks natural spatial or sequential structure for self-supervised learning. Design a pretext task for a dataset with 200 features of mixed types: 80 continuous, 50 categorical, 40 binary, and 30 ordinal. The pretext task must capture inter-feature dependencies, handle missing values natively, respect feature type semantics (e.g., ordinal ordering), and produce representations useful for both classification and regression downstream tasks. Compare your approach to existing methods like VIME, SubTab, and SCARF, analyzing what structural assumptions each makes and where they fail.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_259",
+    "theme": "ml_fundamentals",
+    "title": "Optimizing Inference Throughput Under Strict Latency and Accuracy SLAs",
+    "description": "A production model serving system must handle 10,000 requests/second with p99 latency under 50ms and accuracy within 1% of the full FP32 model. The base model is a 3B parameter transformer. Design an optimization pipeline combining INT8 quantization, speculative decoding, KV-cache optimization, continuous batching, and model distillation. Analyze the accuracy-latency Pareto frontier for each technique, identify which combinations are synergistic vs redundant, and provide a deployment architecture that meets all three SLAs simultaneously. Address how to monitor for accuracy degradation in production.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_260",
+    "theme": "ml_fundamentals",
+    "title": "Failure Analysis of Contrastive Learning with Distribution Shift",
+    "description": "A contrastive learning model (SimCLR-style) pre-trained on ImageNet achieves 92% linear probe accuracy on ImageNet but only 61% on a satellite imagery dataset despite similar visual complexity. Analyze why the learned representations fail to transfer: examine how data augmentation choices (random crop, color jitter, Gaussian blur) create implicit inductive biases tied to natural images, how the contrastive loss function shapes the embedding geometry in ways that conflict with satellite image semantics, and how batch composition affects hard negative mining. Design a domain-adaptive contrastive pre-training strategy that bridges this gap without access to labeled satellite data.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_261",
+    "theme": "agent_architectures",
+    "title": "Designing a Self-Healing Agent with Formal Verification Constraints",
+    "description": "An autonomous coding agent must modify a production codebase while guaranteeing that existing tests pass, type constraints hold, and no new security vulnerabilities are introduced. Design an agent architecture that combines symbolic verification (type checkers, static analyzers, SMT solvers) with LLM-based code generation, uses the verification feedback to guide iterative refinement, and maintains a causal model of past failures to avoid repeating them. Address the challenge of verification tool latency (30-60 seconds per check) and how the agent should parallelize exploration vs verification.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_262",
+    "theme": "agent_architectures",
+    "title": "Context Window Management Under Adversarial Information Density",
+    "description": "An agent processing legal contracts encounters documents where critical clauses are deliberately buried among boilerplate text, with key terms defined hundreds of pages before their use. The agent has a 32K token context window but documents average 200K tokens. Design a context management architecture that combines hierarchical summarization, attention-guided extraction, and a structured scratchpad to maintain semantic coherence across the full document. Address how the agent detects that important information was lost during compression, how it decides when to re-read sections, and how it handles cross-references between distant document sections.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_263",
+    "theme": "agent_architectures",
+    "title": "Multi-Model Agent Routing with Capability-Aware Orchestration",
+    "description": "Design an agent orchestrator that routes subtasks to different LLMs based on capability profiles: a large model for complex reasoning, a fast model for simple lookups, a code-specialized model for programming tasks, and a vision model for image analysis. The orchestrator must learn routing policies from task outcomes, handle model API failures with graceful degradation, manage a shared context across heterogeneous models with different tokenizers and context windows, and optimize for a combined objective of quality, latency, and cost. Analyze how routing errors compound in multi-step tasks and design a confidence-based fallback mechanism.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_264",
+    "theme": "agent_architectures",
+    "title": "Designing Agents with Persistent World Models",
+    "description": "An agent operating in a complex software environment (managing Kubernetes clusters) must maintain an accurate mental model of the system state that persists across sessions. Design an architecture combining a structured state representation (graph database of resources, relationships, and configurations), a learned transition model that predicts state changes from actions, and an anomaly detector that flags when observed state diverges from predicted state. Address how the world model handles partial observability, concurrent external modifications by other operators, and graceful degradation when the model becomes stale.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_265",
+    "theme": "agent_architectures",
+    "title": "Bounded Rationality Agent Design Under Compute Budgets",
+    "description": "Design an agent that operates under strict compute budgets (maximum 500K tokens per task, maximum 30 API calls) for complex research tasks that ideally require unlimited exploration. The agent must implement anytime algorithms that produce progressively better results, meta-reason about which subtasks deserve more compute investment, and dynamically reallocate remaining budget based on intermediate results. Compare strategies: fixed allocation across phases, UCB-style exploration-exploitation over subtasks, and learned budget allocation from historical task trajectories. Analyze how performance degrades as budgets tighten and identify the knee point.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_266",
+    "theme": "agent_architectures",
+    "title": "Agent Memory Consolidation Inspired by Cognitive Architecture",
+    "description": "Design a memory system for a long-running agent (operating over weeks) inspired by human memory consolidation: a working memory buffer (recent context), episodic memory (specific interaction records), semantic memory (extracted facts and patterns), and procedural memory (learned action sequences). Define the consolidation process that moves information between stores: what triggers consolidation, how episodes are generalized into semantic knowledge, how conflicting memories are resolved, and how procedural skills are extracted from repeated successful action patterns. Address memory capacity management and retrieval efficiency as the system scales to millions of stored items.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_267",
+    "theme": "agent_architectures",
+    "title": "Designing Interpretable Agent Decision Traces for Regulatory Compliance",
+    "description": "A financial services agent makes investment recommendations that must comply with regulatory requirements for explainability and auditability. Design an agent architecture that generates machine-readable decision traces linking each recommendation to specific data sources, reasoning steps, and regulatory rules consulted. The traces must be verifiable by automated compliance systems, support counterfactual queries (what would change if input X were different), and maintain audit trails across multi-step reasoning chains. Address the tension between LLM reasoning opacity and regulatory transparency requirements, proposing a hybrid architecture with constrained reasoning pathways.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_268",
+    "theme": "agent_architectures",
+    "title": "Hierarchical Planning with Temporal Abstraction for Long-Horizon Tasks",
+    "description": "An agent must plan and execute a 200-step software migration project (migrating a monolith to microservices) where actions have dependencies, some are reversible and others are not, and the environment changes between planning and execution. Design a hierarchical planner with three levels: strategic (milestone planning), tactical (task sequencing within milestones), and operational (individual action execution). Address how the planner handles plan invalidation when assumptions change mid-execution, how it decides when to replan vs adapt locally, and how temporal abstractions (grouping fine-grained actions into reusable macro-actions) are learned from experience.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_269",
+    "theme": "agent_architectures",
+    "title": "Designing Agents Robust to Prompt Injection and Indirect Manipulation",
+    "description": "An agent processes user-provided documents that may contain adversarial instructions embedded in seemingly innocuous text (indirect prompt injection). Design a defense architecture combining input sanitization, instruction hierarchy enforcement (system prompt > user instructions > document content), behavioral anomaly detection that flags when agent actions deviate from expected patterns, and sandboxed execution for potentially dangerous operations. Analyze attack vectors including multi-turn manipulation where each message is individually benign but collectively steer the agent, and tool-output injection where compromised APIs return adversarial content. Evaluate the defense-usability tradeoff.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_270",
+    "theme": "agent_architectures",
+    "title": "Co-Evolutionary Agent and Environment Design",
+    "description": "Design a system where an agent and its training environment co-evolve: the environment generates progressively harder challenges based on the agent's current capabilities, while the agent develops new skills in response. Formalize this as a two-player game between a task-generator and a task-solver, using ideas from adversarial training, curriculum learning, and population-based training. Address the stability challenge (preventing the generator from producing impossible tasks or the solver from gaming the generator), how to measure meaningful capability improvement vs superficial adaptation, and how to ensure the learned skills transfer to real-world tasks not seen during co-evolution.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_271",
+    "theme": "retrieval_systems",
+    "title": "Debugging Embedding Drift in Production RAG Systems",
+    "description": "A production RAG system's answer quality has degraded by 20% over 6 months despite no code changes. Investigation reveals the embedding model was updated by the provider (version 2 to version 3), creating a mismatch between the query embeddings (v3) and the stored document embeddings (v2). Simply re-embedding all 50M documents is prohibitively expensive. Design a solution that combines embedding space alignment (learning a projection from v3 to v2 space), incremental re-embedding prioritized by document access frequency, and a hybrid retrieval fallback that uses BM25 when embedding similarity confidence is low. Analyze how embedding drift affects different query types differently.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_272",
+    "theme": "retrieval_systems",
+    "title": "Multi-Hop Retrieval with Evidence Chain Verification",
+    "description": "A question-answering system must answer complex questions requiring information from 3-5 documents where no single document contains the full answer. Design a multi-hop retrieval system that iteratively retrieves documents, extracts intermediate answers, formulates follow-up queries, and constructs an evidence chain. Address the compounding error problem (each retrieval hop has 85% precision, so 4 hops yield only 52% end-to-end precision), how to detect when the evidence chain contains contradictions or circular reasoning, and how to verify the final answer is logically entailed by the evidence chain rather than hallucinated from plausible-sounding but incomplete evidence.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_273",
+    "theme": "retrieval_systems",
+    "title": "Retrieval System Design for Heterogeneous Enterprise Knowledge",
+    "description": "Design a retrieval system for an enterprise with knowledge spread across Confluence wikis, Slack messages, Jira tickets, code repositories, PDF design documents, recorded meeting transcripts, and structured databases. Each source has different update frequency, access permissions, content structure, and reliability. Design unified indexing that preserves source-specific metadata, a query understanding layer that routes queries to appropriate sources, a fusion strategy that combines results across sources with source-reliability weighting, and an access control system that filters results based on the querying user's permissions without leaking information about restricted documents' existence.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_274",
+    "theme": "retrieval_systems",
+    "title": "Adversarial Document Injection Defense for RAG Systems",
+    "description": "An attacker can inject documents into a RAG system's corpus that are designed to be retrieved for specific queries and contain subtly manipulated information. Design a defense system that detects adversarial documents using provenance tracking, statistical anomaly detection on embedding distributions, cross-reference verification against trusted sources, and temporal consistency checking. Analyze attack vectors including SEO-style keyword stuffing that games embedding similarity, Trojan documents that appear legitimate but contain targeted misinformation, and coordinated injection of multiple mutually-reinforcing false documents. Evaluate the false positive rate of your defenses on legitimate new documents.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_275",
+    "theme": "retrieval_systems",
+    "title": "Designing Retrieval for Temporal Reasoning Over Evolving Knowledge",
+    "description": "A retrieval system must answer time-sensitive queries about evolving topics (e.g., 'What is the current CEO of Company X?' or 'What was the policy on remote work in 2022 vs 2024?'). Documents in the corpus span 10 years and may contain outdated information, superseded policies, or conflicting statements from different time periods. Design a temporal-aware retrieval system that indexes document timestamps and validity periods, understands temporal query intent (current state vs historical comparison vs trend analysis), resolves conflicts between documents from different time periods, and handles the challenge that the most embedding-similar document may be outdated while the correct current answer is in a less similar recent document.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_276",
+    "theme": "retrieval_systems",
+    "title": "Optimizing Retrieval Latency for Real-Time Conversational AI",
+    "description": "A conversational AI system must retrieve relevant context within 20ms to maintain natural conversation flow, searching across a 500M document corpus. The system must handle multi-turn context (previous conversation turns influence retrieval), support real-time corpus updates (new documents added every second), and maintain retrieval quality comparable to a 200ms system. Design an architecture combining approximate nearest neighbor search with pre-computed conversation-aware query caches, speculative pre-fetching based on predicted conversation direction, tiered indexing (hot/warm/cold), and result pre-computation during user typing. Analyze where quality degrades and design a graceful degradation strategy.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_277",
+    "theme": "retrieval_systems",
+    "title": "Cross-Modal Retrieval with Alignment Uncertainty",
+    "description": "Design a retrieval system where queries can be in any modality (text, image, audio, video) and documents can be in any modality, requiring cross-modal matching. CLIP-style aligned embeddings work well for text-image pairs but degrade for text-audio and image-video pairs where training data is scarce. Design a multi-stage alignment strategy that uses chain-of-modality bridging (text-image alignment + image-video alignment to get text-video alignment), uncertainty-aware similarity scoring that reflects alignment confidence per modality pair, and a fallback mechanism that transcribes or captionizes non-text modalities when cross-modal embedding confidence is low. Analyze error propagation through alignment chains.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_278",
+    "theme": "retrieval_systems",
+    "title": "Retrieval-Augmented Reasoning with Structured and Unstructured Knowledge",
+    "description": "A medical diagnosis support system must retrieve from both structured knowledge (drug interaction databases, clinical trial results in tabular form, diagnostic decision trees) and unstructured knowledge (clinical case reports, research papers, physician notes). Design a hybrid retrieval system that translates natural language queries into both embedding-based searches over unstructured text and structured queries (SQL/SPARQL) over knowledge bases, fuses results across modalities with confidence weighting, and handles the challenge that structured data provides precise but narrow answers while unstructured data provides broad but noisy context. Address how to present the provenance of each piece of evidence to the clinician.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_279",
+    "theme": "retrieval_systems",
+    "title": "Self-Improving Retrieval Through Implicit Feedback Mining",
+    "description": "A deployed RAG system generates answers that users sometimes accept, sometimes regenerate, and sometimes abandon entirely. Design a self-improving retrieval pipeline that infers relevance labels from these implicit signals (accounting for position bias, presentation bias, and the confound that users may accept wrong answers), trains a reward model for retrieval quality, uses the reward model to fine-tune the retrieval components (query encoder, re-ranker), and maintains an exploration mechanism to avoid convergence on local optima. Address the feedback loop risk where the system over-optimizes for user satisfaction metrics while actual answer accuracy degrades.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_280",
+    "theme": "retrieval_systems",
+    "title": "Retrieval System Architecture for Regulatory Compliance Document Analysis",
+    "description": "Design a retrieval system for a compliance team that must cross-reference regulations across multiple jurisdictions (EU GDPR, US state privacy laws, industry-specific rules), track regulatory changes over time, identify conflicts between overlapping regulations, and retrieve the most specific applicable rule for a given business scenario. The system must handle hierarchical document structure (articles > sections > paragraphs > definitions with cross-references), maintain a regulatory dependency graph, support hypothetical queries ('If we expand to Germany, what additional requirements apply?'), and provide audit trails showing which regulations were considered. Address chunk boundary challenges when regulations reference definitions defined in other sections.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_281",
+    "theme": "multi_agent_systems",
+    "title": "Designing Fault-Tolerant Consensus Under Partial Network Partitions",
+    "description": "A multi-agent system with 12 agents experiences intermittent network partitions where agents can communicate with some but not all peers simultaneously, creating overlapping communication subgroups that change over time. Design a consensus protocol that maintains progress despite these partial partitions, detects when a partition has occurred (vs slow agents), handles the split-brain problem where two subgroups reach conflicting decisions, and efficiently reconciles state when partitions heal. Analyze the CAP theorem implications for your design and formalize the consistency guarantees under different partition scenarios. Compare your approach to Raft and PBFT adapted for this setting.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_282",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Negotiation for Resource Allocation Under Incomplete Information",
+    "description": "Five agents must allocate a shared compute budget across 20 tasks, but each agent has private information about task priorities that it may strategically misrepresent to gain more resources. Design a mechanism that incentivizes truthful reporting (strategy-proofness), achieves near-optimal allocation despite incomplete information, handles coalition formation where agents collude, and converges within a bounded number of communication rounds. Compare Vickrey-Clarke-Groves (VCG) mechanisms, proportional fairness, and Nash bargaining solutions. Analyze what happens when agents have different discount rates for future vs immediate resource access.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_283",
+    "theme": "multi_agent_systems",
+    "title": "Emergent Division of Labor in Self-Organizing Agent Swarms",
+    "description": "Design a system where 50 identical agents (same model, same tools, same initial prompt) must self-organize into specialized roles to handle a complex workflow (content creation pipeline: research, writing, editing, fact-checking, formatting). Without explicit role assignment, agents must discover and adopt roles based on task demands, develop expertise through experience, and dynamically rebalance when workload shifts. Formalize the emergence conditions using information-theoretic measures (mutual information between agent identity and role behavior), design mechanisms to prevent role starvation (no agent takes an unpopular but necessary role), and analyze stability of the emergent organization under perturbation.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_284",
+    "theme": "multi_agent_systems",
+    "title": "Designing Trust Propagation in Hierarchical Multi-Agent Systems",
+    "description": "A hierarchical multi-agent system has 3 layers: 1 coordinator, 5 team leads, and 25 workers. Trust must propagate bidirectionally: upward (workers report results whose accuracy affects team lead trust scores) and downward (coordinator delegates based on team lead reliability). Design a trust model that handles transitive trust (coordinator trusts worker through team lead), detects trust manipulation (a team lead inflating their workers' scores), accounts for task-dependent competence (an agent is reliable for math but not coding), and adapts trust scores using Bayesian updating with forgetting factors. Analyze cascading trust failures where one compromised team lead corrupts trust assessments for their entire subtree.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_285",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Debate with Structured Argumentation and Epistemic Logic",
+    "description": "Design a formal debate system where 4 agents argue about complex technical decisions using structured argumentation frameworks (Dung's abstract argumentation). Each agent constructs argument graphs with support and attack relations, and the system resolves conflicts using grounded, preferred, or stable semantics. Integrate epistemic logic so agents can reason about what other agents know and believe, detect circular arguments and fallacies automatically, handle the problem of LLMs generating plausible-sounding but logically invalid arguments, and determine when debate has converged vs when agents are simply restating positions. Compare debate quality to single-agent chain-of-thought on complex reasoning benchmarks.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_286",
+    "theme": "multi_agent_systems",
+    "title": "Scalable Multi-Agent Simulation for Policy Testing",
+    "description": "Design a simulation framework to test multi-agent policies before deployment at scale. The framework must simulate 10,000 agents with realistic communication latencies, model heterogeneous agent capabilities and failure modes, support accelerated time (running days of simulated interaction in hours), and generate adversarial scenarios that stress-test edge cases. Address the sim-to-real gap: how do you validate that simulation results predict real-world behavior? Design calibration experiments using small-scale real deployments. Include mechanisms for automated scenario generation using coverage-guided fuzzing of the agent interaction space.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_287",
+    "theme": "multi_agent_systems",
+    "title": "Cross-Organizational Multi-Agent Collaboration with Competing Interests",
+    "description": "Three organizations each deploy their own agent systems that must collaborate on a joint project (e.g., supply chain optimization) while protecting proprietary information. Design a collaboration protocol where agents share sufficient information for effective coordination but prevent leakage of trade secrets, competitive strategies, or internal capabilities. Use secure multi-party computation for joint optimization, design information-theoretic bounds on what can be inferred from shared messages, handle the incentive problem where organizations benefit from free-riding on others' efforts, and address liability when a jointly-made decision causes losses. Compare federated optimization, encrypted message passing, and zero-knowledge proof approaches.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_288",
+    "theme": "multi_agent_systems",
+    "title": "Multi-Agent Learning Under Non-Stationary Reward Distributions",
+    "description": "In a multi-agent reinforcement learning environment, each agent's reward depends on the joint actions of all agents, and the reward distribution shifts every 1000 steps as new tasks arrive and old ones expire. Design a learning algorithm where agents detect distribution shifts using change-point detection on reward statistics, adapt their policies quickly using meta-learning or policy distillation from prior experience, coordinate adaptation to avoid the thundering herd problem (all agents changing simultaneously causes instability), and maintain a portfolio of past policies for fast switching. Analyze convergence guarantees under different shift frequencies and magnitudes, and compare to iterated best response and fictitious play baselines.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_289",
+    "theme": "multi_agent_systems",
+    "title": "Designing Governance Mechanisms for Autonomous Agent Collectives",
+    "description": "A collective of 20 autonomous agents must make binding decisions about shared resource usage, conflict resolution, and membership (adding/removing agents). Design governance mechanisms inspired by constitutional design: a decision framework specifying which decisions require majority vs supermajority vs unanimity, amendment procedures for changing governance rules, rights and obligations for individual agents, and impeachment mechanisms for agents that consistently violate norms. Formalize using social choice theory, analyze impossibility results (Arrow's theorem implications for agent voting), design mechanisms that are robust to strategic manipulation, and address the bootstrap problem of how initial governance rules are established.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_290",
+    "theme": "multi_agent_systems",
+    "title": "Hybrid Human-Agent Teams with Asymmetric Capabilities",
+    "description": "Design a collaboration framework for a team of 3 human experts and 5 AI agents working together on complex analysis tasks. Humans are better at ambiguity resolution, ethical judgment, and creative synthesis but are slow and intermittently available. Agents are fast, consistent, and always available but lack common sense and make confident errors. Design task routing that accounts for asymmetric capabilities, communication protocols that adapt to human cognitive load and attention spans, escalation mechanisms where agents recognize their limitations and defer to humans, and learning mechanisms where agents improve by observing human decisions. Address the trust calibration problem where humans either over-rely on or under-trust agent outputs.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_291",
+    "theme": "evaluation_methods",
+    "title": "Designing Evaluation for Stochastic Systems with High Variance Outputs",
+    "description": "An LLM-based system produces highly variable outputs: the same input generates substantially different answers across runs, with quality varying from excellent to poor. Standard evaluation (single run per input) gives unreliable results. Design an evaluation framework that estimates the output quality distribution (not just the mean), determines the minimum number of runs per input for stable estimates using sequential analysis, separates variance due to the model from variance due to input ambiguity, and designs aggregate metrics that capture both average quality and worst-case behavior (CVaR, tail risk). Apply this to compare two systems where System A has higher mean quality but heavier left tail than System B.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_292",
+    "theme": "evaluation_methods",
+    "title": "Evaluating Faithfulness of Chain-of-Thought Reasoning",
+    "description": "LLMs produce chain-of-thought reasoning that may not reflect their actual computational process (post-hoc rationalization vs faithful reasoning). Design an evaluation framework to measure faithfulness: perturb reasoning steps and measure if the final answer changes accordingly (if removing step 3 doesn't change the answer, step 3 may be unfaithful), check logical validity of each inference step, compare early-exit predictions (after k reasoning steps) with the final answer to detect reasoning that is decorative rather than functional, and measure whether models that show their work are actually more accurate than those that don't. Address the fundamental epistemological challenge of verifying internal reasoning from external observations.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_293",
+    "theme": "evaluation_methods",
+    "title": "Multi-Dimensional Evaluation with Conflicting Stakeholder Requirements",
+    "description": "A deployed ML system has four stakeholder groups with conflicting evaluation priorities: end users (care about accuracy and speed), legal/compliance (care about explainability and bias), engineering (care about latency, throughput, and maintenance burden), and business (care about cost and user engagement). Design an evaluation framework that formalizes each stakeholder's requirements as constraints and objectives, identifies Pareto-optimal configurations across all dimensions, provides decision-support visualizations showing tradeoffs, and handles the political reality that stakeholder weights are themselves contested. Include a mechanism for resolving deadlocks when no configuration satisfies all constraints simultaneously.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_294",
+    "theme": "evaluation_methods",
+    "title": "Detecting and Measuring Data Contamination in LLM Benchmarks",
+    "description": "Suspicion arises that an LLM has been trained on benchmark test data, inflating its scores. Design a contamination detection framework that uses canary strings (deliberately distinctive test examples whose verbatim reproduction indicates memorization), membership inference attacks adapted for text, analysis of performance patterns (suspiciously uniform accuracy across easy and hard questions), and comparison of performance on original vs rephrased test items. Address the challenge that modern LLMs may have seen benchmarks in their training data indirectly (through papers discussing them, blog posts analyzing results, or paraphrased versions). Propose a benchmark design methodology that is inherently resistant to contamination.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_295",
+    "theme": "evaluation_methods",
+    "title": "Evaluating Long-Horizon Agent Performance with Sparse Rewards",
+    "description": "An agent performs 500-step tasks where success is only measurable at the end (e.g., writing a complete research paper). Intermediate evaluation is ambiguous because good exploration may look unproductive initially. Design an evaluation framework with process-based metrics (quality of intermediate artifacts, efficiency of information gathering, appropriateness of tool usage at each step), trajectory comparison methods that identify where successful and failed runs diverge, credit assignment that attributes final outcomes to specific early decisions, and early stopping criteria that predict final quality from partial trajectories. Validate that your intermediate metrics actually correlate with final outcomes using historical trajectory data.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_296",
+    "theme": "evaluation_methods",
+    "title": "Designing Evaluation for Multi-Agent System Emergent Properties",
+    "description": "Individual agents in a multi-agent system pass all unit tests, but the system exhibits problematic emergent behaviors: information cascades where agents amplify each other's errors, deadlocks that only occur under specific message ordering, and performance degradation that only manifests at scale. Design an evaluation framework that detects emergent properties through interaction testing (pairwise, then small groups, then full system), chaos engineering for agent systems (random message delays, agent crashes, byzantine behavior injection), formal property checking using temporal logic specifications, and statistical analysis of system-level metrics that cannot be decomposed into individual agent metrics. Address the challenge that emergent properties are by definition not predictable from component specifications.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_297",
+    "theme": "evaluation_methods",
+    "title": "Comparative Evaluation Under Non-Identical Test Conditions",
+    "description": "You need to compare Model A (evaluated on benchmark X in January 2025 with GPT-4 as judge) with Model B (evaluated on benchmark Y in June 2025 with Claude as judge) where the benchmarks overlap 60% and the judges have different biases. Design a statistical framework for fair comparison: calibrate judge scores to a common scale using shared reference items, handle benchmark differences using item response theory to estimate latent ability, account for temporal effects (benchmark contamination may increase over time), and provide uncertainty bounds that reflect the comparison's limitations. Formalize the assumptions required for valid comparison and test them empirically.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_298",
+    "theme": "evaluation_methods",
+    "title": "Evaluating Model Safety Across Cultural and Linguistic Contexts",
+    "description": "A safety evaluation suite developed primarily in English with Western cultural norms must be extended to 15 languages and cultural contexts. Design an evaluation framework that identifies culture-specific safety concerns (topics, norms, sensitivities that vary by culture), translates evaluation rubrics while preserving semantic intent, recruits and trains culturally diverse annotators, handles the challenge that some safety concepts don't translate directly across cultures, and aggregates results across cultures without imposing a single cultural standard. Address the meta-ethical question of whose safety norms should take priority when they conflict, and how evaluation results should inform model behavior in different deployment regions.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_299",
+    "theme": "evaluation_methods",
+    "title": "Dynamic Benchmark Generation to Prevent Overfitting to Static Tests",
+    "description": "Static benchmarks become saturated and gamed over time. Design a dynamic benchmark generation system that continuously creates new test items using template-based generation with controlled difficulty, LLM-generated questions validated by human experts, adversarial item generation targeting known model weaknesses, and procedural generation for tasks with formal specifications (math, logic, code). Ensure generated items are valid (have correct answers), calibrated (known difficulty), and diverse (cover the capability space uniformly). Address the chicken-and-egg problem that you need a good model to generate good test items but the test items are meant to evaluate models. Design statistical methods to ensure scores on dynamic benchmarks are comparable across time periods.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  },
+  {
+    "task_id": "task_300",
+    "theme": "evaluation_methods",
+    "title": "End-to-End Evaluation of Retrieval-Augmented Generation with Attribution",
+    "description": "Design a comprehensive evaluation framework for a RAG system that measures not just answer quality but the entire pipeline: retrieval precision and recall, generation faithfulness to retrieved context (does the answer only use information from retrieved documents?), attribution accuracy (are citations correct and sufficient?), handling of unanswerable queries (does the system correctly abstain when no relevant documents exist?), and robustness to retrieval failures (does generation quality degrade gracefully when retrieval returns irrelevant results?). Create evaluation datasets with ground-truth attribution labels, design automated attribution checking using NLI models, and measure the correlation between each pipeline component's quality and end-to-end user satisfaction. Address the challenge that human evaluators often cannot verify attributions without domain expertise.",
+    "difficulty": "hard",
+    "source": "generated_v3"
+  }
+]
